@@ -11,6 +11,8 @@
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Caller</th>
+                        <th>Callee</th>
                         <th/>
                         <th/>
                         <th/>
@@ -19,6 +21,12 @@
                 <c:forEach items="${callrecords}" var="callRecord">
                     <tr>
                         <td>${callRecord.id}</td>
+                        <td>
+                            <c:out value="${fn:substring(callRecord.caller, 0, 10)}"/>
+                        </td>
+                        <td>
+                            <c:out value="${fn:substring(callRecord.callee, 0, 10)}"/>
+                        </td>
                         <td>
                             <spring:url value="/callrecord/${callRecord.id}" var="show_form_url"/>
                             <spring:url value="/static/images/show.png" var="show_image_url"/>
@@ -52,7 +60,7 @@
                     </tr>
                 </c:forEach>
                 <tr class="footer">
-                    <td colspan="4">
+                    <td colspan="6">
                         <span class="new">
                             <spring:url value="/callrecord/form" var="create_url"/>
                             <a href="${create_url}">

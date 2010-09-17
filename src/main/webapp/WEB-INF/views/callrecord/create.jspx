@@ -8,6 +8,28 @@
         <spring:url value="/callrecord" var="form_url"/>
         <form:form action="${form_url}" method="POST" modelAttribute="callRecord">
             <form:errors cssClass="errors" delimiter="&lt;p/&gt;"/>
+            <div id="roo_callRecord_caller">
+                <label for="_caller_id">Caller:</label>
+                <form:input cssStyle="width:250px" id="_caller_id" maxlength="30" path="caller" size="0"/>
+                <br/>
+                <form:errors cssClass="errors" id="_caller_error_id" path="caller"/>
+                <spring:message arguments="Caller" code="field.invalid" var="field_invalid"/>
+                <spring:message code="field.required" var="field_required"/>
+                <spring:message argumentSeparator="," arguments="Caller," code="field.simple.validation" var="field_validation"/>
+                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_caller_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
+            </div>
+            <br/>
+            <div id="roo_callRecord_callee">
+                <label for="_callee_id">Callee:</label>
+                <form:input cssStyle="width:250px" id="_callee_id" maxlength="30" path="callee" size="0"/>
+                <br/>
+                <form:errors cssClass="errors" id="_callee_error_id" path="callee"/>
+                <spring:message arguments="Callee" code="field.invalid" var="field_invalid"/>
+                <spring:message code="field.required" var="field_required"/>
+                <spring:message argumentSeparator="," arguments="Callee," code="field.simple.validation" var="field_validation"/>
+                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_callee_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
+            </div>
+            <br/>
             <div class="submit" id="roo_callRecord_submit">
                 <spring:message code="button.save" var="save_button"/>
                 <script type="text/javascript">Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:'proceed', event:'onclick'}));</script>

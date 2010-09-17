@@ -5,7 +5,22 @@
         <spring:message code="label.callrecord" var="entity_label"/>
         <spring:message arguments="${entity_label}" code="entity.show" var="title_msg"/>
         <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_title_div', widgetType : 'dijit.TitlePane', widgetAttrs : {title: '${title_msg}'}})); </script>
-        <c:if test="${not empty callRecord}"/>
+        <c:if test="${not empty callRecord}">
+            <div id="roo_callRecord_caller">
+                <label for="_caller_id">Caller:</label>
+                <div class="box" id="_caller_id">
+                    <c:out value="${callRecord.caller}"/>
+                </div>
+            </div>
+            <br/>
+            <div id="roo_callRecord_callee">
+                <label for="_callee_id">Callee:</label>
+                <div class="box" id="_callee_id">
+                    <c:out value="${callRecord.callee}"/>
+                </div>
+            </div>
+            <br/>
+        </c:if>
         <c:if test="${empty callRecord}">
             <spring:message arguments="${entity_label}" code="entity.not.found.single"/>
         </c:if>

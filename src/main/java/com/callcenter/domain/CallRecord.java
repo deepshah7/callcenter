@@ -10,4 +10,8 @@ import org.springframework.roo.addon.entity.RooEntity;
 @RooToString
 @RooEntity
 public class CallRecord {
+
+    private String caller;
+
+    private String callee;
 }
