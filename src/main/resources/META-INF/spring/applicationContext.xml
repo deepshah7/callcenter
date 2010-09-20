@@ -64,4 +64,24 @@
     <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
         <property name="dataSource" ref="dataSource"/>
     </bean>
+
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="pollForCallRecordTrigger" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="pollForCallRecordJob"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="callRecordTaskSchedular" />
+        <property name="targetMethod" value="checkIfCallRecordAvailable" />
+    </bean>
+    <bean id="pollForCallRecordTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="pollForCallRecordJob" />
+        <!-- this cron expression fires every 10 s. -->
+        <property name="cronExpression" value="0/10 * * * * ?"/>
+    </bean>
+
 </beans>
