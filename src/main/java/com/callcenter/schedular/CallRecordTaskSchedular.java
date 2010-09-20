@@ -2,6 +2,7 @@ package com.callcenter.schedular;
 
 import com.callcenter.external.WaveFileDirectoryPathFinder;
 import com.callcenter.reader.WaveFileReader;
+import com.callcenter.util.Constants;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -39,7 +40,7 @@ public class CallRecordTaskSchedular {
     private void readWaveFiles(File waveFileDirectory) {
         logger.info("Starting to read the files from the path");
         for (String fileName : waveFileDirectory.list()) {
-            final File waveFile = new File(fileName);
+            final File waveFile = new File(waveFileDirectory.getPath() + Constants.System.FILE_PATH_SEPERATOR + fileName);
             waveFileReader.read(waveFile);
             waveFile.delete();
         }

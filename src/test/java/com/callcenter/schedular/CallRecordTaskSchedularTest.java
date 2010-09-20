@@ -44,11 +44,11 @@ public class CallRecordTaskSchedularTest {
                 new File("HelloWaveFilePath");
 
                 waveFileDirectory.isDirectory(); returns(true);
-
+                waveFileDirectory.getPath(); returns("HelloPath\\");
                 waveFileDirectory.list(); returns(new String[] {"file1", "file2"});
 
-                new File("file1");
-                new File("file2");
+                new File("HelloPath\\file1");
+                new File("HelloPath\\file2");
             }
         };
 
