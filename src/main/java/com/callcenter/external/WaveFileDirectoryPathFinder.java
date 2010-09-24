@@ -1,9 +1,11 @@
 package com.callcenter.external;
 
+import com.callcenter.external.model.Directory;
+import com.callcenter.util.Constants;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.prefs.Preferences;
 
 /**
@@ -12,25 +14,30 @@ import java.util.prefs.Preferences;
  * @author deep
  */
 @Component
-public class WaveFileDirectoryPathFinder implements InitializingBean {
+public class WaveFileDirectoryPathFinder {
 
     private static final Logger logger = Logger.getLogger(WaveFileDirectoryPathFinder.class);
 
-    private String waveFileDirectory;
+    private Directory waveFileDirectory;
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        final String PREF_KEY = "wavefile.path";
-        //
-        // Write Preferences information to HKCU (HKEY_CURRENT_USER),
-        // HKCU\Software\JavaSoft\Prefs\wavefile.path
-        //
+    /**
+     * Write Preferences information to HKCU (HKEY_CURRENT_USER),
+     * HKCU\Software\JavaSoft\Prefs\wavefile.path
+     */
+    @PostConstruct
+    public void initWaveFileDirectory() {
         final Preferences userPref = Preferences.userRoot();
-        waveFileDirectory = userPref.get(PREF_KEY, PREF_KEY + " not found!");
-        logger.info("The wave file direcotry path: " + waveFileDirectory);
+        final String directoryPath = userPref.get(Constants.Registery.WAVE_FILE_REGISTERY_KEY,
+                Constants.Registery.WAVE_FILE_REGISTERY_KEY + " not found!");
+        waveFileDirectory = new Directory(directoryPath);
+        if(waveFileDirectory.isValid()) return;
+
+        logger.error("The wave file direcotry path is invalid: " + waveFileDirectory.getAbsolutePath());
+        logger.error("MAKE USER YOU SET the registery entry HKCU\\Software\\JavaSoft\\Prefs\\wavefile.path to a valid directory path on your local system!");
+        throw new IllegalStateException();
     }
 
-    public String getWaveFileDirectory() {
+    public Directory getWaveFileDirectory() {
         return waveFileDirectory;
     }
 }

@@ -1,6 +1,7 @@
 package com.callcenter.schedular;
 
 import com.callcenter.external.WaveFileDirectoryPathFinder;
+import com.callcenter.external.model.Directory;
 import com.callcenter.reader.WaveFileReader;
 import com.callcenter.util.Constants;
 import org.apache.log4j.Logger;
@@ -26,21 +27,9 @@ public class CallRecordTaskSchedular {
     private WaveFileReader waveFileReader;
 
     public void checkIfCallRecordAvailable() {
-        final String waveFileDirectoryPath = waveFileDirectoryPathFinder.getWaveFileDirectory();
-        final File waveFileDirectory = new File(waveFileDirectoryPath);
-        if (!waveFileDirectory.isDirectory()) {
-            logger.error("Invalid registery entry the path: " + waveFileDirectory.getAbsolutePath()
-                    + " points to a file not a directory");
-            return;
-        }
-
-        readWaveFiles(waveFileDirectory);
-    }
-
-    private void readWaveFiles(File waveFileDirectory) {
+        final Directory waveFileDirectory = waveFileDirectoryPathFinder.getWaveFileDirectory();
         logger.info("Starting to read the files from the path");
-        for (String fileName : waveFileDirectory.list()) {
-            final File waveFile = new File(waveFileDirectory.getPath() + Constants.System.FILE_PATH_SEPERATOR + fileName);
+        for (File waveFile : waveFileDirectory.list()) {
             waveFileReader.read(waveFile);
             waveFile.delete();
         }

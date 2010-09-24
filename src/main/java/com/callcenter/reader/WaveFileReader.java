@@ -11,6 +11,7 @@ import java.io.File;
  */
 @Component
 public class WaveFileReader {
+
     public void read(final File waveFile) {
 
     }

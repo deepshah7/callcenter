@@ -1,6 +1,7 @@
 package com.callcenter.schedular;
 
 import com.callcenter.external.WaveFileDirectoryPathFinder;
+import com.callcenter.external.model.Directory;
 import com.callcenter.reader.WaveFileReader;
 import mockit.*;
 import org.junit.Before;
@@ -9,6 +10,8 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -37,18 +40,14 @@ public class CallRecordTaskSchedularTest {
     
     @Test
     public void shouldGetTheDirectoryPathAndProcessTheFileIfAnyFileIsAvailable(
-            @NonStrict final File waveFileDirectory) {
+            @NonStrict final Directory waveFileDirectory, @NonStrict final File file1, @NonStrict final File file2) {
+        final List<File> files = new ArrayList<File>();
+        files.add(file1);
+        files.add(file2);
         new NonStrictExpectations() {
             {
-                waveFileDirectoryPathFinder.getWaveFileDirectory(); returns("HelloWaveFilePath");
-                new File("HelloWaveFilePath");
-
-                waveFileDirectory.isDirectory(); returns(true);
-                waveFileDirectory.getPath(); returns("HelloPath\\");
-                waveFileDirectory.list(); returns(new String[] {"file1", "file2"});
-
-                new File("HelloPath\\file1");
-                new File("HelloPath\\file2");
+                waveFileDirectoryPathFinder.getWaveFileDirectory(); returns(waveFileDirectory);
+                waveFileDirectory.list(); returns(files);
             }
         };
 
@@ -56,30 +55,31 @@ public class CallRecordTaskSchedularTest {
 
         new Verifications() {
             {
-                waveFileReader.read((File) withNotNull()); times=2;
+                waveFileReader.read(file1);
+                waveFileReader.read(file2);
             }
         };
     }
-    
+
     @Test
-    public void shouldNotDoAnythingIfTheDirectoryPathPointsToAFile(@NonStrict final File waveFileDirectory) {
+    public void shouldDeleteTheFileAfterReadingIt(
+            @NonStrict final Directory waveFileDirectory, @NonStrict final File file1) {
+        final List<File> files = new ArrayList<File>();
+        files.add(file1);
         new NonStrictExpectations() {
             {
-                waveFileDirectoryPathFinder.getWaveFileDirectory(); returns("HelloWaveFilePath");
-                new File("HelloWaveFilePath");
-
-                waveFileDirectory.isDirectory(); returns(false);
+                waveFileDirectoryPathFinder.getWaveFileDirectory(); returns(waveFileDirectory);
+                waveFileDirectory.list(); returns(files);
             }
         };
 
         schedular.checkIfCallRecordAvailable();
 
-        new Verifications() {
+        new VerificationsInOrder() {
             {
-                waveFileDirectory.list(); times = 0;
-                waveFileReader.read((File) withNotNull()); times=0;
+                waveFileReader.read(file1);
+                file1.delete();
             }
         };
     }
-
 }
