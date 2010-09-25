@@ -4,6 +4,7 @@ import com.callcenter.util.Constants;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,11 +29,6 @@ public class Directory {
     }
 
     public List<File> list() {
-        final List<File> files = new ArrayList<File>();
-        for(String fileName : file.list()) {
-            files.add(
-                    new File(file.getPath() + Constants.System.FILE_PATH_SEPERATOR + fileName));
-        }
-        return files;
+        return Arrays.asList(file.listFiles());
     }
 }

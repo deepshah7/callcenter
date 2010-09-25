@@ -34,6 +34,8 @@ public class WaveFileReader {
             WaveFile waveFile = Codecs.decode(codec, file);
             CallRecord callRecord = waveFileToCallRecordMapper.mapToCallRecord(waveFile);
             callRecord.persist();
+            codec = null;
+            System.gc();
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
         } catch (DecodingException e) {
