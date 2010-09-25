@@ -101,6 +101,11 @@
                 <form:checkbox id="_outgoing_id" path="outgoing"/>
             </div>
             <br/>
+            <div id="roo_callRecord_internal">
+                <label for="_internal_id">Internal:</label>
+                <form:checkbox id="_internal_id" path="internal"/>
+            </div>
+            <br/>
             <div class="submit" id="roo_callRecord_submit">
                 <spring:message code="button.save" var="save_button"/>
                 <script type="text/javascript">Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:'proceed', event:'onclick'}));</script>

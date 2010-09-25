@@ -78,4 +78,12 @@ privileged aspect CallRecord_Roo_JavaBean {
         this.outgoing = outgoing;
     }
     
+    public Boolean CallRecord.getInternal() {
+        return this.internal;
+    }
+    
+    public void CallRecord.setInternal(Boolean internal) {
+        this.internal = internal;
+    }
+    
 }

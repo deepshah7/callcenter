@@ -38,4 +38,6 @@ public class CallRecord {
 
     // Whether this is a outgoing or incoming call
     private Boolean outgoing;
+
+    private Boolean internal;
 }

@@ -30,8 +30,11 @@ public class CallRecordTaskSchedular {
         final Directory waveFileDirectory = waveFileDirectoryPathFinder.getWaveFileDirectory();
         logger.info("Starting to read the files from the path");
         for (File waveFile : waveFileDirectory.list()) {
+            logger.info("#######Start processing the wave file######");
             waveFileReader.read(waveFile);
+            logger.info("#######End processing the wave file######");
             waveFile.delete();
+            logger.info("#######Deleting the file wave file######");
         }
     }
 

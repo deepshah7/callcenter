@@ -69,6 +69,13 @@
                 </div>
             </div>
             <br/>
+            <div id="roo_callRecord_internal">
+                <label for="_internal_id">Internal:</label>
+                <div class="box" id="_internal_id">
+                    <c:out value="${callRecord.internal}"/>
+                </div>
+            </div>
+            <br/>
         </c:if>
         <c:if test="${empty callRecord}">
             <spring:message arguments="${entity_label}" code="entity.not.found.single"/>
