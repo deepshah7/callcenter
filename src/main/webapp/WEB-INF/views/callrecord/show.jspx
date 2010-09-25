@@ -6,17 +6,66 @@
         <spring:message arguments="${entity_label}" code="entity.show" var="title_msg"/>
         <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_title_div', widgetType : 'dijit.TitlePane', widgetAttrs : {title: '${title_msg}'}})); </script>
         <c:if test="${not empty callRecord}">
-            <div id="roo_callRecord_caller">
-                <label for="_caller_id">Caller:</label>
-                <div class="box" id="_caller_id">
-                    <c:out value="${callRecord.caller}"/>
+            <div id="roo_callRecord_callerId">
+                <label for="_callerId_id">Caller Id:</label>
+                <div class="box" id="_callerId_id">
+                    <c:out value="${callRecord.callerId}"/>
                 </div>
             </div>
             <br/>
-            <div id="roo_callRecord_callee">
-                <label for="_callee_id">Callee:</label>
-                <div class="box" id="_callee_id">
-                    <c:out value="${callRecord.callee}"/>
+            <div id="roo_callRecord_displayInfo">
+                <label for="_displayInfo_id">Display Info:</label>
+                <div class="box" id="_displayInfo_id">
+                    <c:out value="${callRecord.displayInfo}"/>
+                </div>
+            </div>
+            <br/>
+            <div id="roo_callRecord_dateAndTimeInSecond">
+                <label for="_dateAndTimeInSecond_id">Date And Time In Second:</label>
+                <div class="box" id="_dateAndTimeInSecond_id">
+                    <c:out value="${callRecord.dateAndTimeInSecond}"/>
+                </div>
+            </div>
+            <br/>
+            <div id="roo_callRecord_calledId">
+                <label for="_calledId_id">Called Id:</label>
+                <div class="box" id="_calledId_id">
+                    <c:out value="${callRecord.calledId}"/>
+                </div>
+            </div>
+            <br/>
+            <div id="roo_callRecord_targetId">
+                <label for="_targetId_id">Target Id:</label>
+                <div class="box" id="_targetId_id">
+                    <c:out value="${callRecord.targetId}"/>
+                </div>
+            </div>
+            <br/>
+            <div id="roo_callRecord_ipAddress">
+                <label for="_ipAddress_id">Ip Address:</label>
+                <div class="box" id="_ipAddress_id">
+                    <c:out value="${callRecord.ipAddress}"/>
+                </div>
+            </div>
+            <br/>
+            <div id="roo_callRecord_callingPartyName">
+                <label for="_callingPartyName_id">Calling Party Name:</label>
+                <div class="box" id="_callingPartyName_id">
+                    <c:out value="${callRecord.callingPartyName}"/>
+                </div>
+            </div>
+            <br/>
+            <div id="roo_callRecord_calledPartyName">
+                <label for="_calledPartyName_id">Called Party Name:</label>
+                <div class="box" id="_calledPartyName_id">
+                    <c:out value="${callRecord.calledPartyName}"/>
+                </div>
+            </div>
+            <br/>
+            <div id="roo_callRecord_outgoing">
+                <label for="_outgoing_id">Outgoing:</label>
+                <div class="box" id="_outgoing_id">
+                    <c:out value="${callRecord.outgoing}"/>
                 </div>
             </div>
             <br/>

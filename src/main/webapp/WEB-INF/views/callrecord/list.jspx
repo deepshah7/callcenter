@@ -11,8 +11,12 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Caller</th>
-                        <th>Callee</th>
+                        <th>Caller Id</th>
+                        <th>Display Info</th>
+                        <th>Date And Time In Second</th>
+                        <th>Called Id</th>
+                        <th>Target Id</th>
+                        <th>Ip Address</th>
                         <th/>
                         <th/>
                         <th/>
@@ -22,10 +26,22 @@
                     <tr>
                         <td>${callRecord.id}</td>
                         <td>
-                            <c:out value="${fn:substring(callRecord.caller, 0, 10)}"/>
+                            <c:out value="${fn:substring(callRecord.callerId, 0, 10)}"/>
                         </td>
                         <td>
-                            <c:out value="${fn:substring(callRecord.callee, 0, 10)}"/>
+                            <c:out value="${fn:substring(callRecord.displayInfo, 0, 10)}"/>
+                        </td>
+                        <td>
+                            <c:out value="${fn:substring(callRecord.dateAndTimeInSecond, 0, 10)}"/>
+                        </td>
+                        <td>
+                            <c:out value="${fn:substring(callRecord.calledId, 0, 10)}"/>
+                        </td>
+                        <td>
+                            <c:out value="${fn:substring(callRecord.targetId, 0, 10)}"/>
+                        </td>
+                        <td>
+                            <c:out value="${fn:substring(callRecord.ipAddress, 0, 10)}"/>
                         </td>
                         <td>
                             <spring:url value="/callrecord/${callRecord.id}" var="show_form_url"/>
@@ -60,7 +76,7 @@
                     </tr>
                 </c:forEach>
                 <tr class="footer">
-                    <td colspan="6">
+                    <td colspan="10">
                         <span class="new">
                             <spring:url value="/callrecord/form" var="create_url"/>
                             <a href="${create_url}">

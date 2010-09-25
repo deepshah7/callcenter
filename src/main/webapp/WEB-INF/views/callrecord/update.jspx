@@ -8,26 +8,97 @@
         <spring:url value="/callrecord/${callRecord.id}" var="form_url"/>
         <form:form action="${form_url}" method="PUT" modelAttribute="callRecord">
             <form:errors cssClass="errors" delimiter="&lt;p/&gt;"/>
-            <div id="roo_callRecord_caller">
-                <label for="_caller_id">Caller:</label>
-                <form:input cssStyle="width:250px" id="_caller_id" maxlength="30" path="caller" size="0"/>
+            <div id="roo_callRecord_callerId">
+                <label for="_callerId_id">Caller Id:</label>
+                <form:input cssStyle="width:250px" id="_callerId_id" maxlength="30" path="callerId" size="0"/>
                 <br/>
-                <form:errors cssClass="errors" id="_caller_error_id" path="caller"/>
-                <spring:message arguments="Caller" code="field.invalid" var="field_invalid"/>
+                <form:errors cssClass="errors" id="_callerId_error_id" path="callerId"/>
+                <spring:message arguments="Caller Id" code="field.invalid" var="field_invalid"/>
                 <spring:message code="field.required" var="field_required"/>
-                <spring:message argumentSeparator="," arguments="Caller," code="field.simple.validation" var="field_validation"/>
-                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_caller_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
+                <spring:message argumentSeparator="," arguments="Caller Id," code="field.simple.validation" var="field_validation"/>
+                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_callerId_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
             </div>
             <br/>
-            <div id="roo_callRecord_callee">
-                <label for="_callee_id">Callee:</label>
-                <form:input cssStyle="width:250px" id="_callee_id" maxlength="30" path="callee" size="0"/>
+            <div id="roo_callRecord_displayInfo">
+                <label for="_displayInfo_id">Display Info:</label>
+                <form:input cssStyle="width:250px" id="_displayInfo_id" maxlength="30" path="displayInfo" size="0"/>
                 <br/>
-                <form:errors cssClass="errors" id="_callee_error_id" path="callee"/>
-                <spring:message arguments="Callee" code="field.invalid" var="field_invalid"/>
+                <form:errors cssClass="errors" id="_displayInfo_error_id" path="displayInfo"/>
+                <spring:message arguments="Display Info" code="field.invalid" var="field_invalid"/>
                 <spring:message code="field.required" var="field_required"/>
-                <spring:message argumentSeparator="," arguments="Callee," code="field.simple.validation" var="field_validation"/>
-                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_callee_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
+                <spring:message argumentSeparator="," arguments="Display Info," code="field.simple.validation" var="field_validation"/>
+                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_displayInfo_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
+            </div>
+            <br/>
+            <div id="roo_callRecord_dateAndTimeInSecond">
+                <label for="_dateAndTimeInSecond_id">Date And Time In Second:</label>
+                <form:input cssStyle="width:250px" id="_dateAndTimeInSecond_id" maxlength="30" path="dateAndTimeInSecond" size="0"/>
+                <br/>
+                <form:errors cssClass="errors" id="_dateAndTimeInSecond_error_id" path="dateAndTimeInSecond"/>
+                <spring:message arguments="Date And Time In Second" code="field.invalid" var="field_invalid"/>
+                <spring:message code="field.required" var="field_required"/>
+                <spring:message argumentSeparator="," arguments="Date And Time In Second," code="field.simple.validation" var="field_validation"/>
+                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_dateAndTimeInSecond_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
+            </div>
+            <br/>
+            <div id="roo_callRecord_calledId">
+                <label for="_calledId_id">Called Id:</label>
+                <form:input cssStyle="width:250px" id="_calledId_id" maxlength="30" path="calledId" size="0"/>
+                <br/>
+                <form:errors cssClass="errors" id="_calledId_error_id" path="calledId"/>
+                <spring:message arguments="Called Id" code="field.invalid" var="field_invalid"/>
+                <spring:message code="field.required" var="field_required"/>
+                <spring:message argumentSeparator="," arguments="Called Id," code="field.simple.validation" var="field_validation"/>
+                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_calledId_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
+            </div>
+            <br/>
+            <div id="roo_callRecord_targetId">
+                <label for="_targetId_id">Target Id:</label>
+                <form:input cssStyle="width:250px" id="_targetId_id" maxlength="30" path="targetId" size="0"/>
+                <br/>
+                <form:errors cssClass="errors" id="_targetId_error_id" path="targetId"/>
+                <spring:message arguments="Target Id" code="field.invalid" var="field_invalid"/>
+                <spring:message code="field.required" var="field_required"/>
+                <spring:message argumentSeparator="," arguments="Target Id," code="field.simple.validation" var="field_validation"/>
+                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_targetId_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
+            </div>
+            <br/>
+            <div id="roo_callRecord_ipAddress">
+                <label for="_ipAddress_id">Ip Address:</label>
+                <form:input cssStyle="width:250px" id="_ipAddress_id" maxlength="30" path="ipAddress" size="0"/>
+                <br/>
+                <form:errors cssClass="errors" id="_ipAddress_error_id" path="ipAddress"/>
+                <spring:message arguments="Ip Address" code="field.invalid" var="field_invalid"/>
+                <spring:message code="field.required" var="field_required"/>
+                <spring:message argumentSeparator="," arguments="Ip Address," code="field.simple.validation" var="field_validation"/>
+                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_ipAddress_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
+            </div>
+            <br/>
+            <div id="roo_callRecord_callingPartyName">
+                <label for="_callingPartyName_id">Calling Party Name:</label>
+                <form:input cssStyle="width:250px" id="_callingPartyName_id" maxlength="30" path="callingPartyName" size="0"/>
+                <br/>
+                <form:errors cssClass="errors" id="_callingPartyName_error_id" path="callingPartyName"/>
+                <spring:message arguments="Calling Party Name" code="field.invalid" var="field_invalid"/>
+                <spring:message code="field.required" var="field_required"/>
+                <spring:message argumentSeparator="," arguments="Calling Party Name," code="field.simple.validation" var="field_validation"/>
+                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_callingPartyName_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
+            </div>
+            <br/>
+            <div id="roo_callRecord_calledPartyName">
+                <label for="_calledPartyName_id">Called Party Name:</label>
+                <form:input cssStyle="width:250px" id="_calledPartyName_id" maxlength="30" path="calledPartyName" size="0"/>
+                <br/>
+                <form:errors cssClass="errors" id="_calledPartyName_error_id" path="calledPartyName"/>
+                <spring:message arguments="Called Party Name" code="field.invalid" var="field_invalid"/>
+                <spring:message code="field.required" var="field_required"/>
+                <spring:message argumentSeparator="," arguments="Called Party Name," code="field.simple.validation" var="field_validation"/>
+                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_calledPartyName_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
+            </div>
+            <br/>
+            <div id="roo_callRecord_outgoing">
+                <label for="_outgoing_id">Outgoing:</label>
+                <form:checkbox id="_outgoing_id" path="outgoing"/>
             </div>
             <br/>
             <div class="submit" id="roo_callRecord_submit">
