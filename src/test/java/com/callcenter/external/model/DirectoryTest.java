@@ -64,10 +64,7 @@ public class DirectoryTest {
         new Expectations() {
             {
                 new File("hellowavefiledirectory");
-                file.list(); returns(new String[] {"file1", "file2"});
-                file.getPath(); returns("c:\\testing\\file\\path");
-                new File("c:\\testing\\file\\path\\file1");
-                new File("c:\\testing\\file\\path\\file2");
+                file.listFiles(); returns(new File[] {file, file});
             }
         };
         final List<File> files = new Directory("hellowavefiledirectory").list();
