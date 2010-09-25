@@ -2,6 +2,7 @@ package com.callcenter.domain;
 
 import java.lang.Boolean;
 import java.lang.String;
+import java.util.Calendar;
 
 privileged aspect CallRecord_Roo_JavaBean {
     
@@ -21,12 +22,12 @@ privileged aspect CallRecord_Roo_JavaBean {
         this.displayInfo = displayInfo;
     }
     
-    public String CallRecord.getDateAndTimeInSecond() {
-        return this.dateAndTimeInSecond;
+    public Calendar CallRecord.getCallTime() {
+        return this.callTime;
     }
     
-    public void CallRecord.setDateAndTimeInSecond(String dateAndTimeInSecond) {
-        this.dateAndTimeInSecond = dateAndTimeInSecond;
+    public void CallRecord.setCallTime(Calendar callTime) {
+        this.callTime = callTime;
     }
     
     public String CallRecord.getCalledId() {

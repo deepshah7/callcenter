@@ -1,5 +1,7 @@
 package com.callcenter.domain;
 
+import java.util.Calendar;
+
 import javax.persistence.Entity;
 
 import org.springframework.roo.addon.entity.RooEntity;
@@ -19,7 +21,7 @@ public class CallRecord {
 
     //"Number of Seconds Since Midnight 1st Jan 1901. ULONG".
     // Need to decide the format of storage. not sure of its usage.
-    private String dateAndTimeInSecond;
+    private Calendar callTime;
 
     //"Incoming – No that took the Call, Outgoing – No that was called."
     private String calledId;

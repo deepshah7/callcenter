@@ -30,15 +30,15 @@
                 <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_displayInfo_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
             </div>
             <br/>
-            <div id="roo_callRecord_dateAndTimeInSecond">
-                <label for="_dateAndTimeInSecond_id">Date And Time In Second:</label>
-                <form:input cssStyle="width:250px" id="_dateAndTimeInSecond_id" maxlength="30" path="dateAndTimeInSecond" size="0"/>
+            <div id="roo_callRecord_callTime">
+                <label for="_callTime_id">Call Time:</label>
+                <form:input cssStyle="width:250px" id="_callTime_id" maxlength="30" path="callTime" size="0"/>
                 <br/>
-                <form:errors cssClass="errors" id="_dateAndTimeInSecond_error_id" path="dateAndTimeInSecond"/>
-                <spring:message arguments="Date And Time In Second" code="field.invalid" var="field_invalid"/>
+                <form:errors cssClass="errors" id="_callTime_error_id" path="callTime"/>
+                <spring:message arguments="Call Time" code="field.invalid" var="field_invalid"/>
                 <spring:message code="field.required" var="field_required"/>
-                <spring:message argumentSeparator="," arguments="Date And Time In Second," code="field.simple.validation" var="field_validation"/>
-                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_dateAndTimeInSecond_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
+                <spring:message argumentSeparator="," arguments="Call Time," code="field.simple.validation" var="field_validation"/>
+                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_callTime_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
             </div>
             <br/>
             <div id="roo_callRecord_calledId">

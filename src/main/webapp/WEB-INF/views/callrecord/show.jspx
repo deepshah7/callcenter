@@ -20,10 +20,10 @@
                 </div>
             </div>
             <br/>
-            <div id="roo_callRecord_dateAndTimeInSecond">
-                <label for="_dateAndTimeInSecond_id">Date And Time In Second:</label>
-                <div class="box" id="_dateAndTimeInSecond_id">
-                    <c:out value="${callRecord.dateAndTimeInSecond}"/>
+            <div id="roo_callRecord_callTime">
+                <label for="_callTime_id">Call Time:</label>
+                <div class="box" id="_callTime_id">
+                    <fmt:formatDate pattern="${callRecord_callTime_date_format}" value="${callRecord.callTime.time}"/>
                 </div>
             </div>
             <br/>

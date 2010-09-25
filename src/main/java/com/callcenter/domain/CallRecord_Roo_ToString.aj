@@ -10,7 +10,7 @@ privileged aspect CallRecord_Roo_ToString {
         sb.append("Version: ").append(getVersion()).append(", ");
         sb.append("CallerId: ").append(getCallerId()).append(", ");
         sb.append("DisplayInfo: ").append(getDisplayInfo()).append(", ");
-        sb.append("DateAndTimeInSecond: ").append(getDateAndTimeInSecond()).append(", ");
+        sb.append("CallTime: ").append(getCallTime().getTime()).append(", ");
         sb.append("CalledId: ").append(getCalledId()).append(", ");
         sb.append("TargetId: ").append(getTargetId()).append(", ");
         sb.append("IpAddress: ").append(getIpAddress()).append(", ");
