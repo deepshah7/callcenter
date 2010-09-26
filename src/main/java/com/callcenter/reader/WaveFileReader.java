@@ -28,14 +28,18 @@ public class WaveFileReader {
     @Autowired
     private WaveFileToCallRecordMapper waveFileToCallRecordMapper;
 
+    @Autowired
+    WaveFileStorageProcessor waveFileStorageProcessor;
+
     public void read(final File file) {
         try {
             Codec<WaveFile> codec = Codecs.create(WaveFile.class);
             WaveFile waveFile = Codecs.decode(codec, file);
-            CallRecord callRecord = waveFileToCallRecordMapper.mapToCallRecord(waveFile);
-            callRecord.persist();
+//            CallRecord callRecord = waveFileToCallRecordMapper.mapToCallRecord(waveFile);
+//            callRecord.persist();
             codec = null;
             System.gc();
+            waveFileStorageProcessor.process(waveFile,file);
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
         } catch (DecodingException e) {

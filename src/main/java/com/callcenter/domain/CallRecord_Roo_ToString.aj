@@ -17,7 +17,8 @@ privileged aspect CallRecord_Roo_ToString {
         sb.append("CallingPartyName: ").append(getCallingPartyName()).append(", ");
         sb.append("CalledPartyName: ").append(getCalledPartyName()).append(", ");
         sb.append("Outgoing: ").append(getOutgoing()).append(", ");
-        sb.append("Internal: ").append(getInternal());
+        sb.append("Internal: ").append(getInternal()).append(", ");
+        sb.append("Wavefilename: ").append(getWavefilename());
         return sb.toString();
     }
     
