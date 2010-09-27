@@ -4,6 +4,7 @@ import com.callcenter.external.WaveFileDirectoryPathFinder;
 import com.callcenter.external.model.Directory;
 import com.callcenter.reader.WaveFileReader;
 import com.callcenter.util.Constants;
+import com.callcenter.wavefile.processor.WaveFileProcessor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,25 +25,19 @@ public class CallRecordTaskSchedular {
     private WaveFileDirectoryPathFinder waveFileDirectoryPathFinder;
 
     @Autowired
-    private WaveFileReader waveFileReader;
+    private WaveFileProcessor waveFileProcessor;
 
     public void checkIfCallRecordAvailable() {
         final Directory waveFileDirectory = waveFileDirectoryPathFinder.getWaveFileDirectory();
         logger.info("Starting to read the files from the path");
-        for (File waveFile : waveFileDirectory.list()) {
+        for (com.callcenter.external.model.File waveFile : waveFileDirectory.list()) {
             logger.info("#######Start processing the wave file######");
-            waveFileReader.read(waveFile);
+            waveFileProcessor.process(waveFile);
             logger.info("#######End processing the wave file######");
-            waveFile.delete();
-            logger.info("#######Deleting the file wave file######");
         }
     }
 
     public void setWaveFileDirectoryPathFinder(final WaveFileDirectoryPathFinder waveFileDirectoryPathFinder) {
         this.waveFileDirectoryPathFinder = waveFileDirectoryPathFinder;
-    }
-
-    public void setWaveFileReader(final WaveFileReader waveFileReader) {
-        this.waveFileReader = waveFileReader;
     }
 }

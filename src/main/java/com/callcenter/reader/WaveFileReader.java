@@ -1,9 +1,9 @@
 package com.callcenter.reader;
 
+import com.callcenter.external.model.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
@@ -28,18 +28,14 @@ public class WaveFileReader {
     @Autowired
     private WaveFileToCallRecordMapper waveFileToCallRecordMapper;
 
-    @Autowired
-    WaveFileStorageProcessor waveFileStorageProcessor;
-
     public void read(final File file) {
         try {
             Codec<WaveFile> codec = Codecs.create(WaveFile.class);
-            WaveFile waveFile = Codecs.decode(codec, file);
-//            CallRecord callRecord = waveFileToCallRecordMapper.mapToCallRecord(waveFile);
-//            callRecord.persist();
+            WaveFile waveFile = Codecs.decode(codec, file.getFileToProcess());
+            CallRecord callRecord = waveFileToCallRecordMapper.mapToCallRecord(waveFile, file.getName());
+            callRecord.persist();
             codec = null;
             System.gc();
-            waveFileStorageProcessor.process(waveFile,file);
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
         } catch (DecodingException e) {

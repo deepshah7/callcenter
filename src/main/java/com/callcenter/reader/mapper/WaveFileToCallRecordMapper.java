@@ -7,7 +7,7 @@ import com.callcenter.reader.model.WaveFile;
 
 @Component
 public class WaveFileToCallRecordMapper {
-    public CallRecord mapToCallRecord(final WaveFile waveFile,String waveFileName) {
+    public CallRecord mapToCallRecord(final WaveFile waveFile, final String waveFileName) {
         CallRecord callRecord = new CallRecord();
         callRecord.setOutgoing(waveFile.isOutgoing());
         callRecord.setCallerId(waveFile.getCallerId());

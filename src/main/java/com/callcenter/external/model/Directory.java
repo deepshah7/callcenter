@@ -28,7 +28,12 @@ public class Directory {
         return file.isDirectory();
     }
 
-    public List<File> list() {
-        return Arrays.asList(file.listFiles());
+    public List<com.callcenter.external.model.File> list() {
+        final java.io.File[] files = file.listFiles();
+        final List<com.callcenter.external.model.File> enhancedFiles = new ArrayList<com.callcenter.external.model.File>();
+        for(java.io.File file : files) {
+            enhancedFiles.add(new com.callcenter.external.model.File(file));
+        }
+        return enhancedFiles;
     }
 }
