@@ -20,7 +20,6 @@ public class File {
     private WaveFileNamingStrategy waveFileNamingStrategy;
 
     public File(java.io.File file) {
-
         this.file = file;
     }
 
@@ -40,6 +39,9 @@ public class File {
     }
 
     public void postProcess() {
-        file.delete();
+    }
+
+    public void setWaveFileNamingStrategy(WaveFileNamingStrategy waveFileNamingStrategy) {
+        this.waveFileNamingStrategy = waveFileNamingStrategy;
     }
 }

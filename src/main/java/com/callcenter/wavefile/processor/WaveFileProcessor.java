@@ -22,4 +22,8 @@ public class WaveFileProcessor {
         waveFile.postProcess();
 
     }
+
+    public void setWaveFileReader(WaveFileReader waveFileReader) {
+        this.waveFileReader = waveFileReader;
+    }
 }

@@ -27,7 +27,7 @@ public class WaveFileNamingStrategy {
     }
 
     @PostConstruct
-    private void readDir() {
+    protected void readDir() {
         Properties properties = new Properties();
         try {
             properties.load(new ClassPathResource("app.properties").getInputStream());
@@ -35,5 +35,9 @@ public class WaveFileNamingStrategy {
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
         }
+    }
+
+    public String getWavStorageDir() {
+        return wavStorageDir;
     }
 }

@@ -2,12 +2,16 @@ package com.callcenter.schedular;
 
 import com.callcenter.external.WaveFileDirectoryPathFinder;
 import com.callcenter.external.model.Directory;
+import com.callcenter.external.model.File;
 import com.callcenter.reader.WaveFileReader;
-import mockit.*;
+import com.callcenter.wavefile.processor.WaveFileProcessor;
+import mockit.Mocked;
+import mockit.NonStrict;
+import mockit.NonStrictExpectations;
+import mockit.Verifications;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +28,9 @@ public class CallRecordTaskSchedularTest {
     @Mocked
     private WaveFileReader waveFileReader;
 
+    @Mocked
+    private WaveFileProcessor waveFileProcessor;
+
     private CallRecordTaskSchedular schedular;
 
 
@@ -31,6 +38,7 @@ public class CallRecordTaskSchedularTest {
     public void setUp() {
         schedular = new CallRecordTaskSchedular();
         schedular.setWaveFileDirectoryPathFinder(waveFileDirectoryPathFinder);
+        schedular.setWaveFileProcessor(waveFileProcessor);
     }
 
     @Test
@@ -52,29 +60,8 @@ public class CallRecordTaskSchedularTest {
 
         new Verifications() {
             {
-            }
-        };
-    }
-
-    @Test
-    public void shouldDeleteTheFileAfterReadingIt(
-            @NonStrict final Directory waveFileDirectory, @NonStrict final File file1) {
-        final List<File> files = new ArrayList<File>();
-        files.add(file1);
-        new NonStrictExpectations() {
-            {
-                waveFileDirectoryPathFinder.getWaveFileDirectory();
-                returns(waveFileDirectory);
-                waveFileDirectory.list();
-                returns(files);
-            }
-        };
-
-        schedular.checkIfCallRecordAvailable();
-
-        new VerificationsInOrder() {
-            {
-                file1.delete();
+                waveFileProcessor.process(file1);
+                waveFileProcessor.process(file2);
             }
         };
     }

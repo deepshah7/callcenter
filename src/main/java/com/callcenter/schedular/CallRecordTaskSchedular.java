@@ -40,4 +40,8 @@ public class CallRecordTaskSchedular {
     public void setWaveFileDirectoryPathFinder(final WaveFileDirectoryPathFinder waveFileDirectoryPathFinder) {
         this.waveFileDirectoryPathFinder = waveFileDirectoryPathFinder;
     }
+
+    public void setWaveFileProcessor(WaveFileProcessor waveFileProcessor) {
+        this.waveFileProcessor = waveFileProcessor;
+    }
 }
