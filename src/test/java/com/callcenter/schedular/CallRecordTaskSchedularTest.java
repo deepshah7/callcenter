@@ -6,14 +6,10 @@ import com.callcenter.reader.WaveFileReader;
 import mockit.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import static junit.framework.Assert.assertEquals;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,9 +31,8 @@ public class CallRecordTaskSchedularTest {
     public void setUp() {
         schedular = new CallRecordTaskSchedular();
         schedular.setWaveFileDirectoryPathFinder(waveFileDirectoryPathFinder);
-        schedular.setWaveFileReader(waveFileReader);
     }
-    
+
     @Test
     public void shouldGetTheDirectoryPathAndProcessTheFileIfAnyFileIsAvailable(
             @NonStrict final Directory waveFileDirectory, @NonStrict final File file1, @NonStrict final File file2) {
@@ -46,8 +41,10 @@ public class CallRecordTaskSchedularTest {
         files.add(file2);
         new NonStrictExpectations() {
             {
-                waveFileDirectoryPathFinder.getWaveFileDirectory(); returns(waveFileDirectory);
-                waveFileDirectory.list(); returns(files);
+                waveFileDirectoryPathFinder.getWaveFileDirectory();
+                returns(waveFileDirectory);
+                waveFileDirectory.list();
+                returns(files);
             }
         };
 
@@ -55,8 +52,6 @@ public class CallRecordTaskSchedularTest {
 
         new Verifications() {
             {
-                waveFileReader.read(file1);
-                waveFileReader.read(file2);
             }
         };
     }
@@ -68,8 +63,10 @@ public class CallRecordTaskSchedularTest {
         files.add(file1);
         new NonStrictExpectations() {
             {
-                waveFileDirectoryPathFinder.getWaveFileDirectory(); returns(waveFileDirectory);
-                waveFileDirectory.list(); returns(files);
+                waveFileDirectoryPathFinder.getWaveFileDirectory();
+                returns(waveFileDirectory);
+                waveFileDirectory.list();
+                returns(files);
             }
         };
 
@@ -77,7 +74,6 @@ public class CallRecordTaskSchedularTest {
 
         new VerificationsInOrder() {
             {
-                waveFileReader.read(file1);
                 file1.delete();
             }
         };

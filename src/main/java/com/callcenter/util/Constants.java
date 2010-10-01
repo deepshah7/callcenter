@@ -13,6 +13,8 @@ public class Constants {
     }
 
     public static class Registery {
-            public static final String WAVE_FILE_REGISTERY_KEY = "wavefile.path";
+        public static final String WAVE_FILE_REGISTRY_PATH = "SOFTWARE\\Avaya\\Media Services\\Directories";
+
+        public static final String WAVE_FILE_REGISTRY_PROPERTY = "VRLDir";
     }
 }

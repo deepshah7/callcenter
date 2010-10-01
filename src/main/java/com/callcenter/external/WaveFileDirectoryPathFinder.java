@@ -3,10 +3,10 @@ package com.callcenter.external;
 import com.callcenter.external.model.Directory;
 import com.callcenter.util.Constants;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.prefs.Preferences;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,24 +20,28 @@ public class WaveFileDirectoryPathFinder {
 
     private Directory waveFileDirectory;
 
-    /**
-     * Write Preferences information to HKCU (HKEY_CURRENT_USER),
-     * HKCU\Software\JavaSoft\Prefs\wavefile.path
-     */
+    @Autowired
+    private WindowsRegistry windowsRegistry;
+
     @PostConstruct
     public void initWaveFileDirectory() {
-        final Preferences userPref = Preferences.userRoot();
-        final String directoryPath = userPref.get(Constants.Registery.WAVE_FILE_REGISTERY_KEY,
-                Constants.Registery.WAVE_FILE_REGISTERY_KEY + " not found!");
+        final String directoryPath = windowsRegistry.readLocalMachineKey(Constants.Registery.WAVE_FILE_REGISTRY_PATH,
+                Constants.Registery.WAVE_FILE_REGISTRY_PROPERTY);
+
         waveFileDirectory = new Directory(directoryPath);
         if(waveFileDirectory.isValid()) return;
 
         logger.error("The wave file direcotry path is invalid: " + waveFileDirectory.getAbsolutePath());
-        logger.error("MAKE USER YOU SET the registery entry HKCU\\Software\\JavaSoft\\Prefs\\wavefile.path to a valid directory path on your local system!");
+        logger.error("MAKE USER YOU SET the registery entry HKLM\\" + Constants.Registery.WAVE_FILE_REGISTRY_PATH + "\\"
+                + Constants.Registery.WAVE_FILE_REGISTRY_PROPERTY + " to a valid directory path on your local system!");
         throw new IllegalStateException();
     }
 
     public Directory getWaveFileDirectory() {
         return waveFileDirectory;
+    }
+
+    public void setWindowsRegistry(final WindowsRegistry windowsRegistry) {
+        this.windowsRegistry = windowsRegistry;
     }
 }

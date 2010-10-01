@@ -67,7 +67,7 @@ public class DirectoryTest {
                 file.listFiles(); returns(new File[] {file, file});
             }
         };
-        final List<File> files = new Directory("hellowavefiledirectory").list();
+        final List<com.callcenter.external.model.File> files = new Directory("hellowavefiledirectory").list();
         assertEquals(2, files.size());
     }
 }
