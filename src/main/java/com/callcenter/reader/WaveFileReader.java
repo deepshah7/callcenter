@@ -41,7 +41,6 @@ public class WaveFileReader {
         } catch (DecodingException e) {
             logger.error(e.getMessage(), e);
         }
-
     }
 
     public void setWaveFileToCallRecordMapper(WaveFileToCallRecordMapper waveFileToCallRecordMapper) {

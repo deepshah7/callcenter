@@ -33,7 +33,7 @@ public class ProcessedFile {
 
     private String getWaveFileFullPath(Long callRecordId) {
         CallRecord callRecord = CallRecord.findCallRecord(callRecordId);
-        String waveFileName = callRecord.getWavefilename();
+        String waveFileName = callRecord.getWaveFileName();
         return waveFileName;
     }
 

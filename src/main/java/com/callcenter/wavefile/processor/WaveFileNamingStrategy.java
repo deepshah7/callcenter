@@ -1,5 +1,6 @@
 package com.callcenter.wavefile.processor;
 
+import com.callcenter.util.ApplicationProperties;
 import org.apache.log4j.Logger;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,6 @@ import java.util.Properties;
  */
 @Component
 public class WaveFileNamingStrategy {
-    private static final Logger logger = Logger.getLogger(WaveFileNamingStrategy.class);
 
     private String wavStorageDir;
 
@@ -32,13 +32,7 @@ public class WaveFileNamingStrategy {
 
     @PostConstruct
     protected void readDir() {
-        Properties properties = new Properties();
-        try {
-            properties.load(new ClassPathResource("app.properties").getInputStream());
-            wavStorageDir = properties.getProperty("app.storagedir");
-        } catch (IOException e) {
-            logger.error(e.getMessage(), e);
-        }
+        wavStorageDir = ApplicationProperties.getInstance().get("app.waveFile.storage.dir");
     }
 
     public String getWavStorageDir() {

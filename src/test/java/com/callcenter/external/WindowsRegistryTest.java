@@ -1,10 +1,8 @@
 package com.callcenter.external;
 
+import com.callcenter.util.ApplicationProperties;
 import com.callcenter.util.Constants;
-import org.hamcrest.Matcher;
-import org.hamcrest.core.IsEqual;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
@@ -32,9 +30,8 @@ public class WindowsRegistryTest {
     }
 
     @Test
-    @Ignore("TODO : get the path from the app.properties file")
     public void shouldReadThePathOfWaveFileFromRegistry() {
-        assertEquals("E:\\playground\\projarea\\java\\docs\\callcenter\\toRead",
+        assertEquals(ApplicationProperties.getInstance().get("app.waveFile.read.default.dir"),
                 windowsRegistry.readCurrentUserKey(Constants.Registery.WAVE_FILE_REGISTRY_PATH,
                         Constants.Registery.WAVE_FILE_REGISTRY_PROPERTY));
     }

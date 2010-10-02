@@ -37,7 +37,7 @@ public class WaveFileReaderTest {
             @Mocked java.io.File file;
             {
                 Codecs.create(WaveFile.class); returns(codec);
-                waveFile.getFileToProcess(); returns(file);
+                waveFile.getProcessedFile(); returns(file);
                 Codecs.decode(codec, file); returns(waveFileObj);
                 waveFile.getName(); returns("helloWaveFile");
                 mapper.mapToCallRecord(waveFileObj, "helloWaveFile"); returns(callRecord);
