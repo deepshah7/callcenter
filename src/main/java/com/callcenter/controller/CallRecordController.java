@@ -5,7 +5,7 @@ import com.callcenter.domain.CallRecord;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 
-@RooWebScaffold(path = "callrecord", automaticallyMaintainView = true, formBackingObject = CallRecord.class)
+@RooWebScaffold(path = "callrecord", automaticallyMaintainView = false, formBackingObject = CallRecord.class)
 @RequestMapping("/callrecord/**")
 @Controller
 public class CallRecordController {

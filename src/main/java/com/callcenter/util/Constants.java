@@ -17,4 +17,10 @@ public class Constants {
 
         public static final String WAVE_FILE_REGISTRY_PROPERTY = "VRLDir";
     }
+
+    public static class WaveFile {
+
+        public static final String CONTENT_TYPE = "audio/x-wav";
+
+    }
 }

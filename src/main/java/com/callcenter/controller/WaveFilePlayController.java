@@ -2,10 +2,13 @@ package com.callcenter.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.callcenter.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,60 +25,23 @@ import com.callcenter.wavefile.processor.WaveFileNamingStrategy;
 @Controller
 public class WaveFilePlayController {
 
-
     @Autowired
-    WaveFileNamingStrategy waveFileNamingStrategy;
-
-    @Autowired
-    ProcessedFile processedFile;
-
-    private static final String FILE_DATA = "fileData";
-    private static final String CONTENT_TYPE = "contentType";
-    private final String WAVE_CONTENT_TYPE = "audio/x-wav";
-
-    @RequestMapping
-    public void get(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) {
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = "/wavefileplay/{id}")
-    public void post(@PathVariable Long id, ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) {
-
-    }
+    private ProcessedFile processedFile;
 
     @RequestMapping(value = "/wavefileplay/{id}")
-    public String playWaveFile(@PathVariable Long id, Model model) {
+    public void downloadWaveFile(@PathVariable final Long id, final HttpServletResponse response) {
+        final byte[] waveFileData = processedFile.getProcessedWaveFileBuffer(id);
+        // Write content type and also length (determined via byte array).
+        response.setContentType(Constants.WaveFile.CONTENT_TYPE);
+        response.setContentLength(waveFileData.length);
 
-        model.addAttribute(FILE_DATA, processedFile.getProcessedWaveFileBuffer(id));
-        model.addAttribute(CONTENT_TYPE, WAVE_CONTENT_TYPE);
-        return "wavPlayView";
+        // Flush byte array to servlet output stream.
+        try {
+            final ServletOutputStream out = response.getOutputStream();
+            out.write(waveFileData);
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
-//    private byte[] getProcessedWaveFileBuffer(Long id) {
-//        CallRecord callRecord = CallRecord.findCallRecord(id);
-//        String waveFileName = callRecord.getWavefilename();
-//        //get the file name
-//        String waveFile = waveFileNamingStrategy.getFullFilePath(waveFileName);
-//        // get the actual file
-//        byte[] data = new byte[0];
-//        try {
-//            data = getFileData(waveFile);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return data;
-//    }
-
-    @RequestMapping
-    public String index() {
-        return "wavefileplay/index";
-    }
-
-//    protected byte[] getFileData(String fileNameWithPath) throws Exception {
-//        File file = new File(fileNameWithPath);
-//        FileInputStream fis = new FileInputStream(file);
-//        byte[] buffer = new byte[fis.available()];
-//        fis.read(buffer);
-//        fis.close();
-//        return buffer;
-//    }
 }
