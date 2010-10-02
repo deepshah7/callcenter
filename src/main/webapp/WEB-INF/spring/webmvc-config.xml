@@ -70,4 +70,12 @@
 	
 	<!-- allows for integration of file upload functionality -->
 	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver"/>
+
+    <bean id="wavViewResolver"
+        class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="order" value="1" />
+        <property name="location" value="/WEB-INF/views/customviews.xml" />
+    </bean>
+
+
 </beans>

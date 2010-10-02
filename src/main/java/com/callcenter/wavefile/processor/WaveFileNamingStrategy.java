@@ -26,6 +26,10 @@ public class WaveFileNamingStrategy {
                     + "_" + originalFileName;
     }
 
+    public String getFullFilePath(String fileName) {
+            return wavStorageDir + "/" + fileName;
+    }
+
     @PostConstruct
     private void readDir() {
         Properties properties = new Properties();

@@ -73,6 +73,17 @@
                                 </c:if>
                             </form:form>
                         </td>
+
+
+                        <td>
+                            <spring:url value="/wavefileplay/${callRecord.id}" var="play_file_url"/>
+                            <spring:url value="/static/images/play.png" var="play_image_url"/>
+ 
+                            <spring:url var="logo" value="/static/images/springsource-logo.png" />
+                            <spring:message code="label.play" var="play_label"/>
+                            <span><a href="${play_file_url}" title="${play_label}"><img src="${play_image_url}"/></a></span>
+
+                        </td>
                     </tr>
                 </c:forEach>
                 <tr class="footer">

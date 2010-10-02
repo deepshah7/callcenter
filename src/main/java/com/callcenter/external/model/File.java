@@ -12,34 +12,35 @@ import org.springframework.beans.factory.annotation.Configurable;
 @Configurable
 public class File {
 
-    private java.io.File file;
+    private java.io.File originalFile;
 
-    private java.io.File fileToProcess;
+    private java.io.File processedFile;
 
     @Autowired
     private WaveFileNamingStrategy waveFileNamingStrategy;
 
-    public File(java.io.File file) {
+    public File(java.io.File originalFile) {
 
-        this.file = file;
+        this.originalFile = originalFile;
     }
 
     public void beforeProcess() {
-        fileToProcess = new java.io.File(waveFileNamingStrategy.generateNewFileName(
-                file.getName()));
+        processedFile = new java.io.File(waveFileNamingStrategy.generateNewFileName(
+                originalFile.getName()));
 
-        file.renameTo(fileToProcess);
+        originalFile.renameTo(processedFile);
     }
 
     public String getName() {
-        return fileToProcess.getName();
+        return processedFile.getName();
     }
 
-    public java.io.File getFileToProcess() {
-        return fileToProcess;
+    public java.io.File getProcessedFile() {
+        return processedFile;
     }
 
     public void postProcess() {
-        file.delete();
+        originalFile.delete();
     }
+
 }

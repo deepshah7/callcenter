@@ -31,7 +31,7 @@ public class WaveFileReader {
     public void read(final File file) {
         try {
             Codec<WaveFile> codec = Codecs.create(WaveFile.class);
-            WaveFile waveFile = Codecs.decode(codec, file.getFileToProcess());
+            WaveFile waveFile = Codecs.decode(codec, file.getProcessedFile());
             CallRecord callRecord = waveFileToCallRecordMapper.mapToCallRecord(waveFile, file.getName());
             callRecord.persist();
             codec = null;

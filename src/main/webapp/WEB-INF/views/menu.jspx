@@ -23,5 +23,19 @@
                 </li>
             </ul>
         </li>
+    <li id="web_mvc_jsp_manual_controller_category">
+            <h2>
+                <spring:message code="menu.category.web_mvc_jsp_manual_controller_category.label"/>
+            </h2>
+            <ul>
+                <li id="web_mvc_jsp_list_wavefileplay_menu_item">
+                    <spring:url value="/wavefileplay/index" var="web_mvc_jsp_list_wavefileplay_menu_item_url"/>
+                    <a href="${web_mvc_jsp_list_wavefileplay_menu_item_url}">
+                        <spring:message code="label.wavefileplaycontroller" var="label_wavefileplaycontroller"/>
+                        <spring:message arguments="${label_wavefileplaycontroller}" code="label.wavefileplay"/>
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </div>
