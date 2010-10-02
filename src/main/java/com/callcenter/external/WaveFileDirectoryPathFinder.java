@@ -25,7 +25,7 @@ public class WaveFileDirectoryPathFinder {
 
     @PostConstruct
     public void initWaveFileDirectory() {
-        final String directoryPath = windowsRegistry.readLocalMachineKey(Constants.Registery.WAVE_FILE_REGISTRY_PATH,
+        final String directoryPath = windowsRegistry.readCurrentUserKey(Constants.Registery.WAVE_FILE_REGISTRY_PATH,
                 Constants.Registery.WAVE_FILE_REGISTRY_PROPERTY);
 
         waveFileDirectory = new Directory(directoryPath);
