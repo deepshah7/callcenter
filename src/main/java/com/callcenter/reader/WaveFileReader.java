@@ -43,4 +43,8 @@ public class WaveFileReader {
         }
 
     }
+
+    public void setWaveFileToCallRecordMapper(WaveFileToCallRecordMapper waveFileToCallRecordMapper) {
+        this.waveFileToCallRecordMapper = waveFileToCallRecordMapper;
+    }
 }

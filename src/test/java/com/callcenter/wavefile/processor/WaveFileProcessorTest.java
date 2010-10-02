@@ -3,7 +3,6 @@ package com.callcenter.wavefile.processor;
 import com.callcenter.external.model.File;
 import com.callcenter.reader.WaveFileReader;
 import mockit.NonStrict;
-import mockit.NonStrictExpectations;
 import mockit.VerificationsInOrder;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,11 +18,14 @@ public class WaveFileProcessorTest {
 
     @NonStrict
     private WaveFileReader waveFileReader;
+    @NonStrict
+    private WaveFileNamingStrategy waveFileNamingStrategy;
 
     @Before
     public void setUp() {
         waveFileProcessor = new WaveFileProcessor();
         waveFileProcessor.setWaveFileReader(waveFileReader);
+        waveFileProcessor.setWaveFileNamingStrategy(waveFileNamingStrategy);
     }
 
     @Test
@@ -32,7 +34,7 @@ public class WaveFileProcessorTest {
         waveFileProcessor.process(waveFile);
         new VerificationsInOrder() {
             {
-                waveFile.beforeProcess();
+                waveFile.beforeProcess(waveFileNamingStrategy);
                 waveFileReader.read(waveFile);
                 waveFile.postProcess();
             }

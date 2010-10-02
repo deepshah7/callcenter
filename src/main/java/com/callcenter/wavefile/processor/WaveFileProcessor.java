@@ -16,8 +16,11 @@ public class WaveFileProcessor {
     @Autowired
     private WaveFileReader waveFileReader;
 
+    @Autowired
+    private WaveFileNamingStrategy waveFileNamingStrategy;
+
     public void process(File waveFile) {
-        waveFile.beforeProcess();
+        waveFile.beforeProcess(waveFileNamingStrategy);
         waveFileReader.read(waveFile);
         waveFile.postProcess();
 
@@ -25,5 +28,9 @@ public class WaveFileProcessor {
 
     public void setWaveFileReader(WaveFileReader waveFileReader) {
         this.waveFileReader = waveFileReader;
+    }
+
+    public void setWaveFileNamingStrategy(WaveFileNamingStrategy waveFileNamingStrategy) {
+        this.waveFileNamingStrategy = waveFileNamingStrategy;
     }
 }

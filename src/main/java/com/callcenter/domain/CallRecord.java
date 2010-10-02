@@ -32,5 +32,5 @@ public class CallRecord {
 
     private Boolean internal;
 
-    private String wavefilename;
+    private String waveFileName;
 }

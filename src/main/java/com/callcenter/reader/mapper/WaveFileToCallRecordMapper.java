@@ -17,7 +17,7 @@ public class WaveFileToCallRecordMapper {
         callRecord.setCallingPartyName(waveFile.getCallingPartyName());
         callRecord.setCalledPartyName(waveFile.getCalledPartyName());
         callRecord.setInternal(waveFile.isInternal());
-        callRecord.setWavefilename(waveFileName);
+        callRecord.setWaveFileName(waveFileName);
         return callRecord;
     }
 }

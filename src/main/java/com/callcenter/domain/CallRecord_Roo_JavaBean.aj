@@ -86,12 +86,12 @@ privileged aspect CallRecord_Roo_JavaBean {
         this.internal = internal;
     }
     
-    public String CallRecord.getWavefilename() {
-        return this.wavefilename;
+    public String CallRecord.getWaveFileName() {
+        return this.waveFileName;
     }
     
-    public void CallRecord.setWavefilename(String wavefilename) {
-        this.wavefilename = wavefilename;
+    public void CallRecord.setWaveFileName(String waveFileName) {
+        this.waveFileName = waveFileName;
     }
     
 }
