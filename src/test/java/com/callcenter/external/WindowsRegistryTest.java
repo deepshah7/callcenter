@@ -33,7 +33,7 @@ public class WindowsRegistryTest {
     @Test
     public void shouldReadThePathOfWaveFileFromRegistry() {
         assertEquals("E:\\playground\\projarea\\java\\docs\\callcenter\\toRead",
-                windowsRegistry.readLocalMachineKey(Constants.Registery.WAVE_FILE_REGISTRY_PATH,
+                windowsRegistry.readCurrentUserKey(Constants.Registery.WAVE_FILE_REGISTRY_PATH,
                         Constants.Registery.WAVE_FILE_REGISTRY_PROPERTY));
     }
 }

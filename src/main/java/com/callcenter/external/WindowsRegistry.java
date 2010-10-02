@@ -21,12 +21,15 @@ public class WindowsRegistry {
     private static final int KEY_SET_VALUE = 2;
     private static final int KEY_READ = 0x20019;
 
+    private static final Preferences USER_ROOT = Preferences.userRoot();
+    private static final Preferences SYSTEM_ROOT = Preferences.systemRoot();
+
     public String readLocalMachineKey(final String registryPath, final String property) {
-        return readRegistry(Preferences.systemRoot(), registryPath, property);
+        return readRegistry(SYSTEM_ROOT, registryPath, property);
     }
 
     public String readCurrentUserKey(final String registryPath, final String property) {
-        return readRegistry(Preferences.userRoot(), registryPath, property);
+        return readRegistry(USER_ROOT, registryPath, property);
     }
 
     private String readRegistry(Preferences preferencesRoot, String registryPath, String property) {
