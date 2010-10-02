@@ -22,7 +22,7 @@ import java.io.IOException;
  */
 public class WaveFileReaderTest {
 
-    @Mocked
+    @Mocked(inverse = true, methods = "<clinit>")
     Codecs codecs = null;
 
     @Test

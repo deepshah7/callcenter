@@ -18,14 +18,11 @@ public class FileTest {
 
     @NonStrict WaveFileNamingStrategy waveFileNamingStrategy;
 
-    @Mocked java.io.File file;
-
     @Test
     public void shouldRenameTheFileInTheBeforeProcessPhase() {
-
+        final java.io.File file = new java.io.File("helloFile");
         new NonStrictExpectations() {
             {
-                file.getName(); returns("helloFile");
                 waveFileNamingStrategy.generateNewFileName("helloFile"); returns("newHelloFile");
             }
         };
@@ -36,7 +33,6 @@ public class FileTest {
         new Verifications() {
             {
                 new java.io.File("newHelloFile");
-                file.renameTo((java.io.File)any);
             }
         };
     }

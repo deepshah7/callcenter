@@ -8,7 +8,6 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @Entity
 @RooJavaBean
-@RooToString
 @RooEntity
 public class CallRecord {
 

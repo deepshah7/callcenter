@@ -76,10 +76,10 @@
                 </div>
             </div>
             <br/>
-            <div id="roo_callRecord_wavefilename">
-                <label for="_wavefilename_id">Wavefilename:</label>
-                <div class="box" id="_wavefilename_id">
-                    <c:out value="${callRecord.wavefilename}"/>
+            <div id="roo_callRecord_waveFileName">
+                <label for="_waveFileName_id">Wave File Name:</label>
+                <div class="box" id="_waveFileName_id">
+                    <c:out value="${callRecord.waveFileName}"/>
                 </div>
             </div>
             <br/>

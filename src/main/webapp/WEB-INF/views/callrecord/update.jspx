@@ -106,15 +106,15 @@
                 <form:checkbox id="_internal_id" path="internal"/>
             </div>
             <br/>
-            <div id="roo_callRecord_wavefilename">
-                <label for="_wavefilename_id">Wavefilename:</label>
-                <form:input cssStyle="width:250px" id="_wavefilename_id" maxlength="30" path="wavefilename" size="0"/>
+            <div id="roo_callRecord_waveFileName">
+                <label for="_waveFileName_id">Wave File Name:</label>
+                <form:input cssStyle="width:250px" id="_waveFileName_id" maxlength="30" path="waveFileName" size="0"/>
                 <br/>
-                <form:errors cssClass="errors" id="_wavefilename_error_id" path="wavefilename"/>
-                <spring:message arguments="Wavefilename" code="field.invalid" var="field_invalid"/>
+                <form:errors cssClass="errors" id="_waveFileName_error_id" path="waveFileName"/>
+                <spring:message arguments="Wave File Name" code="field.invalid" var="field_invalid"/>
                 <spring:message code="field.required" var="field_required"/>
-                <spring:message argumentSeparator="," arguments="Wavefilename," code="field.simple.validation" var="field_validation"/>
-                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_wavefilename_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
+                <spring:message argumentSeparator="," arguments="Wave File Name," code="field.simple.validation" var="field_validation"/>
+                <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_waveFileName_id', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {promptMessage: '${field_validation}', invalidMessage: '${field_invalid}', required : false}})); </script>
             </div>
             <br/>
             <div class="submit" id="roo_callRecord_submit">

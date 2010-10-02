@@ -4,10 +4,12 @@ import com.callcenter.domain.CallRecord;
 import com.callcenter.reader.model.WaveFile;
 import mockit.NonStrict;
 import mockit.NonStrictExpectations;
+import mockit.Verifications;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertSame;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,9 +19,12 @@ import static junit.framework.Assert.assertTrue;
 public class WaveFileToCallRecordMapperTest {
 
     @Test
-    public void shouldCreateANewCallRecordAndMapItWithProperties(@NonStrict final WaveFile waveFile) {
+    public void shouldCreateANewCallRecordAndMapItWithProperties(@NonStrict final WaveFile waveFile,
+                                                                 @NonStrict final CallRecord callRecord) {
         new NonStrictExpectations() {
+
             {
+                new CallRecord();
                 waveFile.isOutgoing(); returns(true);
                 waveFile.getCallerId(); returns("HelloCaller");
                 waveFile.getDisplayInfo(); returns("HelloDisplay");
@@ -32,16 +37,19 @@ public class WaveFileToCallRecordMapperTest {
 
         };
         final WaveFileToCallRecordMapper mapper = new WaveFileToCallRecordMapper();
-        final CallRecord callRecord = mapper.mapToCallRecord(waveFile, "HelloFileName");
+        mapper.mapToCallRecord(waveFile, "HelloFileName");
 
-        assertEquals("HelloFileName", callRecord.getWaveFileName());
-        assertEquals("HelloCaller", callRecord.getCallerId());
-        assertEquals("HelloDisplay", callRecord.getDisplayInfo());
-        assertEquals("HelloCalled", callRecord.getCalledId());
-        assertEquals("HelloTarget", callRecord.getTargetId());
-        assertEquals("HelloCallingParty", callRecord.getCallingPartyName());
-        assertEquals("HelloCalledParty", callRecord.getCalledPartyName());
-        assertTrue(callRecord.getOutgoing());
-        assertTrue(callRecord.getInternal());
+        new Verifications() {
+            {
+                callRecord.setOutgoing(true);
+                callRecord.setCallerId("HelloCaller");
+                callRecord.setDisplayInfo("HelloDisplay");
+                callRecord.setCalledId("HelloCalled");
+                callRecord.setTargetId("HelloTarget");
+                callRecord.setCallingPartyName("HelloCallingParty");
+                callRecord.setCalledPartyName("HelloCalledParty");
+                callRecord.setInternal(true);
+            }
+        };
     }
 }
