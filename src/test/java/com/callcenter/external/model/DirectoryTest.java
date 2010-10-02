@@ -1,10 +1,9 @@
 package com.callcenter.external.model;
 
-import mockit.Expectations;
-import mockit.NonStrict;
-import mockit.NonStrictExpectations;
-import mockit.Verifications;
+import mockit.*;
+import mockit.integration.junit4.JMockit;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.util.List;
@@ -21,18 +20,19 @@ import static org.junit.Assert.assertTrue;
 public class DirectoryTest {
 
     @Test
-    public void shouldReturnTheAbsolutePathOfTheFile(@NonStrict final File file) {
+    public void shouldReturnTheAbsolutePathOfTheFile() {
         new NonStrictExpectations() {
+            @Mocked File file;
             {
-                new File(".");
-                file.getAbsolutePath(); returns("HelloAbsolutePath");
+                new File(".").getAbsolutePath(); returns("HelloAbsolutePath");
             }
         };
         assertEquals("HelloAbsolutePath", new Directory(".").getAbsolutePath());
 
         new Verifications() {
+            @Mocked File file;
             {
-                file.getAbsolutePath();
+                new File(".").getAbsolutePath();
             }
         };
     }
@@ -49,22 +49,35 @@ public class DirectoryTest {
     }
 
     @Test
-    public void shouldReturnFalseIfPathDoesNotPointsToADirectory(@NonStrict final File file) {
+    public void shouldReturnFalseIfPathDoesNotPointsToADirectory() {
         new NonStrictExpectations() {
+            @Mocked File file;
             {
-                new File(".");
-                file.isDirectory(); returns(false);
+                new File(".").isDirectory(); returns(false);
             }
         };
         assertFalse(new Directory(".").isValid());
     }
 
     @Test
-    public void shouldReturnAListOfFilesInTheDirectoryPointedByTheWaveFileDirectory(@NonStrict final File file) {
+    public void shouldReturnAListOfFilesInTheDirectoryPointedByTheWaveFileDirectory() {
         new Expectations() {
+            @Mocked
+            File file1;
+
+            @Mocked
+            File file2;
+
+            @Mocked
+            com.callcenter.external.model.File file;
+
+            final File[] value = {file1, file2};
+
             {
-                new File("hellowavefiledirectory");
-                file.listFiles(); returns(new File[] {file, file});
+                new File("hellowavefiledirectory").listFiles();
+                returns(value);
+                new com.callcenter.external.model.File(file1);
+                new com.callcenter.external.model.File(file2);
             }
         };
         final List<com.callcenter.external.model.File> files = new Directory("hellowavefiledirectory").list();
