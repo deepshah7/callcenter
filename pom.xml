@@ -76,7 +76,7 @@
     <dependency>
       <groupId>mockit</groupId>
       <artifactId>jmockit</artifactId>
-      <version>0.999</version>
+      <version>0.999.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -118,12 +118,6 @@
       <groupId>org.springframework</groupId>
       <artifactId>org.springframework.core</artifactId>
       <version>${spring.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>org.springframework.test</artifactId>
-      <version>${spring.version}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>

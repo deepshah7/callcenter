@@ -1,9 +1,7 @@
 package com.callcenter.external.model;
 
 import mockit.*;
-import mockit.integration.junit4.JMockit;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.util.List;
