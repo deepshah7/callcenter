@@ -2,14 +2,11 @@ package com.callcenter.external;
 
 import com.callcenter.external.model.Directory;
 import com.callcenter.util.Constants;
-import mockit.Mocked;
 import mockit.NonStrict;
 import mockit.NonStrictExpectations;
-import mockit.internal.expectations.Expectation;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.util.prefs.Preferences;
 
 import static junit.framework.Assert.assertNotNull;
@@ -24,36 +21,38 @@ public class WaveFileDirectoryPathFinderTest {
 
     private WaveFileDirectoryPathFinder pathFinder;
 
+    @NonStrict
+    private WindowsRegistry windowsRegistry;
+
     @Before
     public void setUp() {
         pathFinder = new WaveFileDirectoryPathFinder();
+        pathFinder.setWindowsRegistry(windowsRegistry);
     }
 
     @Test
-    public void shouldGetThePathOfTheWaveFileDirectoryFromTheUserPreferences(
-            final @NonStrict Preferences userPreferences, final @NonStrict Directory directory) {
+    public void shouldGetThePathOfTheWaveFileDirectoryFromTheWindowsRegistry() {
         new NonStrictExpectations() {
+            @NonStrict Directory waveFileDirectory;
             {
-                Preferences.userRoot(); returns(userPreferences);
-                userPreferences.get(Constants.Registery.WAVE_FILE_REGISTERY_KEY,
-                    Constants.Registery.WAVE_FILE_REGISTERY_KEY + " not found!"); returns("helloDirectory");
+                windowsRegistry.readLocalMachineKey(Constants.Registery.WAVE_FILE_REGISTRY_PATH,
+                        Constants.Registery.WAVE_FILE_REGISTRY_PROPERTY); returns("helloDirectory");
                 new Directory("helloDirectory");
-                directory.isValid(); returns(true);
+                waveFileDirectory.isValid(); returns(true);
             }
         };
         pathFinder.initWaveFileDirectory();
     }
 
     @Test(expected = IllegalStateException.class)
-    public void shouldThrowIllegalStateExceptionIfDirectoryIsNotAValidWaveFileDirectory(final @NonStrict Preferences userPreferences,
-                                                                                        final @NonStrict Directory directory) {
+    public void shouldThrowIllegalStateExceptionIfDirectoryIsNotAValidWaveFileDirectory() {
         new NonStrictExpectations() {
+            @NonStrict Directory waveFileDirectory;
             {
-                Preferences.userRoot(); returns(userPreferences);
-                userPreferences.get(Constants.Registery.WAVE_FILE_REGISTERY_KEY,
-                    Constants.Registery.WAVE_FILE_REGISTERY_KEY + " not found!"); returns("helloDirectory");
+                windowsRegistry.readLocalMachineKey(Constants.Registery.WAVE_FILE_REGISTRY_PATH,
+                        Constants.Registery.WAVE_FILE_REGISTRY_PROPERTY); returns("helloDirectory");
                 new Directory("helloDirectory");
-                directory.isValid(); returns(false);
+                waveFileDirectory.isValid(); returns(false);
             }
         };
         pathFinder.initWaveFileDirectory();

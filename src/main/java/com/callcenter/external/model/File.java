@@ -1,8 +1,9 @@
 package com.callcenter.external.model;
 
-import com.callcenter.wavefile.processor.WaveFileNamingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+
+import com.callcenter.wavefile.processor.WaveFileNamingStrategy;
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,7 +27,7 @@ public class File {
 
     public void beforeProcess() {
         processedFile = new java.io.File(waveFileNamingStrategy.generateNewFileName(
-                originalFile.getName()));
+            originalFile.getName()));
 
         originalFile.renameTo(processedFile);
     }
@@ -40,7 +41,10 @@ public class File {
     }
 
     public void postProcess() {
-        originalFile.delete();
+    }
+
+    public void setWaveFileNamingStrategy(WaveFileNamingStrategy waveFileNamingStrategy) {
+        this.waveFileNamingStrategy = waveFileNamingStrategy;
     }
 
 }
