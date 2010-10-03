@@ -1,22 +1,53 @@
 <div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:roo="urn:jsptagdir:/WEB-INF/tags" xmlns:spring="http://www.springframework.org/tags" version="2.0">
     <jsp:output omit-xml-declaration="yes"/>
+    <spring:url value="/static/js/callRecord.js" var="callRecord" />
+    <script type="text/javascript" src="${callRecord}"><!-- //required for FF3 and Opera --></script>
+
     <div id="_title_div">
         <spring:message code="label.callrecord" var="entity_label"/>
         <spring:message code="label.callrecords" var="entity_label_plural"/>
         <spring:message arguments="${entity_label_plural}" code="entity.list.all" var="title_msg"/>
         <c:if test="${not empty callrecords}">
             <spring:url value="/callrecord/search" var="search_url"/>
-            <form:form action="${search_url}" method="POST" modelAttribute="callRecord">
-                <div class="floatLeft">
-                    <label for="callerId">Caller Id: </label>
-                    <form:input path="callerId" class="mediumInput" id="callerId" />
+            <h2>Search Call Record</h2>
+            <form:form action="${search_url}" method="POST" modelAttribute="callRecord" id="searchForm">
+                <div class="clearBoth">
+                    <div class="floatLeft">
+                        <div>
+                            <label for="callerId">Caller Id: </label>
+                            <form:input path="callerId" class="mediumInput" id="callerId" />
+                        </div> <br/>
+                        <div>
+                            <label for="displayInfo">Display Info: </label>
+                            <form:input path="displayInfo" class="mediumInput" id="displayInfo" />
+                        </div>
+                    </div>
+                    <div class="floatRight">
+                        <div>
+                            <label for="calledId">Called Id: </label>
+                            <form:input path="calledId" class="mediumInput" id="calledId"/>
+                        </div> <br/>
+                        <div>
+                            <label for="targetId">Target Id: </label>
+                            <form:input path="targetId" class="mediumInput" id="targetId"/>
+                        </div>
+                    </div>
                 </div>
-                <div class="floatRight">
-                    <label for="calledId">Called Id: </label>
-                    <form:input path="calledId" class="mediumInput" id="calledId"/>
-                </div>
+                <spring:url value="/" var="contextRoot"/>
+                <script type="text/javascript">
+                    $(function() {
+                        $(".mediumInput").blur(function() {
+                            $.getJSON("${search_url}", $("#searchForm").serialize(), function(data) {
+                                new CallRecords(data, ${contextRoot}).createRows();
+                            });
+                        });
+                    })
+                </script>
             </form:form>
-            <table width="300px">
+            <div class="clearBoth"></div> <br/>
+            <hr />
+            <h2>Results</h2>
+            <table width="300px" id="callRecordsTable">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -30,60 +61,45 @@
                         <th/>
                     </tr>
                 </thead>
-                <c:forEach items="${callrecords}" var="callRecord">
-                    <tr>
-                        <td>${callRecord.id}</td>
-                        <td>
-                            <c:out value="${fn:substring(callRecord.callerId, 0, 10)}"/>
-                        </td>
-                        <td>
-                            <c:out value="${fn:substring(callRecord.displayInfo, 0, 10)}"/>
-                        </td>
-                        <td>
-                            <fmt:formatDate pattern="${callRecord_callTime_date_format}" value="${callRecord.callTime.time}"/>
-                        </td>
-                        <td>
-                            <c:out value="${fn:substring(callRecord.calledId, 0, 10)}"/>
-                        </td>
-                        <td>
-                            <c:out value="${fn:substring(callRecord.targetId, 0, 10)}"/>
-                        </td>
-                        <td>
-                            <c:out value="${fn:substring(callRecord.ipAddress, 0, 10)}"/>
-                        </td>
-                        <td>
-                            <spring:url value="/callrecord/${callRecord.id}" var="show_form_url"/>
-                            <spring:url value="/static/images/show.png" var="show_image_url"/>
-                            <form:form action="${show_form_url}" method="GET">
+                    <c:forEach items="${callrecords}" var="callRecord">
+                        <tr class="callRecord">
+                            <td>${callRecord.id}</td>
+                            <td>
+                                <c:out value="${fn:substring(callRecord.callerId, 0, 10)}"/>
+                            </td>
+                            <td>
+                                <c:out value="${fn:substring(callRecord.displayInfo, 0, 10)}"/>
+                            </td>
+                            <td>
+                                <fmt:formatDate pattern="${callRecord_callTime_date_format}" value="${callRecord.callTime.time}"/>
+                            </td>
+                            <td>
+                                <c:out value="${fn:substring(callRecord.calledId, 0, 10)}"/>
+                            </td>
+                            <td>
+                                <c:out value="${fn:substring(callRecord.targetId, 0, 10)}"/>
+                            </td>
+                            <td>
+                                <c:out value="${fn:substring(callRecord.ipAddress, 0, 10)}"/>
+                            </td>
+                            <td>
+                                <spring:url value="/callrecord/${callRecord.id}" var="show_form_url"/>
+                                <spring:url value="/static/images/show.png" var="show_image_url"/>
                                 <spring:message arguments="${entity_label}" code="entity.show" var="show_label"/>
-                                <input alt="${show_label}" class="image" src="${show_image_url}" title="${show_label}" type="image" value="${show_label}"/>
-                            </form:form>
-                        </td>
-                        <td>
-                            <spring:url value="/wavefileplay/${callRecord.id}" var="play_file_url"/>
-                            <spring:url value="/static/images/play.png" var="play_image_url"/>
- 
-                            <spring:message code="label.play" var="play_label"/>
-                            <span><a href="${play_file_url}" title="${play_label}"><img src="${play_image_url}"/></a></span>
+                                <span>
+                                    <a href="${show_form_url}"><img src="${show_image_url}" title="${show_label}"/></a>
+                                </span>
+                            </td>
+                            <td>
+                                    <spring:url value="/wavefileplay/${callRecord.id}" var="play_file_url"/>
+                                <spring:url value="/static/images/play.png" var="play_image_url"/>
 
-                        </td>
-                    </tr>
-                </c:forEach>
-                <tr class="footer">
-                    <td colspan="10">
-                        <span class="new">
-                            <spring:url value="/callrecord/form" var="create_url"/>
-                            <a href="${create_url}">
-                                <spring:url value="/static/images/add.png" var="create_img_url"/>
-                                <spring:message arguments="${entity_label}" code="global.menu.new" var="add_message"/>
-                                <img alt="${add_message}" src="${create_img_url}" title="${add_message}"/>
-                            </a>
-                        </span>
-                        <c:if test="${not empty maxPages}">
-                            <roo:pagination maxPages="${maxPages}" page="${param.page}" size="${param.size}"/>
-                        </c:if>
-                    </td>
-                </tr>
+                                <spring:message code="label.play" var="play_label"/>
+                                <span><a href="${play_file_url}" title="${play_label}"><img src="${play_image_url}"/></a></span>
+
+                            </td>
+                        </tr>
+                    </c:forEach>
             </table>
         </c:if>
         <c:if test="${empty callrecords}">

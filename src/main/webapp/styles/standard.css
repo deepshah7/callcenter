@@ -355,6 +355,10 @@ fieldset th {
     float:right;
 }
 
+.clearBoth {
+    clear:both;
+}
+
 .mediumInput {
     width: 10em;
 }
