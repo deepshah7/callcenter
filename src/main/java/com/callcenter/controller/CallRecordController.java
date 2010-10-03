@@ -30,10 +30,8 @@ public class CallRecordController {
     }
 
     @RequestMapping(value = "/callrecord/search", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<CallRecord> search(final CallRecord callRecord) {
-        callRecord.nullifyEmptyValues();
+    public @ResponseBody List<CallRecord> search(final CallRecord callRecord) {
+        callRecord.prepareValuesForPartialSearch();
         return CallRecord.findAllByExample(callRecord);
     }
 

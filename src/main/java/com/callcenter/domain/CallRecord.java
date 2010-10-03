@@ -4,12 +4,11 @@ import java.util.Calendar;
 import java.util.List;
 import javax.persistence.Entity;
 
+import com.callcenter.util.Constants;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.tostring.RooToString;
 
 @Entity
 @RooJavaBean
@@ -40,13 +39,14 @@ public class CallRecord {
 
     public static List<CallRecord> findAllByExample(final CallRecord callRecord) {
         final Session session = (Session)entityManager().getDelegate();
-        return session.createCriteria(CallRecord.class).add(Example.create(callRecord)).list();
+        return session.createCriteria(CallRecord.class).add(Example.create(callRecord).enableLike().ignoreCase())
+                .list();
     }
 
-    public void nullifyEmptyValues() {
-        if("".equals(getCalledId())) setCalledId(null);
-        if("".equals(getCallerId())) setCallerId(null);
-        if("".equals(getDisplayInfo())) setDisplayInfo(null);
-        if("".equals(getTargetId())) setTargetId(null);
+    public void prepareValuesForPartialSearch() {
+        setCalledId(Constants.Query.LIKE_OPERATOR + getCalledId() + Constants.Query.LIKE_OPERATOR);
+        setCallerId(Constants.Query.LIKE_OPERATOR + getCallerId() + Constants.Query.LIKE_OPERATOR);
+        setDisplayInfo(Constants.Query.LIKE_OPERATOR + getDisplayInfo() + Constants.Query.LIKE_OPERATOR);
+        setTargetId(Constants.Query.LIKE_OPERATOR + getTargetId() + Constants.Query.LIKE_OPERATOR);
     }
 }

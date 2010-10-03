@@ -23,4 +23,8 @@ public class Constants {
         public static final String CONTENT_TYPE = "audio/x-wav";
 
     }
+
+    public class Query {
+        public static final String LIKE_OPERATOR = "%";
+    }
 }
