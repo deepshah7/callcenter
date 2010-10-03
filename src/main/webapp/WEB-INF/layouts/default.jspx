@@ -15,9 +15,11 @@
 		<spring:url value="/${roo_css}" var="roo_css_url"/>
 		<spring:url value="/resources/dijit/themes/tundra/tundra.css" var="tundra_url"/>
 		<spring:url value="/static/images/favicon.ico" var="favicon" />
+		<spring:url value="/static/js/jquery/jquery.min.js" var="jquery" />
 		<link rel="stylesheet" type="text/css" media="screen" href="${roo_css_url}"><!-- //required for FF3 and Opera --></link>
 		<link rel="stylesheet" type="text/css" href="${tundra_url}"><!-- //required for FF3 and Opera --></link>	
 		<link rel="SHORTCUT ICON" href="${favicon}" />
+        <script type="text/javascript" src="${jquery}"><!-- //required for FF3 and Opera --></script>
 		<script type="text/javascript"><![CDATA[
 			function readCookie(name) {
 				var nameEQ = name + '=';

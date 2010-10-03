@@ -346,3 +346,15 @@ fieldset th {
 	font-size:11px;
 	color:#888888;
 }
+
+.floatLeft {
+    float: left;
+}
+
+.floatRight {
+    float:right;
+}
+
+.mediumInput {
+    width: 10em;
+}

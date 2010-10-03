@@ -5,8 +5,16 @@
         <spring:message code="label.callrecords" var="entity_label_plural"/>
         <spring:message arguments="${entity_label_plural}" code="entity.list.all" var="title_msg"/>
         <c:if test="${not empty callrecords}">
-            <form:form action="">
-
+            <spring:url value="/callrecord/search" var="search_url"/>
+            <form:form action="${search_url}" method="POST" modelAttribute="callRecord">
+                <div class="floatLeft">
+                    <label for="callerId">Caller Id: </label>
+                    <form:input path="callerId" class="mediumInput" id="callerId" />
+                </div>
+                <div class="floatRight">
+                    <label for="calledId">Called Id: </label>
+                    <form:input path="calledId" class="mediumInput" id="calledId"/>
+                </div>
             </form:form>
             <table width="300px">
                 <thead>
