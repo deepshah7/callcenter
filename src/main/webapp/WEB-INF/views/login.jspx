@@ -2,7 +2,6 @@
 	<jsp:output omit-xml-declaration="yes"/>
     <div id="_title" style="width: 100%">
 	    <spring:message code="security.login.title" var="title"/>
-	    <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_title', widgetType : 'dijit.TitlePane', widgetAttrs : {title: '${title}'}})); </script>
 	    <c:if test="${not empty param.login_error}">
 	      <div class="errors">
 	      	<p>
@@ -22,18 +21,15 @@
 	            <label for="j_username"><spring:message code="security.login.form.name"/></label>
 	            <input id="j_username" type='text' name='j_username' style="width:150px"/>
 	            <spring:message code="security.login.form.name.message" var="name_msg"/>
-	            <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : "j_username", widgetType : "dijit.form.ValidationTextBox", widgetAttrs : {promptMessage: "${name_msg}", required : true}})); </script>
 	        </div>
 	        <br/>
 	        <div>
 	            <label for="j_password"><spring:message code="security.login.form.password"/></label>
 	            <input id="j_password" type='password' name='j_password' style="width:150px" />
 	            <spring:message code="security.login.form.password.message" var="pwd_msg"/>
-	            <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : "j_password", widgetType : "dijit.form.ValidationTextBox", widgetAttrs : {promptMessage: "${pwd_msg}", required : true}})); </script>
 	        </div>
 	        <br/>
 	        <div class="submit">
-	            <script type="text/javascript">Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:'proceed', event:'onclick'}));</script>
 	            <spring:message code="button.submit" var="submit_label"/>
 	            <input id="proceed" type="submit" value="${submit_label}"/>
 	            <spring:message code="button.reset" var="reset_label"/>
