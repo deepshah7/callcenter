@@ -7,32 +7,11 @@
                 <spring:message code="menu.category.web_mvc_jsp_callrecord_category.label"/>
             </h2>
             <ul>
-                <li id="web_mvc_jsp_create_callrecord_menu_item">
-                    <spring:url value="/callrecord/form" var="web_mvc_jsp_create_callrecord_menu_item_url"/>
-                    <a href="${web_mvc_jsp_create_callrecord_menu_item_url}">
-                        <spring:message code="label.callrecord" var="label_callrecord"/>
-                        <spring:message arguments="${label_callrecord}" code="global.menu.new"/>
-                    </a>
-                </li>
             <li id="web_mvc_jsp_list_callrecord_menu_item">
                     <spring:url value="/callrecord?page=${empty param.page ? 1 : param.page}&amp;amp;size=${empty param.size ? 10 : param.size}" var="web_mvc_jsp_list_callrecord_menu_item_url"/>
                     <a href="${web_mvc_jsp_list_callrecord_menu_item_url}">
                         <spring:message code="label.callrecords" var="label_callrecords"/>
                         <spring:message arguments="${label_callrecords}" code="global.menu.list"/>
-                    </a>
-                </li>
-            </ul>
-        </li>
-    <li id="web_mvc_jsp_manual_controller_category">
-            <h2>
-                <spring:message code="menu.category.web_mvc_jsp_manual_controller_category.label"/>
-            </h2>
-            <ul>
-                <li id="web_mvc_jsp_list_wavefileplay_menu_item">
-                    <spring:url value="/wavefileplay/index" var="web_mvc_jsp_list_wavefileplay_menu_item_url"/>
-                    <a href="${web_mvc_jsp_list_wavefileplay_menu_item_url}">
-                        <spring:message code="label.wavefileplaycontroller" var="label_wavefileplaycontroller"/>
-                        <spring:message arguments="${label_wavefileplaycontroller}" code="label.wavefileplay"/>
                     </a>
                 </li>
             </ul>
