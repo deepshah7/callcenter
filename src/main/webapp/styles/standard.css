@@ -405,3 +405,7 @@ a.trigger {
     -moz-border-radius-bottomleft: 20px;
     display: block;
 }
+
+.bold {
+    font-weight:bold;
+}

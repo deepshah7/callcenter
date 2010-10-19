@@ -2,10 +2,9 @@ function CallRecords(data, contextRoot) {
     this.data = data;
     this.contextRoot = contextRoot;
     this.callRecordRow =  "<tr class='callRecord'>" +
-            "<td>#callid#</td>" +
+            "<td>#calltime#</td>" +
             "<td>#callerid#</td>" +
             "<td>#displayinfo#</td>" +
-            "<td>#calltime#</td>" +
             "<td>#calledId#</td>" +
             "<td>#targetid#</td>" +
             "<td>#ipaddress#</td>" +
@@ -36,5 +35,20 @@ function CallRecords(data, contextRoot) {
                     );
 
         }
+    };
+}
+
+function SearchCriteria() {
+    this.update = function() {
+        var formValue = $("#searchForm").serialize();
+        var formValues = formValue.split("&");
+        var searchCriteria = "";
+        for(var i=0; i < formValues.length; i++) {
+            var actualValues = formValues[i].split("=");
+            if(actualValues[1] == "") continue;
+            if(searchCriteria != "") searchCriteria = searchCriteria + " and ";
+            searchCriteria = searchCriteria + actualValues[0] + " = " + actualValues[1]
+        }
+        $("#currentCriteria").html(searchCriteria);
     };
 }

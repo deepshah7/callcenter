@@ -48,9 +48,11 @@
                     <spring:url value="/" var="contextRoot"/>
                     <script type="text/javascript">
                         $(function() {
+                            new SearchCriteria().update();
                             $(".mediumInput").blur(function() {
                                 $.getJSON("${search_url}", $("#searchForm").serialize(), function(data) {
                                     new CallRecords(data, ${contextRoot}).createRows();
+                                    new SearchCriteria().update();
                                 });
                             });
                         })
@@ -60,13 +62,14 @@
             <div class="clearBoth"></div> <br/>
             <hr />
             <h2>Results</h2>
+            <div class="bold">Current Search Criteria: <span id="currentCriteria"></span></div>
+            <br/>
             <table width="300px" id="callRecordsTable">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>Call Time</th>
                         <th>Caller Id</th>
                         <th>Display Info</th>
-                        <th>Call Time</th>
                         <th>Called Id</th>
                         <th>Target Id</th>
                         <th>Ip Address</th>
@@ -76,15 +79,14 @@
                 </thead>
                     <c:forEach items="${callrecords}" var="callRecord">
                         <tr class="callRecord">
-                            <td>${callRecord.id}</td>
+                            <td>
+                                <fmt:formatDate pattern="${callRecord_callTime_date_format}" value="${callRecord.callTime.time}"/>
+                            </td>
                             <td>
                                 <c:out value="${fn:substring(callRecord.callerId, 0, 10)}"/>
                             </td>
                             <td>
                                 <c:out value="${fn:substring(callRecord.displayInfo, 0, 10)}"/>
-                            </td>
-                            <td>
-                                <fmt:formatDate pattern="${callRecord_callTime_date_format}" value="${callRecord.callTime.time}"/>
                             </td>
                             <td>
                                 <c:out value="${fn:substring(callRecord.calledId, 0, 10)}"/>
