@@ -2,6 +2,7 @@
 	<jsp:output omit-xml-declaration="yes"/>
     <div id="_title" style="width: 100%">
 	    <spring:message code="security.login.title" var="title"/>
+        <h2>${title}</h2>
 	    <c:if test="${not empty param.login_error}">
 	      <div class="errors">
 	      	<p>
@@ -9,11 +10,6 @@
 				<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>.
 	      	</p>
 	      </div>
-	    </c:if>
-	     <c:if test="${empty param.login_error}">
-	    	<p>
-			<spring:message code="security.login.message"/>
-		    </p>
 	    </c:if>
 	    <spring:url value='/static/j_spring_security_check' var="form_url"/>
 		<form name="f" action="${form_url}" method="POST"> 
