@@ -26,11 +26,9 @@
 	        </div>
 	        <br/>
 	        <div class="submit">
-	            <spring:message code="button.submit" var="submit_label"/>
-	            <input id="proceed" type="submit" value="${submit_label}"/>
-	            <spring:message code="button.reset" var="reset_label"/>
-	            <input id="reset" type="reset" value="${reset_label}"/>
+	            <input id="proceed" type="submit" value="Sign In" class="floatLeft"/>
 	        </div>
+            <div class="clearBoth"> </div>
 	    </form>
 	</div>
 </div>

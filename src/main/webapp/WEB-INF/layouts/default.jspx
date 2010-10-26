@@ -39,23 +39,19 @@
 	</head>
    	<body class="tundra spring">		
    		<div id="wrapper">
-		    <tiles:insertAttribute name="menu" ignore="true" />   
 	    	<div id="main">
-	    		<tiles:insertAttribute name="body" />
-	    		<div id="footer">				
-				  	<spring:url var="home" value="/" />
-				    <span><a href="${home}"><spring:message code="button.home"/></a></span>				    
-				    <c:if test="${pageContext.request.userPrincipal != null}">	
-				    	<c:out value=" | "/>
-				    	<span>			    
-						    <spring:url var="logout" value="/static/j_spring_security_logout" />
-						    <a href="${logout}"><spring:message code="security.logout" /></a>
-					    </span>					    
-					</c:if>			    
-				    
-				    <roo:language />
-				    <roo:theme />
-				    				    
+                <div id="userinfo" class="floatRight">
+                    <c:if test="${pageContext.request.userPrincipal != null}">
+                        <span>${pageContext.request.userPrincipal.name} (${pageContext.request.userPrincipal.authorities})</span>
+                        <c:out value=" | "/>
+                        <span>
+                            <spring:url var="logout" value="/static/j_spring_security_logout" />
+                            <a href="${logout}">Sign out</a>
+                        </span>
+                    </c:if>
+                </div>
+                <tiles:insertAttribute name="body" />
+                <div id="footer">
 				</div>
 			</div>
 		</div>
