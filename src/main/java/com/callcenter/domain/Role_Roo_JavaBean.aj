@@ -1,7 +1,10 @@
 package com.callcenter.domain;
 
+import com.callcenter.domain.Field;
+import com.callcenter.domain.Restriction;
 import java.lang.String;
 import java.util.Locale;
+import java.util.Set;
 
 privileged aspect Role_Roo_JavaBean {
     
@@ -27,6 +30,22 @@ privileged aspect Role_Roo_JavaBean {
     
     public void Role.setLanguage(Locale language) {
         this.language = language;
+    }
+    
+    public Set<Field> Role.getAllowedFields() {
+        return this.allowedFields;
+    }
+    
+    public void Role.setAllowedFields(Set<Field> allowedFields) {
+        this.allowedFields = allowedFields;
+    }
+    
+    public Set<Restriction> Role.getRestrictions() {
+        return this.restrictions;
+    }
+    
+    public void Role.setRestrictions(Set<Restriction> restrictions) {
+        this.restrictions = restrictions;
     }
     
 }

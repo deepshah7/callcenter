@@ -15,17 +15,11 @@
  */
 package com.callcenter.domain;
 
-import org.hibernate.annotations.*;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
-import javax.persistence.*;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,23 +27,12 @@ import java.util.Set;
  * @author Deep Shah
  */
 @Entity
-@Table(name = "roles")
+@Table(name = "fields")
 @RooJavaBean
 @RooEntity
-public class Role {
+public class Field {
+
     private String name;
 
     private String description;
-
-    private Locale language;
-
-    @ManyToMany(targetEntity = Field.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(name = "role_allowed_fields", joinColumns = @JoinColumn(name = "role_id"),
-        inverseJoinColumns = @JoinColumn(name = "field_id"))
-    private Set<Field> allowedFields = new HashSet<Field>();
-
-    @OneToMany(targetEntity = Restriction.class,
-            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "role")
-    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
-    private Set<Restriction> restrictions = new HashSet<Restriction>();
 }

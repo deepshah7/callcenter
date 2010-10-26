@@ -4,8 +4,10 @@ import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,6 +32,9 @@ public class User {
     @ManyToOne(optional = false, targetEntity = Role.class)
     @JoinColumn(nullable = false)
     private Role role;
+
+    @ManyToMany(targetEntity = Group.class, mappedBy = "members")
+    private Set<Group> groups = new HashSet<Group>();
 
     public static User findUserByName(final String name) {
         final List<User> users = findUsersByName(name).getResultList();

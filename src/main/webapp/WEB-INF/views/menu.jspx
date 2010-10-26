@@ -16,5 +16,26 @@
                 </li>
             </ul>
         </li>
+    <li id="web_mvc_jsp_group_category">
+            <h2>
+                <spring:message code="menu.category.web_mvc_jsp_group_category.label"/>
+            </h2>
+            <ul>
+                <li id="web_mvc_jsp_create_group_menu_item">
+                    <spring:url value="/group/form" var="web_mvc_jsp_create_group_menu_item_url"/>
+                    <a href="${web_mvc_jsp_create_group_menu_item_url}">
+                        <spring:message code="label.group" var="label_group"/>
+                        <spring:message arguments="${label_group}" code="global.menu.new"/>
+                    </a>
+                </li>
+            <li id="web_mvc_jsp_list_group_menu_item">
+                    <spring:url value="/group?page=${empty param.page ? 1 : param.page}&amp;amp;size=${empty param.size ? 10 : param.size}" var="web_mvc_jsp_list_group_menu_item_url"/>
+                    <a href="${web_mvc_jsp_list_group_menu_item_url}">
+                        <spring:message code="label.groups" var="label_groups"/>
+                        <spring:message arguments="${label_groups}" code="global.menu.list"/>
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </div>

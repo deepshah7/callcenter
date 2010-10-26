@@ -15,16 +15,11 @@
  */
 package com.callcenter.domain;
 
-import org.hibernate.annotations.*;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -33,23 +28,16 @@ import java.util.Set;
  * @author Deep Shah
  */
 @Entity
-@Table(name = "roles")
+@Table(name = "groups")
 @RooJavaBean
 @RooEntity
-public class Role {
+public class Group {
     private String name;
 
-    private String description;
+    private String number;
 
-    private Locale language;
-
-    @ManyToMany(targetEntity = Field.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(name = "role_allowed_fields", joinColumns = @JoinColumn(name = "role_id"),
-        inverseJoinColumns = @JoinColumn(name = "field_id"))
-    private Set<Field> allowedFields = new HashSet<Field>();
-
-    @OneToMany(targetEntity = Restriction.class,
-            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "role")
-    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
-    private Set<Restriction> restrictions = new HashSet<Restriction>();
+    @ManyToMany(targetEntity = User.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "group_members", joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> members = new HashSet<User>();
 }

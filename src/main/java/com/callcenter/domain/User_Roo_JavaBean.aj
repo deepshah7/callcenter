@@ -1,8 +1,10 @@
 package com.callcenter.domain;
 
+import com.callcenter.domain.Group;
 import com.callcenter.domain.Role;
 import java.lang.String;
 import java.util.Locale;
+import java.util.Set;
 
 privileged aspect User_Roo_JavaBean {
     
@@ -36,6 +38,14 @@ privileged aspect User_Roo_JavaBean {
     
     public void User.setRole(Role role) {
         this.role = role;
+    }
+    
+    public Set<Group> User.getGroups() {
+        return this.groups;
+    }
+    
+    public void User.setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
     
 }
