@@ -37,20 +37,31 @@
 		<spring:message code="application.name" var="app_name"/>
 		<title><spring:message code="welcome.h3" arguments="${app_name}" /></title>
 	</head>
-   	<body class="tundra spring">		
+   	<body class="tundra spring">
+
    		<div id="wrapper">
             <div class="banner"><span></span></div>
 	    	<div id="main">
-                <div id="userinfo" class="floatRight">
-                    <c:if test="${pageContext.request.userPrincipal != null}">
-                        <span>${pageContext.request.userPrincipal.name} (${pageContext.request.userPrincipal.authorities})</span>
-                        <c:out value=" | "/>
-                        <span>
-                            <spring:url var="logout" value="/static/j_spring_security_logout" />
-                            <a href="${logout}">Sign out</a>
-                        </span>
-                    </c:if>
-                </div>
+                <c:if test="${pageContext.request.userPrincipal != null}">
+                    <div id="userinfo" class="floatRight">
+                            <span>${pageContext.request.userPrincipal.name} (${pageContext.request.userPrincipal.authorities})</span>
+                            <c:out value=" | "/>
+                            <span>
+                                <spring:url var="logout" value="/static/j_spring_security_logout" />
+                                <a href="${logout}">Sign out</a>
+                            </span>
+                    </div>
+                    <div id="menu" class="floatLeft">
+                        <ul>
+                            <spring:url var="callrecord" value="/callrecord" />
+                            <li><a href="${callrecord}">Call Record</a> </li>
+                            <spring:url var="role" value="/role" />
+                            <li><a href="${role}">Role</a> </li>
+                            <spring:url var="group" value="/group" />
+                            <li><a href="${group}">Group</a> </li>
+                        </ul>
+                    </div>
+                </c:if>
                 <div class="clearBoth"><br /></div>
                 <tiles:insertAttribute name="body" />
                 <div id="footer">
