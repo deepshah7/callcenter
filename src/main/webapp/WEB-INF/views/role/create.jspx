@@ -2,6 +2,7 @@
      xmlns:jsp="http://java.sun.com/JSP/Page"
      xmlns:spring="http://www.springframework.org/tags" version="2.0">
     <jsp:output omit-xml-declaration="yes"/>
+
     <spring:url value="/static/js/jquery/jquery-ui.custom.min.js" var="jquery_ui"/>
     <script type="text/javascript" src="${jquery_ui}"><!-- //required for FF3 and Opera --></script>
 

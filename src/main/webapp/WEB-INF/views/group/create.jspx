@@ -1,5 +1,18 @@
 <div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
     <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:url value="/static/js/jquery/jquery-ui.custom.min.js" var="jquery_ui"/>
+    <script type="text/javascript" src="${jquery_ui}"><!-- //required for FF3 and Opera --></script>
+
+    <spring:url value="/static/js/jquery/ui.multiselect.js" var="jquery_ui_multiselect"/>
+    <script type="text/javascript" src="${jquery_ui_multiselect}"><!-- //required for FF3 and Opera --></script>
+
+    <spring:url value="/static/styles/jquery-ui.custom.css" var="jquery_ui_css"/>
+    <link rel="stylesheet" type="text/css" href="${jquery_ui_css}"><!-- //required for FF3 and Opera --></link>
+
+    <spring:url value="/static/styles/ui.multiselect.css" var="ui_multiselect_css"/>
+    <link rel="stylesheet" type="text/css" href="${ui_multiselect_css}"><!-- //required for FF3 and Opera --></link>
+
     <div id="_title_div">
         <spring:url value="/group" var="form_url"/>
         <form:form action="${form_url}" method="POST" modelAttribute="group">

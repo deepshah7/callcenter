@@ -23,7 +23,10 @@
             <div id="roo_group_members">
                 <label for="_members_id">Members:</label>
                 <div class="box" id="_members_id">
-                    <c:out value="${group.members}"/>
+                    <c:forEach items="${group.members}" var="member" varStatus="indexInfo">
+                        <c:out value="${member.name}" />
+                        <c:if test="${!indexInfo.last}"><span>, </span></c:if>
+                    </c:forEach>
                 </div>
             </div>
             <br/>
