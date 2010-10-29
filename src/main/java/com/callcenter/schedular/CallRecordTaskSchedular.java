@@ -29,11 +29,11 @@ public class CallRecordTaskSchedular {
 
     public void checkIfCallRecordAvailable() {
         final Directory waveFileDirectory = waveFileDirectoryPathFinder.getWaveFileDirectory();
-        logger.info("Starting to read the files from the path");
+        logger.debug("Starting to read the files from the path");
         for (com.callcenter.external.model.File waveFile : waveFileDirectory.list()) {
-            logger.info("#######Start processing the wave file######");
+            logger.debug("#######Start processing the wave file######");
             waveFileProcessor.process(waveFile);
-            logger.info("#######End processing the wave file######");
+            logger.debug("#######End processing the wave file######");
         }
     }
 
