@@ -39,6 +39,7 @@
 	</head>
    	<body class="tundra spring">		
    		<div id="wrapper">
+            <div class="banner"><span></span></div>
 	    	<div id="main">
                 <div id="userinfo" class="floatRight">
                     <c:if test="${pageContext.request.userPrincipal != null}">
@@ -50,6 +51,7 @@
                         </span>
                     </c:if>
                 </div>
+                <div class="clearBoth"><br /></div>
                 <tiles:insertAttribute name="body" />
                 <div id="footer">
 				</div>
