@@ -30,14 +30,16 @@
             <div id="roo_role_allowedFields">
                 <label for="_allowedFields_id">Allowed Fields:</label>
                 <div class="box" id="_allowedFields_id">
-                    <c:out value="${role.allowedFields}"/>
+                    <c:forEach items="${role.allowedFields}" var="field" varStatus="indexInfo">
+                        <c:out value="${field.description}" />
+                        <c:if test="${!indexInfo.last}"><span>, </span></c:if>
+                    </c:forEach>
                 </div>
             </div>
             <br/>
             <div id="roo_role_restrictions">
                 <label for="_restrictions_id">Restrictions:</label>
                 <div class="box" id="_restrictions_id">
-                    <c:out value="${role.restrictions}"/>
                 </div>
             </div>
             <br/>

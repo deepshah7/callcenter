@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="${ui_multiselect_css}"><!-- //required for FF3 and Opera --></link>
 
     <div id="_title_div">
+        <h2>Create new Role</h2>
         <spring:url value="/role" var="form_url"/>
         <form:form action="${form_url}" method="POST" modelAttribute="role">
             <div id="role_name">
