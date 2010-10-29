@@ -18,6 +18,7 @@ package com.callcenter.domain;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -32,7 +33,9 @@ import javax.persistence.Table;
 @RooEntity
 public class Field {
 
+    @Column(unique = true, nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String description;
 }

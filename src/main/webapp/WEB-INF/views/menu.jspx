@@ -37,5 +37,26 @@
                 </li>
             </ul>
         </li>
+    <li id="web_mvc_jsp_role_category">
+            <h2>
+                <spring:message code="menu.category.web_mvc_jsp_role_category.label"/>
+            </h2>
+            <ul>
+                <li id="web_mvc_jsp_create_role_menu_item">
+                    <spring:url value="/role/form" var="web_mvc_jsp_create_role_menu_item_url"/>
+                    <a href="${web_mvc_jsp_create_role_menu_item_url}">
+                        <spring:message code="label.role" var="label_role"/>
+                        <spring:message arguments="${label_role}" code="global.menu.new"/>
+                    </a>
+                </li>
+            <li id="web_mvc_jsp_list_role_menu_item">
+                    <spring:url value="/role?page=${empty param.page ? 1 : param.page}&amp;amp;size=${empty param.size ? 10 : param.size}" var="web_mvc_jsp_list_role_menu_item_url"/>
+                    <a href="${web_mvc_jsp_list_role_menu_item_url}">
+                        <spring:message code="label.roles" var="label_roles"/>
+                        <spring:message arguments="${label_roles}" code="global.menu.list"/>
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </div>
