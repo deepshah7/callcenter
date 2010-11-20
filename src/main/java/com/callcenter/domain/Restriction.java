@@ -35,14 +35,15 @@ import java.util.List;
 @RooEntity
 public class Restriction {
     @ManyToOne(targetEntity = Field.class, optional = false)
+    @JoinColumn(name = "field_id")
     private Field field;
 
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    @ManyToOne(targetEntity = Role.class, optional = false)
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @ManyToOne(targetEntity = Service.class, optional = false)
+    @JoinColumn(name = "service_id")
+    private Service service;
 
     @ElementCollection(targetClass = String.class)
     @CollectionTable(name = "restriction_values", joinColumns =  @JoinColumn(name = "restriction_id"))

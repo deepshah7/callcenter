@@ -18,8 +18,10 @@ package com.callcenter.domain;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,4 +33,12 @@ import javax.persistence.Table;
 @RooEntity
 @Table(name = "recording_library_services")
 public class RecordingLibraryService extends Service{
+
+    private String recordingType;
+
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Calendar retainFrom;
+
+    @OneToMany(targetEntity = Restriction.class, cascade = CascadeType.ALL, mappedBy = "service", orphanRemoval = true)
+    private Set<Restriction> restrictions = new HashSet<Restriction>();
 }

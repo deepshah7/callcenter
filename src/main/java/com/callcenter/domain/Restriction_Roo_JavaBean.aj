@@ -2,7 +2,7 @@ package com.callcenter.domain;
 
 import com.callcenter.domain.Field;
 import com.callcenter.domain.Restriction.Type;
-import com.callcenter.domain.Role;
+import com.callcenter.domain.Service;
 import java.lang.String;
 import java.util.List;
 
@@ -24,12 +24,12 @@ privileged aspect Restriction_Roo_JavaBean {
         this.type = type;
     }
     
-    public Role Restriction.getRole() {
-        return this.role;
+    public Service Restriction.getService() {
+        return this.service;
     }
     
-    public void Restriction.setRole(Role role) {
-        this.role = role;
+    public void Restriction.setService(Service service) {
+        this.service = service;
     }
     
     public List<String> Restriction.getValues() {
