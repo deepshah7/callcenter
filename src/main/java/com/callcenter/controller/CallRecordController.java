@@ -34,6 +34,4 @@ public class CallRecordController {
         callRecord.prepareValuesForPartialSearch();
         return CallRecord.findAllByExample(callRecord);
     }
-
-
 }

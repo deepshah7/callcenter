@@ -10,6 +10,7 @@
             <table width="300px">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Id</th>
                         <th>Name</th>
                         <th>Number</th>
@@ -18,8 +19,27 @@
                         <th/>
                     </tr>
                 </thead>
+                <script type="text/javascript">
+                    function toggleText(elementId) {
+                        if("+" == $(elementId).html()) {
+                            $(elementId).html("-");
+                            return;
+                        }
+                        $(elementId).html("+");
+                    }
+                </script>
                 <c:forEach items="${groups}" var="group">
                     <tr>
+                        <td align="center"><span id="group_${group.id}" class="pointer">+</span></td>
+                        <script type="text/javascript">
+                            $(function() {
+                                $("#group_${group.id}").click(function() {
+                                    $("#membersRowFor_${group.id}").slideToggle("slow");
+                                    toggleText("#group_${group.id}");
+                                });
+                                $("#membersRowFor_${group.id}").hide();
+                            });
+                        </script>
                         <td>${group.id}</td>
                         <td>
                             <c:out value="${fn:substring(group.name, 0, 10)}"/>
@@ -51,6 +71,32 @@
                             </form:form>
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="7">
+                            <table id="membersRowFor_${group.id}" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th align="center">Member Name</th>
+                                        <th align="center">Member of</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${group.members}" var="member">
+                                        <tr>
+                                            <td width="25%">${member.name}</td>
+                                            <td width="75%">
+                                                <c:forEach items="${member.groups}" var="memberGroup" varStatus="indexInfo">
+                                                    <c:out value="${memberGroup.name}" />
+                                                    <c:if test="${!indexInfo.last}"><span>, </span></c:if>
+                                                </c:forEach>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
                 </c:forEach>
                 <tr class="footer">
                     <td colspan="7">

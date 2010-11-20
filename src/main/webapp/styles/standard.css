@@ -415,3 +415,10 @@ a.trigger {
     height:63px;
     margin-bottom:3em;
 }
+
+.pointer {
+    cursor:pointer;
+    color: #648C1D;
+    font-size:15px;
+    font-weight:bold;
+}
