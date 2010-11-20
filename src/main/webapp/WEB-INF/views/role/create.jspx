@@ -40,13 +40,20 @@
             </div>
             <br/>
 
-            <div id="role_allowedFields">
+            <div id="role_timeout">
+                <label for="_timeout_id">Timeout:</label>
+                <form:input cssStyle="width:250px" id="_timeout_id" maxlength="6" path="timeout" size="0"/>
+                <br/>
+            </div>
+            <br/>
+
+            <div id="role_assignableRoles">
                 <div class="clearBoth">
-                    <label for="_allowedFields_id">Allowed Fields:</label>
+                    <label for="_assignableRoles_id">Roles:</label>
                     <br/>
                 </div>
-                <form:select path="allowedFields" class="multiselect" multiple="multiple">
-                    <form:options itemLabel="description" itemValue="id" items="${fields}"></form:options>
+                <form:select path="assignableRoles" class="multiselect" multiple="multiple">
+                    <form:options itemLabel="name" itemValue="id" items="${roles}"></form:options>
                 </form:select>
                 <script type="text/javascript">
                     $(function() {

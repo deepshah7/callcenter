@@ -1,7 +1,9 @@
 package com.callcenter.domain;
 
-import com.callcenter.domain.Field;
-import com.callcenter.domain.Restriction;
+import com.callcenter.domain.Role;
+import com.callcenter.domain.Service;
+import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Locale;
 import java.util.Set;
@@ -32,20 +34,52 @@ privileged aspect Role_Roo_JavaBean {
         this.language = language;
     }
     
-    public Set<Field> Role.getAllowedFields() {
-        return this.allowedFields;
+    public Integer Role.getTimeout() {
+        return this.timeout;
     }
     
-    public void Role.setAllowedFields(Set<Field> allowedFields) {
-        this.allowedFields = allowedFields;
+    public void Role.setTimeout(Integer timeout) {
+        this.timeout = timeout;
     }
     
-    public Set<Restriction> Role.getRestrictions() {
-        return this.restrictions;
+    public Boolean Role.getCanAddGroups() {
+        return this.canAddGroups;
     }
     
-    public void Role.setRestrictions(Set<Restriction> restrictions) {
-        this.restrictions = restrictions;
+    public void Role.setCanAddGroups(Boolean canAddGroups) {
+        this.canAddGroups = canAddGroups;
+    }
+    
+    public Boolean Role.getCanAddUsers() {
+        return this.canAddUsers;
+    }
+    
+    public void Role.setCanAddUsers(Boolean canAddUsers) {
+        this.canAddUsers = canAddUsers;
+    }
+    
+    public Boolean Role.getCanAddRoles() {
+        return this.canAddRoles;
+    }
+    
+    public void Role.setCanAddRoles(Boolean canAddRoles) {
+        this.canAddRoles = canAddRoles;
+    }
+    
+    public Set<Role> Role.getAssignableRoles() {
+        return this.assignableRoles;
+    }
+    
+    public void Role.setAssignableRoles(Set<Role> assignableRoles) {
+        this.assignableRoles = assignableRoles;
+    }
+    
+    public Set<Service> Role.getServices() {
+        return this.services;
+    }
+    
+    public void Role.setServices(Set<Service> services) {
+        this.services = services;
     }
     
 }

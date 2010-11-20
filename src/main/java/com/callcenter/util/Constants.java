@@ -7,11 +7,6 @@ package com.callcenter.util;
  */
 public class Constants {
 
-    public static class System {
-
-        public static final String FILE_PATH_SEPERATOR = "\\";
-    }
-
     public static class Registery {
         public static final String WAVE_FILE_REGISTRY_PATH = "SOFTWARE\\Avaya\\Media Services\\Directories";
 
@@ -19,12 +14,14 @@ public class Constants {
     }
 
     public static class WaveFile {
-
         public static final String CONTENT_TYPE = "audio/x-wav";
-
     }
 
-    public class Query {
+    public static class Query {
         public static final String LIKE_OPERATOR = "%";
+    }
+
+    public static class Defaults {
+        public static final Integer ROLE_TIMEOUT = 5*60;
     }
 }

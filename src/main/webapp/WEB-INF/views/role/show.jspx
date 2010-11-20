@@ -28,18 +28,12 @@
             </div>
             <br/>
             <div id="roo_role_allowedFields">
-                <label for="_allowedFields_id">Allowed Fields:</label>
+                <label for="_allowedFields_id">Assignable Roles:</label>
                 <div class="box" id="_allowedFields_id">
-                    <c:forEach items="${role.allowedFields}" var="field" varStatus="indexInfo">
-                        <c:out value="${field.description}" />
+                    <c:forEach items="${role.assignableRoles}" var="assignableRole" varStatus="indexInfo">
+                        <c:out value="${assignableRole.name}" />
                         <c:if test="${!indexInfo.last}"><span>, </span></c:if>
                     </c:forEach>
-                </div>
-            </div>
-            <br/>
-            <div id="roo_role_restrictions">
-                <label for="_restrictions_id">Restrictions:</label>
-                <div class="box" id="_restrictions_id">
                 </div>
             </div>
             <br/>

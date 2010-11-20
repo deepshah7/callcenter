@@ -27,7 +27,7 @@ public class RoleController {
     @RequestMapping(value = "/role/form", method = RequestMethod.GET)
     public String createForm(ModelMap modelMap) {
         modelMap.addAttribute("role", new Role());
-        modelMap.addAttribute("fields", Field.findAllFields());
+        modelMap.addAttribute("roles", Role.findAllRoles());
         return "role/create";
     }
 

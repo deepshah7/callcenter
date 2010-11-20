@@ -15,6 +15,7 @@
  */
 package com.callcenter.domain;
 
+import com.callcenter.util.Constants;
 import org.hibernate.annotations.*;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -23,6 +24,7 @@ import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.security.Provider;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -43,13 +45,19 @@ public class Role {
 
     private Locale language;
 
-    @ManyToMany(targetEntity = Field.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(name = "role_allowed_fields", joinColumns = @JoinColumn(name = "role_id"),
-        inverseJoinColumns = @JoinColumn(name = "field_id"))
-    private Set<Field> allowedFields = new HashSet<Field>();
+    private Integer timeout = Constants.Defaults.ROLE_TIMEOUT;
 
-    @OneToMany(targetEntity = Restriction.class,
-            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "role")
-    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
-    private Set<Restriction> restrictions = new HashSet<Restriction>();
+    private Boolean canAddGroups;
+
+    private Boolean canAddUsers;
+
+    private Boolean canAddRoles;
+
+    @ManyToMany(targetEntity = Role.class)
+    @JoinTable(name = "role_assignables", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "assignable_role_id"))
+    private Set<Role> assignableRoles = new HashSet<Role>();
+
+    @ManyToMany(targetEntity = Service.class)
+    @JoinTable(name = "role_services", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "service_id"))
+    private Set<Service> services = new HashSet<Service>();
 }

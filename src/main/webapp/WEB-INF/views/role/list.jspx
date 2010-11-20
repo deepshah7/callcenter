@@ -14,7 +14,7 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>Language</th>
-                        <th>Allowed Fields</th>
+                        <th>Assignable Roles</th>
                         <th>Restrictions</th>
                         <th/>
                         <th/>
@@ -23,17 +23,15 @@
                 <c:forEach items="${roles}" var="role">
                     <tr>
                         <td>${role.id}</td>
+                        <td>${role.name}</td>
+                        <td>${role.description}</td>
+                        <td>${role.language}</td>
                         <td>
-                            <c:out value="${fn:substring(role.name, 0, 10)}"/>
+                            <c:forEach items="${role.assignableRoles}" var="assignableRole" varStatus="indexInfo">
+                                <c:out value="${assignableRole.name}" />
+                                <c:if test="${!indexInfo.last}"><span>, </span></c:if>
+                            </c:forEach>
                         </td>
-                        <td>
-                            <c:out value="${fn:substring(role.description, 0, 10)}"/>
-                        </td>
-                        <td>
-                            <c:out value="${fn:substring(role.language, 0, 10)}"/>
-                        </td>
-                        <td>${fn:length(role.allowedFields)}</td>
-                        <td>${fn:length(role.restrictions)}</td>
                         <td>
                             <spring:url value="/role/${role.id}" var="show_form_url"/>
                             <spring:url value="/static/images/show.png" var="show_image_url"/>
