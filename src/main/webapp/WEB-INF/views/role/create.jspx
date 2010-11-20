@@ -47,6 +47,22 @@
             </div>
             <br/>
 
+            <div>
+                <form:checkbox path="canAddGroups" label="Can Add Groups" />
+                <br/>
+            </div>
+            <br/>
+            <div>
+                <form:checkbox path="canAddUsers" label="Can Add Users" />
+                <br/>
+            </div>
+            <br/>
+            <div>
+                <form:checkbox path="canAddRoles" label="Can Add Roles" />
+                <br/>
+            </div>
+            <br/>
+
             <div id="role_assignableRoles">
                 <div class="clearBoth">
                     <label for="_assignableRoles_id">Roles:</label>
