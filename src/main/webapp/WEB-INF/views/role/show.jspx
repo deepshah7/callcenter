@@ -27,11 +27,22 @@
                 </div>
             </div>
             <br/>
-            <div id="roo_role_allowedFields">
-                <label for="_allowedFields_id">Assignable Roles:</label>
-                <div class="box" id="_allowedFields_id">
+            <div id="roo_role_allowedRoles">
+                <label for="_allowedRoles_id">Roles:</label>
+                <div class="box" id="_allowedRoles_id">
                     <c:forEach items="${role.assignableRoles}" var="assignableRole" varStatus="indexInfo">
                         <c:out value="${assignableRole.name}" />
+                        <c:if test="${!indexInfo.last}"><span>, </span></c:if>
+                    </c:forEach>
+                    <br/>
+                </div>
+            </div>
+            <br/>
+            <div id="roo_role_services">
+                <label for="_allowedServices_id">Services:</label>
+                <div class="box" id="_allowedServices_id">
+                    <c:forEach items="${role.services}" var="service" varStatus="indexInfo">
+                        <c:out value="${service.name}" />
                         <c:if test="${!indexInfo.last}"><span>, </span></c:if>
                     </c:forEach>
                 </div>

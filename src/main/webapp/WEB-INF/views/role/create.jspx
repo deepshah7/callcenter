@@ -53,35 +53,45 @@
             </div>
             <br/>
             <div>
-                <form:checkbox path="canAddUsers" label="Can Add Users" />
-                <br/>
-            </div>
-            <br/>
-            <div>
                 <form:checkbox path="canAddRoles" label="Can Add Roles" />
                 <br/>
             </div>
             <br/>
-
+            <div>
+                <form:checkbox path="canAddUsers" label="Can Add Users" id="canAddUsers" />
+                <br/>
+            </div>
+            <br/>
+            <div id="role_services">
+                <div class="clearBoth">
+                    <label for="_assignableServices_id">Services:</label>
+                    <br/>
+                </div>
+                <form:select path="services" class="multiselect" multiple="multiple" id="_assignableServices_id">
+                    <form:options itemLabel="name" itemValue="id" items="${services}"></form:options>
+                </form:select>
+                <br/>
+            </div>
+            <br/>
             <div id="role_assignableRoles">
                 <div class="clearBoth">
                     <label for="_assignableRoles_id">Roles:</label>
                     <br/>
                 </div>
-                <form:select path="assignableRoles" class="multiselect" multiple="multiple">
+                <form:select path="assignableRoles" class="multiselect" multiple="multiple" id="assignableRoles">
                     <form:options itemLabel="name" itemValue="id" items="${roles}"></form:options>
                 </form:select>
-                <script type="text/javascript">
-                    $(function() {
-                        // choose either the full version
-                        $(".multiselect").multiselect();
-                        // or disable some features
-                        $(".multiselect").multiselect({sortable: false, searchable: true});
-                    });
-                </script>
                 <br/>
             </div>
             <br/>
+            <script type="text/javascript">
+                $(function() {
+                    // choose either the full version
+                    $(".multiselect").multiselect();
+                    // or disable some features
+                    $(".multiselect").multiselect({sortable: false, searchable: true});
+                });
+            </script>
 
             <div class="submit" id="role_submit">
                 <spring:message code="button.save" var="save_button"/>

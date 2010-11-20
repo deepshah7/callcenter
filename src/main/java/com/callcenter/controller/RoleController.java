@@ -2,6 +2,7 @@ package com.callcenter.controller;
 
 import com.callcenter.domain.Field;
 import com.callcenter.domain.Restriction;
+import com.callcenter.domain.Service;
 import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import com.callcenter.domain.Role;
 import org.springframework.ui.ModelMap;
@@ -28,6 +29,7 @@ public class RoleController {
     public String createForm(ModelMap modelMap) {
         modelMap.addAttribute("role", new Role());
         modelMap.addAttribute("roles", Role.findAllRoles());
+        modelMap.addAttribute("services", Service.findAllServices());
         return "role/create";
     }
 

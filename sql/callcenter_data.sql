@@ -45,7 +45,7 @@ CREATE TABLE `call_record` (
   `target_id` varchar(255) DEFAULT NULL,
   `wave_file_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,7 +54,6 @@ CREATE TABLE `call_record` (
 
 LOCK TABLES `call_record` WRITE;
 /*!40000 ALTER TABLE `call_record` DISABLE KEYS */;
-INSERT INTO `call_record` VALUES (1,0,NULL,'2002','Extn2002','2001','Extn2001','Extn2001','',NULL,'\0','2002','20101006221300_test1.wav'),(2,0,NULL,'2002','Extn2002','2001','Extn2001','Extn2001','',NULL,'\0','2002','20101006221300_test2.wav'),(3,0,NULL,'2001','Extn2001','2009','Extn2009','Extn2009','',NULL,'\0','2001','20101006221301_test3.wav');
 /*!40000 ALTER TABLE `call_record` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,10 +67,11 @@ DROP TABLE IF EXISTS `fields`;
 CREATE TABLE `fields` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `version` int(11) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `description` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +80,6 @@ CREATE TABLE `fields` (
 
 LOCK TABLES `fields` WRITE;
 /*!40000 ALTER TABLE `fields` DISABLE KEYS */;
-INSERT INTO `fields` VALUES (1,1,'SessionCall Id','callerId'),(2,1,'Calling Party Name','callingPartyName'),(3,1,'Called Party Name','calledPartyName');
 /*!40000 ALTER TABLE `fields` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,8 +96,8 @@ CREATE TABLE `group_members` (
   PRIMARY KEY (`group_id`,`user_id`),
   KEY `FK3B9C77591C637EB6` (`user_id`),
   KEY `FK3B9C77599D5263FE` (`group_id`),
-  CONSTRAINT `FK3B9C77591C637EB6` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `FK3B9C77599D5263FE` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
+  CONSTRAINT `FK3B9C77599D5263FE` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`),
+  CONSTRAINT `FK3B9C77591C637EB6` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -108,7 +107,6 @@ CREATE TABLE `group_members` (
 
 LOCK TABLES `group_members` WRITE;
 /*!40000 ALTER TABLE `group_members` DISABLE KEYS */;
-INSERT INTO `group_members` VALUES (1,1),(2,1),(3,1),(4,1);
 /*!40000 ALTER TABLE `group_members` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +123,7 @@ CREATE TABLE `groups` (
   `name` varchar(255) DEFAULT NULL,
   `number` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,8 +132,32 @@ CREATE TABLE `groups` (
 
 LOCK TABLES `groups` WRITE;
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-INSERT INTO `groups` VALUES (1,0,'testinggroup','12234'),(2,0,'Administrators','+9165765656'),(3,0,'kjkj','90909'),(4,0,'CreditCard Agents','3000');
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `recording_library_services`
+--
+
+DROP TABLE IF EXISTS `recording_library_services`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `recording_library_services` (
+  `id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK8BD0A3F0AAA3B174` (`id`),
+  CONSTRAINT `FK8BD0A3F0AAA3B174` FOREIGN KEY (`id`) REFERENCES `services` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `recording_library_services`
+--
+
+LOCK TABLES `recording_library_services` WRITE;
+/*!40000 ALTER TABLE `recording_library_services` DISABLE KEYS */;
+INSERT INTO `recording_library_services` VALUES (1),(2),(3);
+/*!40000 ALTER TABLE `recording_library_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -180,8 +202,8 @@ CREATE TABLE `restrictions` (
   PRIMARY KEY (`id`),
   KEY `FKBB8E66277738BAD6` (`role_id`),
   KEY `FKBB8E662784E03898` (`field`),
-  CONSTRAINT `FKBB8E66277738BAD6` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
-  CONSTRAINT `FKBB8E662784E03898` FOREIGN KEY (`field`) REFERENCES `fields` (`id`)
+  CONSTRAINT `FKBB8E662784E03898` FOREIGN KEY (`field`) REFERENCES `fields` (`id`),
+  CONSTRAINT `FKBB8E66277738BAD6` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -195,31 +217,59 @@ LOCK TABLES `restrictions` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `role_allowed_fields`
+-- Table structure for table `role_assignables`
 --
 
-DROP TABLE IF EXISTS `role_allowed_fields`;
+DROP TABLE IF EXISTS `role_assignables`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `role_allowed_fields` (
+CREATE TABLE `role_assignables` (
   `role_id` bigint(20) NOT NULL,
-  `field_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`role_id`,`field_id`),
-  KEY `FK28BD00197738BAD6` (`role_id`),
-  KEY `FK28BD001947B20E1E` (`field_id`),
-  CONSTRAINT `FK28BD001947B20E1E` FOREIGN KEY (`field_id`) REFERENCES `fields` (`id`),
-  CONSTRAINT `FK28BD00197738BAD6` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
+  `assignable_role_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`role_id`,`assignable_role_id`),
+  KEY `FKEE1B0817738BAD6` (`role_id`),
+  KEY `FKEE1B081BF438F60` (`assignable_role_id`),
+  CONSTRAINT `FKEE1B081BF438F60` FOREIGN KEY (`assignable_role_id`) REFERENCES `roles` (`id`),
+  CONSTRAINT `FKEE1B0817738BAD6` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `role_allowed_fields`
+-- Dumping data for table `role_assignables`
 --
 
-LOCK TABLES `role_allowed_fields` WRITE;
-/*!40000 ALTER TABLE `role_allowed_fields` DISABLE KEYS */;
-INSERT INTO `role_allowed_fields` VALUES (3,1),(3,2),(4,1),(4,3),(5,2),(5,3);
-/*!40000 ALTER TABLE `role_allowed_fields` ENABLE KEYS */;
+LOCK TABLES `role_assignables` WRITE;
+/*!40000 ALTER TABLE `role_assignables` DISABLE KEYS */;
+INSERT INTO `role_assignables` VALUES (3,1),(4,2),(4,3);
+/*!40000 ALTER TABLE `role_assignables` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `role_services`
+--
+
+DROP TABLE IF EXISTS `role_services`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `role_services` (
+  `role_id` bigint(20) NOT NULL,
+  `service_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`role_id`,`service_id`),
+  KEY `FK156EE6077738BAD6` (`role_id`),
+  KEY `FK156EE60743D5D73E` (`service_id`),
+  CONSTRAINT `FK156EE60743D5D73E` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`),
+  CONSTRAINT `FK156EE6077738BAD6` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `role_services`
+--
+
+LOCK TABLES `role_services` WRITE;
+/*!40000 ALTER TABLE `role_services` DISABLE KEYS */;
+INSERT INTO `role_services` VALUES (2,2),(3,3),(4,1),(4,2),(4,3);
+/*!40000 ALTER TABLE `role_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -232,11 +282,15 @@ DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `version` int(11) DEFAULT NULL,
+  `can_add_groups` bit(1) DEFAULT NULL,
+  `can_add_roles` bit(1) DEFAULT NULL,
+  `can_add_users` bit(1) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `language` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `timeout` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,8 +299,33 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,1,'Administrators',NULL,'ROLE_ADMIN'),(2,1,'Default',NULL,'ROLE_DEFAULT'),(3,1,'Basic',NULL,'ROLE_BASIC');
+INSERT INTO `roles` VALUES (1,1,'','','','Administrator','en_GB','ROLE_ADMIN',600),(2,0,'\0','\0','\0','Default Role','en_US','ROLE_DEFAULT',300),(3,0,'','\0','','User Role','en_GB','ROLE_USER',300),(4,0,'','','','Credit Card Role','en_US','ROLE_CREDIT_CARD',300);
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `services`
+--
+
+DROP TABLE IF EXISTS `services`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `services` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `version` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `services`
+--
+
+LOCK TABLES `services` WRITE;
+/*!40000 ALTER TABLE `services` DISABLE KEYS */;
+INSERT INTO `services` VALUES (1,1,'RL_ADMIN'),(2,1,'RL_DEFAULT'),(3,1,'RL_USER');
+/*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -289,4 +368,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-11-15 17:54:59
+-- Dump completed on 2010-11-20 15:39:25
