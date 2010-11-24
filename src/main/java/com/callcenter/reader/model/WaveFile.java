@@ -1,5 +1,7 @@
 package com.callcenter.reader.model;
 
+import java.util.Calendar;
+
 import org.codehaus.preon.annotation.Bound;
 
 public class WaveFile {
@@ -66,4 +68,10 @@ public class WaveFile {
     public boolean isOutgoing() {
         return privateData.isOutgoing();
     }
+
+    public byte[] getRecordingTime() {
+        return privateData.getRecordingTime();
+    }
+
+
 }

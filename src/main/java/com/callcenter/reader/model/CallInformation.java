@@ -1,6 +1,9 @@
 package com.callcenter.reader.model;
 
+import java.util.Calendar;
+
 import org.codehaus.preon.annotation.Bound;
+import org.codehaus.preon.annotation.BoundList;
 import org.codehaus.preon.annotation.BoundString;
 import org.codehaus.preon.annotation.Purpose;
 
@@ -13,8 +16,8 @@ public class CallInformation {
     private String displayInfo;
 
     @Purpose("Number of Seconds Since Midnight 1st Jan 1901. ULONG")
-    @BoundString(size = "4")
-    private String dateAndTimeInSecond;
+    @BoundList(size = "4")
+    private byte[] dateAndTimeInSecond;
 
     @BoundString(size = "2")
     private String license;
@@ -55,6 +58,7 @@ public class CallInformation {
     public String getTargetId() {
         return targetId.trim();
     }
+
     public String getCallingPartyName() {
         return callingPartyName.trim();
     }
@@ -66,4 +70,9 @@ public class CallInformation {
     public boolean isOutgoing() {
         return callDirection.isOutgoing();
     }
+
+    public byte[] getDateAndTimeInSecond() {
+        return dateAndTimeInSecond;
+    }
+
 }

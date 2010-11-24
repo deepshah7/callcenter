@@ -1,7 +1,11 @@
 package com.callcenter.reader.mapper;
 
+import java.util.Calendar;
+
 import com.callcenter.domain.CallRecord;
 import com.callcenter.reader.model.WaveFile;
+import com.callcenter.util.DateConverter;
+import mockit.Mocked;
 import mockit.NonStrict;
 import mockit.NonStrictExpectations;
 import mockit.Verifications;
@@ -17,10 +21,13 @@ import static org.junit.Assert.assertSame;
  * @author deep
  */
 public class WaveFileToCallRecordMapperTest {
+    @Mocked
+    private DateConverter dateConverter;
 
     @Test
     public void shouldCreateANewCallRecordAndMapItWithProperties(@NonStrict final WaveFile waveFile,
                                                                  @NonStrict final CallRecord callRecord) {
+        final byte[] expectedTime = {(byte) 0xc9};
         new NonStrictExpectations() {
 
             {
@@ -33,10 +40,15 @@ public class WaveFileToCallRecordMapperTest {
                 waveFile.getCallingPartyName(); returns("HelloCallingParty");
                 waveFile.getCalledPartyName(); returns("HelloCalledParty");
                 waveFile.isInternal(); returns(true);
+                waveFile.getRecordingTime();
+                returns(expectedTime);
+                dateConverter.getCallTime(expectedTime);
+                                returns(Calendar.getInstance());
             }
 
         };
         final WaveFileToCallRecordMapper mapper = new WaveFileToCallRecordMapper();
+        mapper.setDateConverter(dateConverter);
         mapper.mapToCallRecord(waveFile, "HelloFileName");
 
         new Verifications() {
@@ -49,7 +61,7 @@ public class WaveFileToCallRecordMapperTest {
                 callRecord.setCallingPartyName("HelloCallingParty");
                 callRecord.setCalledPartyName("HelloCalledParty");
                 callRecord.setInternal(true);
-            }
+                            }
         };
     }
 }

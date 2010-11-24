@@ -2,18 +2,22 @@ package com.callcenter.reader.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.codehaus.preon.Codec;
 import org.codehaus.preon.Codecs;
 import org.codehaus.preon.DecodingException;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 
 public class WaveFileTest {
     @Test
-    public void shouldReadTheFileHeaderForTest1WaveFile() throws DecodingException, IOException {
+    public void shouldReadTheFilecmdHeaderForTest1WaveFile() throws DecodingException, IOException {
         testWaveParsing("test1.wav", true,"2001", "Extn2001", "2002", "2002", "Extn2001", "Extn2002");
     }
 
@@ -31,7 +35,10 @@ public class WaveFileTest {
         Codec<WaveFile> codec = Codecs.create(WaveFile.class);
         File file = new File(WaveFileTest.class.getClassLoader().getResource(waveFileName).getFile());
         WaveFile waveFile = Codecs.decode(codec, file);
+        byte[] recordingTime = waveFile.getRecordingTime();
+
         assertThat(waveFile.getRIFFCChunkId(),is("RIFF"));
+        assertThat(recordingTime,is(not(equalTo(null))));
         assertThat(waveFile.getRIFFType(),is("WAVE"));
         assertThat(waveFile.getFmtChunkId().trim(),is("fmt"));
         assertThat(waveFile.getAlchemyString(),is("ALCH"));
