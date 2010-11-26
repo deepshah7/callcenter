@@ -22,6 +22,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -53,6 +54,10 @@ public class Restriction {
 
     @Transient
     private String comaSeperatedValues;
+
+    public void convertCSVToList() {
+        values.addAll(Arrays.asList(comaSeperatedValues.split(",")));
+    }
 
     public enum Type {
         IN,

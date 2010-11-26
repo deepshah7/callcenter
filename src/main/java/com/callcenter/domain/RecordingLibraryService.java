@@ -38,16 +38,16 @@ public class RecordingLibraryService extends Service{
     private String recordingType;
 
     @Temporal(value = TemporalType.TIMESTAMP)
-    private Calendar retainFrom;
+    private java.util.Calendar retainFrom;
 
     @OneToMany(targetEntity = Restriction.class, cascade = CascadeType.ALL, mappedBy = "service", orphanRemoval = true)
-    private Set<Restriction> restrictions = new HashSet<Restriction>();
+    private java.util.Set<Restriction> restrictions = new HashSet<Restriction>();
 
     @ManyToMany(targetEntity = Field.class, cascade = CascadeType.ALL)
     @JoinTable(name = "recording_library_service_available_fields",
             joinColumns = @JoinColumn(name = "recording_library_service_id"),
             inverseJoinColumns = @JoinColumn(name = "field_id"))
-    private Set<Field> availableFields = new HashSet<Field>();
+    private java.util.Set<Field> availableFields = new HashSet<Field>();
 
     @Transient
     private final List<Restriction> restrictionList = LazyList.decorate(new ArrayList<Restriction>(),
@@ -58,5 +58,14 @@ public class RecordingLibraryService extends Service{
 
         restrictionList.addAll(restrictions);
         return restrictionList;
+    }
+
+    public void setupRestrictions() {
+        restrictions.clear();
+        restrictions.addAll(restrictionList);
+        final Restrictions restrictionCollection = new Restrictions(restrictions);
+        restrictionCollection.setupRelationship(this);
+        restrictionCollection.trim();
+        restrictionCollection.convertCSVToList();
     }
 }

@@ -26,6 +26,21 @@
                 <br/>
             </div>
             <br/>
+            <div id="roo_retain_from">
+                <label for="_name_id">Retain From:</label>
+                <form:input cssStyle="width:250px" id="_retain_from_id" maxlength="30" path="retainFrom" size="0"/>
+                <script type="text/javascript">
+                    $(function() {
+                        $("#_retain_from_id").datepicker({
+                                                changeMonth: true,
+                                                changeYear: true,
+                                                maxDate: new Date()
+                                              });
+                    })
+                </script>
+                <br/>
+            </div>
+            <br/>
             <div id="service_availableFields">
                 <div class="clearBoth">
                     <label for="availableFields">Fields:</label>

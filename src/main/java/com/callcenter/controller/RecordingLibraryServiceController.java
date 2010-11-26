@@ -9,14 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Controller
 public class RecordingLibraryServiceController {
 
     @RequestMapping(value = "/recordinglibrary", method = RequestMethod.POST)
     public String create(final RecordingLibraryService service) {
 
+        service.setupRestrictions();
         service.persist();
         return "redirect:/recordinglibrary/" + service.getId();
     }
