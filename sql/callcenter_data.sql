@@ -163,7 +163,7 @@ CREATE TABLE `recording_library_service_available_fields` (
 
 LOCK TABLES `recording_library_service_available_fields` WRITE;
 /*!40000 ALTER TABLE `recording_library_service_available_fields` DISABLE KEYS */;
-INSERT INTO `recording_library_service_available_fields` VALUES (4,1),(4,7);
+INSERT INTO `recording_library_service_available_fields` VALUES (4,1),(4,7),(16,1),(16,7),(18,1),(18,7),(19,1),(19,7);
 /*!40000 ALTER TABLE `recording_library_service_available_fields` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +190,7 @@ CREATE TABLE `recording_library_services` (
 
 LOCK TABLES `recording_library_services` WRITE;
 /*!40000 ALTER TABLE `recording_library_services` DISABLE KEYS */;
-INSERT INTO `recording_library_services` VALUES (1,NULL,NULL),(2,NULL,NULL),(3,NULL,NULL),(4,NULL,NULL);
+INSERT INTO `recording_library_services` VALUES (1,NULL,NULL),(2,NULL,NULL),(3,NULL,NULL),(4,NULL,NULL),(16,NULL,'2010-11-01 00:00:00'),(18,NULL,'2010-11-02 00:00:00'),(19,NULL,'2010-01-01 00:00:00');
 /*!40000 ALTER TABLE `recording_library_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,6 +217,7 @@ CREATE TABLE `restriction_values` (
 
 LOCK TABLES `restriction_values` WRITE;
 /*!40000 ALTER TABLE `restriction_values` DISABLE KEYS */;
+INSERT INTO `restriction_values` VALUES (1,'10.0.0.1',0),(1,'10.23.23.11',1),(1,'10.45.56.67',2),(2,'5001',0),(2,'5002',1),(2,'4005',2),(2,'4059',3),(3,'2010-01-01',0),(3,'2010-12-31',1),(4,'5001',0),(4,'5002',1),(4,'4005',2),(4,'4059',3),(5,'10.0.0.1',0),(5,'10.23.23.11',1),(5,'10.45.56.67',2),(6,'6001',0);
 /*!40000 ALTER TABLE `restriction_values` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,22 +232,16 @@ CREATE TABLE `restrictions` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `version` int(11) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
-  `field` bigint(20) NOT NULL,
-  `role_id` bigint(20) NOT NULL,
   `service_id` bigint(20) NOT NULL,
   `field_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKBB8E66277738BAD6` (`role_id`),
-  KEY `FKBB8E662784E03898` (`field`),
   KEY `FKBB8E66271F595A54` (`service_id`),
   KEY `FKBB8E662743D5D73E` (`service_id`),
   KEY `FKBB8E662747B20E1E` (`field_id`),
   CONSTRAINT `FKBB8E66271F595A54` FOREIGN KEY (`service_id`) REFERENCES `recording_library_services` (`id`),
   CONSTRAINT `FKBB8E662743D5D73E` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`),
-  CONSTRAINT `FKBB8E662747B20E1E` FOREIGN KEY (`field_id`) REFERENCES `fields` (`id`),
-  CONSTRAINT `FKBB8E66277738BAD6` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
-  CONSTRAINT `FKBB8E662784E03898` FOREIGN KEY (`field`) REFERENCES `fields` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `FKBB8E662747B20E1E` FOREIGN KEY (`field_id`) REFERENCES `fields` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -255,6 +250,7 @@ CREATE TABLE `restrictions` (
 
 LOCK TABLES `restrictions` WRITE;
 /*!40000 ALTER TABLE `restrictions` DISABLE KEYS */;
+INSERT INTO `restrictions` VALUES (1,0,'BETWEEN',18,1),(2,0,'IN',18,3),(3,0,'BETWEEN',19,1),(4,0,'IN',19,4),(5,0,'IN',19,7),(6,0,'IN',19,3);
 /*!40000 ALTER TABLE `restrictions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,7 +353,7 @@ CREATE TABLE `services` (
   `version` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -366,7 +362,7 @@ CREATE TABLE `services` (
 
 LOCK TABLES `services` WRITE;
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
-INSERT INTO `services` VALUES (1,1,'RL_ADMIN'),(2,1,'RL_DEFAULT'),(3,1,'RL_USER'),(4,0,'RL_TEST');
+INSERT INTO `services` VALUES (1,1,'RL_ADMIN'),(2,1,'RL_DEFAULT'),(3,1,'RL_USER'),(4,0,'RL_TEST'),(16,0,'TLERE'),(18,0,'REERE'),(19,0,'RL_CC');
 /*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -410,4 +406,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-11-26 11:35:01
+-- Dump completed on 2010-11-26 16:51:35
