@@ -14,9 +14,15 @@ function Restriction(parentSelector, fields) {
     };
 
     this.setupAutoComplete = function() {
-        this.fieldDescriptionSelector = "#fieldDescription_" + this.index;
-        $(this.fieldDescriptionSelector).autocomplete({
-            source: this.fields
+        var fieldDescriptionSelector = "#fieldDescription_" + this.index;
+        var fieldIdSelector = "#fieldId_" + this.index;
+        $(fieldDescriptionSelector).autocomplete({
+            source: this.fields,
+            select: function(event, ui) {
+                $(fieldDescriptionSelector).val(ui.item.label);
+                $(fieldIdSelector).val(ui.item.id);
+                return false;
+            }
         });
     }
 }
@@ -27,4 +33,5 @@ Restriction.html =
       + "<label for='fieldDescription_{restriction_index}' class='floatLeft smallLabel'>Restriction</label>"
       + "<input name='restrictionList[{restriction_index}].field.description' type='text' id='fieldDescription_{restriction_index}' class='smallInput floatLeft marginLeft'/>"
       + "<input name='restrictionList[{restriction_index}].field.id' type='hidden' id='fieldId_{restriction_index}' />"
-      + "</div>";
+      + "</div>"
+      + "<div class='clearBoth'><br /></div>";
