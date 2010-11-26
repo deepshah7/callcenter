@@ -61,8 +61,8 @@
                             <li><a href="${role}">Role</a> </li>
                             <spring:url var="group" value="/group" />
                             <li><a href="${group}">Group</a> </li>
-                            <spring:url var="services" value="/services" />
-                            <li><a href="${services}">Services</a> </li>
+                            <spring:url var="services" value="/recordinglibrary" />
+                            <li><a href="${services}">Recording Library Services</a> </li>
                         </ul>
                     </div>
                 </c:if>
