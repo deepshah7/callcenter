@@ -3,7 +3,7 @@
     <div id="_title_div">
         <spring:message code="label.service" var="entity_label"/>
         <spring:message arguments="${entity_label}" code="entity.create" var="title_msg"/>
-        <spring:url value="/service" var="form_url"/>
+        <spring:url value="/recordinglibrary" var="form_url"/>
         <form:form action="${form_url}" method="POST" modelAttribute="service">
             <form:errors cssClass="errors" delimiter="&lt;p/&gt;"/>
             <div id="roo_service_name">

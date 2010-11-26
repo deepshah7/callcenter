@@ -22,7 +22,7 @@
                             <c:out value="${fn:substring(service.name, 0, 10)}"/>
                         </td>
                         <td>
-                            <spring:url value="/service/${service.id}" var="show_form_url"/>
+                            <spring:url value="/recordinglibrary/${service.id}" var="show_form_url"/>
                             <spring:url value="/static/images/show.png" var="show_image_url"/>
                             <form:form action="${show_form_url}" method="GET">
                                 <spring:message arguments="${entity_label}" code="entity.show" var="show_label"/>
@@ -30,7 +30,7 @@
                             </form:form>
                         </td>
                         <td>
-                            <spring:url value="/service/${service.id}/form" var="update_form_url"/>
+                            <spring:url value="/recordinglibrary/${service.id}/form" var="update_form_url"/>
                             <spring:url value="/static/images/update.png" var="update_image_url"/>
                             <form:form action="${update_form_url}" method="GET">
                                 <spring:message arguments="${entity_label}" code="entity.update" var="update_label"/>
@@ -38,7 +38,7 @@
                             </form:form>
                         </td>
                         <td>
-                            <spring:url value="/service/${service.id}" var="delete_form_url"/>
+                            <spring:url value="/recordinglibrary/${service.id}" var="delete_form_url"/>
                             <spring:url value="/static/images/delete.png" var="delete_image_url"/>
                             <form:form action="${delete_form_url}" method="DELETE">
                                 <spring:message arguments="${entity_label}" code="entity.delete" var="delete_label"/>
@@ -56,7 +56,7 @@
                 <tr class="footer">
                     <td colspan="5">
                         <span class="new">
-                            <spring:url value="/service/form" var="create_url"/>
+                            <spring:url value="/recordinglibrary/form" var="create_url"/>
                             <a href="${create_url}">
                                 <spring:url value="/static/images/add.png" var="create_img_url"/>
                                 <spring:message arguments="${entity_label}" code="global.menu.new" var="add_message"/>

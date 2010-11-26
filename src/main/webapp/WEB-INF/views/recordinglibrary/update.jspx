@@ -1,7 +1,7 @@
 <div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
     <jsp:output omit-xml-declaration="yes"/>
     <div id="_title_div">
-        <spring:url value="/service/${service.id}" var="form_url"/>
+        <spring:url value="/recordinglibrary/${service.id}" var="form_url"/>
         <form:form action="${form_url}" method="PUT" modelAttribute="service">
             <form:errors cssClass="errors" delimiter="&lt;p/&gt;"/>
             <div id="roo_service_name">
