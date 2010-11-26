@@ -1,5 +1,6 @@
 package com.callcenter.controller;
 
+import com.callcenter.domain.Field;
 import com.callcenter.domain.RecordingLibraryService;
 import com.callcenter.domain.Service;
 import org.springframework.ui.ModelMap;
@@ -21,6 +22,7 @@ public class RecordingLibraryServiceController {
     @RequestMapping(value = "/recordinglibrary/form", method = RequestMethod.GET)
     public String createForm(ModelMap modelMap) {
         modelMap.addAttribute("service", new RecordingLibraryService());
+        modelMap.addAttribute("fields", Field.findAllFields());
         return "recordinglibrary/create";
     }
 

@@ -1,5 +1,6 @@
 package com.callcenter.domain;
 
+import com.callcenter.domain.Field;
 import com.callcenter.domain.Restriction;
 import java.lang.String;
 import java.util.Calendar;
@@ -29,6 +30,14 @@ privileged aspect RecordingLibraryService_Roo_JavaBean {
     
     public void RecordingLibraryService.setRestrictions(Set<Restriction> restrictions) {
         this.restrictions = restrictions;
+    }
+    
+    public Set<Field> RecordingLibraryService.getAvailableFields() {
+        return this.availableFields;
+    }
+    
+    public void RecordingLibraryService.setAvailableFields(Set<Field> availableFields) {
+        this.availableFields = availableFields;
     }
     
 }

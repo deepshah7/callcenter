@@ -41,4 +41,10 @@ public class RecordingLibraryService extends Service{
 
     @OneToMany(targetEntity = Restriction.class, cascade = CascadeType.ALL, mappedBy = "service", orphanRemoval = true)
     private Set<Restriction> restrictions = new HashSet<Restriction>();
+
+    @ManyToMany(targetEntity = Field.class, cascade = CascadeType.ALL)
+    @JoinTable(name = "recording_library_service_available_fields",
+            joinColumns = @JoinColumn(name = "recording_library_service_id"),
+            inverseJoinColumns = @JoinColumn(name = "field_id"))
+    private Set<Field> availableFields = new HashSet<Field>();
 }

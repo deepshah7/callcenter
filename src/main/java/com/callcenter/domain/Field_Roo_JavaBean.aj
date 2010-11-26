@@ -1,5 +1,6 @@
 package com.callcenter.domain;
 
+import java.lang.Boolean;
 import java.lang.String;
 
 privileged aspect Field_Roo_JavaBean {
@@ -18,6 +19,14 @@ privileged aspect Field_Roo_JavaBean {
     
     public void Field.setDescription(String description) {
         this.description = description;
+    }
+    
+    public Boolean Field.getAvailableByDefault() {
+        return this.availableByDefault;
+    }
+    
+    public void Field.setAvailableByDefault(Boolean availableByDefault) {
+        this.availableByDefault = availableByDefault;
     }
     
 }

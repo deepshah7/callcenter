@@ -1,17 +1,53 @@
 <div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
     <jsp:output omit-xml-declaration="yes"/>
+    <spring:url value="/static/js/jquery/jquery-ui.custom.min.js" var="jquery_ui"/>
+    <script type="text/javascript" src="${jquery_ui}"><!-- //required for FF3 and Opera --></script>
+
+    <spring:url value="/static/js/jquery/ui.multiselect.js" var="jquery_ui_multiselect"/>
+    <script type="text/javascript" src="${jquery_ui_multiselect}"><!-- //required for FF3 and Opera --></script>
+
+    <spring:url value="/static/styles/jquery-ui.custom.css" var="jquery_ui_css"/>
+    <link rel="stylesheet" type="text/css" href="${jquery_ui_css}"><!-- //required for FF3 and Opera --></link>
+
+    <spring:url value="/static/styles/ui.multiselect.css" var="ui_multiselect_css"/>
+    <link rel="stylesheet" type="text/css" href="${ui_multiselect_css}"><!-- //required for FF3 and Opera --></link>
+
     <div id="_title_div">
         <spring:message code="label.service" var="entity_label"/>
         <spring:message arguments="${entity_label}" code="entity.create" var="title_msg"/>
         <spring:url value="/recordinglibrary" var="form_url"/>
         <form:form action="${form_url}" method="POST" modelAttribute="service">
-            <form:errors cssClass="errors" delimiter="&lt;p/&gt;"/>
             <div id="roo_service_name">
                 <label for="_name_id">Name:</label>
                 <form:input cssStyle="width:250px" id="_name_id" maxlength="30" path="name" size="0"/>
                 <br/>
             </div>
             <br/>
+            <div id="service_availableFields">
+                <div class="clearBoth">
+                    <label for="availableFields">Fields:</label>
+                    <br/>
+                </div>
+                <form:select path="availableFields" class="multiselect" multiple="multiple" id="availableFields">
+                    <c:forEach items="${fields}" var="field">
+                        <form:option label="${field.description}" value="${field.id}" id="field_${field.id}"/>
+                        <c:if test="${field.availableByDefault}">
+                            <script type="text/javascript">
+                                $(function() {
+                                    $("#field_${field.id}").attr("selected", "selected");
+                                });
+                            </script>
+                        </c:if>
+                    </c:forEach>
+                </form:select>
+                <br/>
+            </div>
+            <br/>
+            <script type="text/javascript">
+                $(function() {
+                    $(".multiselect").multiselect();
+                });
+            </script>
             <div class="submit" id="roo_service_submit">
                 <spring:message code="button.save" var="save_button"/>
                 <input id="proceed" type="submit" value="${save_button}"/>
