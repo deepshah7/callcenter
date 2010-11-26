@@ -15,13 +15,14 @@
  */
 package com.callcenter.domain;
 
+import org.apache.commons.collections.FactoryUtils;
+import org.apache.commons.collections.functors.InstantiateFactory;
+import org.apache.commons.collections.list.LazyList;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import javax.persistence.*;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -47,4 +48,15 @@ public class RecordingLibraryService extends Service{
             joinColumns = @JoinColumn(name = "recording_library_service_id"),
             inverseJoinColumns = @JoinColumn(name = "field_id"))
     private Set<Field> availableFields = new HashSet<Field>();
+
+    @Transient
+    private final List<Restriction> restrictionList = LazyList.decorate(new ArrayList<Restriction>(),
+            FactoryUtils.instantiateFactory(Restriction.class));
+
+    public List<Restriction> getRestrictionList() {
+        if(!restrictionList.isEmpty()) return restrictionList;
+
+        restrictionList.addAll(restrictions);
+        return restrictionList;
+    }
 }

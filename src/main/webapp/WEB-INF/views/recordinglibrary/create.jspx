@@ -6,6 +6,9 @@
     <spring:url value="/static/js/jquery/ui.multiselect.js" var="jquery_ui_multiselect"/>
     <script type="text/javascript" src="${jquery_ui_multiselect}"><!-- //required for FF3 and Opera --></script>
 
+    <spring:url value="/static/js/restriction.js" var="restriction"/>
+    <script type="text/javascript" src="${restriction}"><!-- //required for FF3 and Opera --></script>
+
     <spring:url value="/static/styles/jquery-ui.custom.css" var="jquery_ui_css"/>
     <link rel="stylesheet" type="text/css" href="${jquery_ui_css}"><!-- //required for FF3 and Opera --></link>
 
@@ -28,9 +31,15 @@
                     <label for="availableFields">Fields:</label>
                     <br/>
                 </div>
+                <script type="text/javascript">
+                    var fields = [];
+                </script>
                 <form:select path="availableFields" class="multiselect" multiple="multiple" id="availableFields">
-                    <c:forEach items="${fields}" var="field">
+                    <c:forEach items="${fields}" var="field" varStatus="status">
                         <form:option label="${field.description}" value="${field.id}" id="field_${field.id}"/>
+                        <script type="text/javascript">
+                            fields[${status.index}] = {label: "${field.description}", id: "${field.id}"};
+                        </script>
                         <c:if test="${field.availableByDefault}">
                             <script type="text/javascript">
                                 $(function() {
@@ -48,6 +57,26 @@
                     $(".multiselect").multiselect();
                 });
             </script>
+            <div id="restrictions">
+                <!-- Something should come here -->
+            </div>
+            <div class="clearBoth">
+                <br/>
+            </div>
+
+
+            <div class="submit">
+                <input id="addRestriction" type="button" value="Add Restriction"/>
+                <spring:url value="/recordinglibrary/all" var="jquery_ui_css"/>
+                <script type="text/javascript">
+                    $(function() {
+                        $("#addRestriction").click(function() {
+                            new Restriction("#restrictions", fields).create();
+                        });
+                    });
+                </script>
+            </div>
+            <br/>
             <div class="submit" id="roo_service_submit">
                 <spring:message code="button.save" var="save_button"/>
                 <input id="proceed" type="submit" value="${save_button}"/>

@@ -422,3 +422,15 @@ a.trigger {
     font-size:15px;
     font-weight:bold;
 }
+
+.smallInput {
+    width: 140px;
+}
+
+.smallLabel {
+    width: 70px;
+}
+
+.marginLeft {
+    margin-left: 10px;
+}
