@@ -23,5 +23,6 @@ public class Constants {
 
     public static class Defaults {
         public static final Integer ROLE_TIMEOUT = 5*60;
+        public static final String DATE_FORMAT = "MM/dd/yyyy";
     }
 }

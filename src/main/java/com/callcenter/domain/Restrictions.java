@@ -55,6 +55,7 @@ public class Restrictions extends Collection<Restriction> {
             @Override
             public void evaluate(Restriction entity) {
                 entity.setService(recordingLibraryService);
+                entity.setField(Field.findField(entity.getField().getId()));
             }
         });
     }

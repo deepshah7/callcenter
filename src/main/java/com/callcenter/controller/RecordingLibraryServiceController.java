@@ -2,15 +2,21 @@ package com.callcenter.controller;
 
 import com.callcenter.domain.Field;
 import com.callcenter.domain.RecordingLibraryService;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.callcenter.editor.CustomCalendarEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Calendar;
 
 @Controller
 public class RecordingLibraryServiceController {
+
+    @InitBinder
+    public void initDataBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Calendar.class, new CustomCalendarEditor());
+    }
 
     @RequestMapping(value = "/recordinglibrary", method = RequestMethod.POST)
     public String create(final RecordingLibraryService service) {

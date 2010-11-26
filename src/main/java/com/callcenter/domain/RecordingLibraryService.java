@@ -18,6 +18,7 @@ package com.callcenter.domain;
 import org.apache.commons.collections.FactoryUtils;
 import org.apache.commons.collections.functors.InstantiateFactory;
 import org.apache.commons.collections.list.LazyList;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
@@ -38,6 +39,7 @@ public class RecordingLibraryService extends Service{
     private String recordingType;
 
     @Temporal(value = TemporalType.TIMESTAMP)
+    @DateTimeFormat(style = "SS")
     private java.util.Calendar retainFrom;
 
     @OneToMany(targetEntity = Restriction.class, cascade = CascadeType.ALL, mappedBy = "service", orphanRemoval = true)
@@ -64,8 +66,8 @@ public class RecordingLibraryService extends Service{
         restrictions.clear();
         restrictions.addAll(restrictionList);
         final Restrictions restrictionCollection = new Restrictions(restrictions);
-        restrictionCollection.setupRelationship(this);
         restrictionCollection.trim();
+        restrictionCollection.setupRelationship(this);
         restrictionCollection.convertCSVToList();
     }
 }
