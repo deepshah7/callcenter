@@ -51,6 +51,9 @@ public class Restriction {
     @Column(name = "value")
     private List<String> values = new ArrayList<String>();
 
+    @Transient
+    private String comaSeperatedValues;
+
     public enum Type {
         IN,
         BETWEEN;

@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 public class RecordingLibraryServiceController {
 
     @RequestMapping(value = "/recordinglibrary", method = RequestMethod.POST)
-    public String create(final RecordingLibraryService service, final HttpServletRequest request) {
+    public String create(final RecordingLibraryService service) {
+
         service.persist();
         return "redirect:/recordinglibrary/" + service.getId();
     }
