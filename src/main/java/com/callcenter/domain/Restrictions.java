@@ -28,17 +28,6 @@ public class Restrictions extends Collection<Restriction> {
         super(entities);
     }
 
-    public void convertCSVToList() {
-
-        doInLoop(new ExpressionEvaluator<Restriction>() {
-
-            @Override
-            public void evaluate(final Restriction entity) {
-                entity.convertCSVToList();
-            }
-        });
-    }
-
     public void trim() {
         getEntities().removeAll(returnEntitiesIfConditionIsTrue(new ConditionEvaluator<Restriction>() {
 
@@ -49,7 +38,8 @@ public class Restrictions extends Collection<Restriction> {
         }));
     }
 
-    public void setupRelationship(final RecordingLibraryService recordingLibraryService) {
+    public void prepare(final RecordingLibraryService recordingLibraryService) {
+        trim();
         doInLoop(new ExpressionEvaluator<Restriction>() {
 
             @Override

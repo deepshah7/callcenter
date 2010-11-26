@@ -16,7 +16,6 @@
 package com.callcenter.domain;
 
 import org.apache.commons.collections.FactoryUtils;
-import org.apache.commons.collections.functors.InstantiateFactory;
 import org.apache.commons.collections.list.LazyList;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.entity.RooEntity;
@@ -62,12 +61,10 @@ public class RecordingLibraryService extends Service{
         return restrictionList;
     }
 
-    public void setupRestrictions() {
+    public void prepareRestrictions() {
         restrictions.clear();
         restrictions.addAll(restrictionList);
         final Restrictions restrictionCollection = new Restrictions(restrictions);
-        restrictionCollection.trim();
-        restrictionCollection.setupRelationship(this);
-        restrictionCollection.convertCSVToList();
+        restrictionCollection.prepare(this);
     }
 }

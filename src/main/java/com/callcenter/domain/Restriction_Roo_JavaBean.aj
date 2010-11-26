@@ -44,8 +44,4 @@ privileged aspect Restriction_Roo_JavaBean {
         return this.comaSeperatedValues;
     }
     
-    public void Restriction.setComaSeperatedValues(String comaSeperatedValues) {
-        this.comaSeperatedValues = comaSeperatedValues;
-    }
-    
 }

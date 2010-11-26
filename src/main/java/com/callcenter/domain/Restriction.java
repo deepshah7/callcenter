@@ -55,7 +55,11 @@ public class Restriction {
     @Transient
     private String comaSeperatedValues;
 
-    public void convertCSVToList() {
+    public void setComaSeperatedValues(final String comaSeperatedValues) {
+        this.comaSeperatedValues = comaSeperatedValues;
+        if(null == comaSeperatedValues) return;
+
+        values.clear();
         values.addAll(Arrays.asList(comaSeperatedValues.split(",")));
     }
 
