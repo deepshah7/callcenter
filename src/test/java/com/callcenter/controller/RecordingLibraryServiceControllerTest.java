@@ -17,15 +17,15 @@ package com.callcenter.controller;
 
 import com.callcenter.domain.Field;
 import com.callcenter.domain.RecordingLibraryService;
-import mockit.Mocked;
-import mockit.NonStrict;
-import mockit.NonStrictExpectations;
-import mockit.VerificationsInOrder;
+import com.callcenter.editor.CustomCalendarEditor;
+import mockit.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -130,5 +130,17 @@ public class RecordingLibraryServiceControllerTest {
     @Test
     public void shouldReturnTheListView(final @NonStrict RecordingLibraryService recordingLibraryService) {
         assertEquals("recordinglibrary/list", controller.list(new ModelMap()));
+    }
+
+    @Test
+    public void shouldRegiesterTheCalenderConverter(final @NonStrict WebDataBinder webDataBinder) {
+
+        controller.initDataBinder(webDataBinder);
+
+        new Verifications() {
+            {
+                webDataBinder.registerCustomEditor(Calendar.class, (CustomCalendarEditor)any);
+            }
+        };
     }
 }
