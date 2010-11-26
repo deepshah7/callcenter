@@ -45,7 +45,7 @@ public class Restrictions extends Collection<Restriction> {
 
             @Override
             public boolean evaluate(final Restriction entity) {
-                return null == entity.getField() || null == entity.getField().getId();
+                return null == entity.getField();
             }
         }));
     }
