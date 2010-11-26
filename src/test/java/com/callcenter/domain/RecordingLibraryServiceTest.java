@@ -15,6 +15,10 @@
  */
 package com.callcenter.domain;
 
+import mockit.NonStrict;
+import mockit.NonStrictExpectations;
+import mockit.Verifications;
+import mockit.VerificationsInOrder;
 import org.junit.Test;
 
 import java.util.List;
@@ -57,5 +61,51 @@ public class RecordingLibraryServiceTest {
         final List<Restriction> restrictionList1 = recordingLibraryService.getRestrictionList();
         assertEquals(1, restrictionList1.size());
         assertFalse(restrictionList1.contains(restriction1));
+    }
+    
+    @Test
+    public void shouldPrepareTheRestrictionsCollection(final @NonStrict Restrictions restrictions) {
+        final RecordingLibraryService service = new RecordingLibraryService();
+        final Restriction restriction1 = new Restriction();
+        service.getRestrictionList().add(restriction1);
+        final Restriction restriction2 = new Restriction();
+        service.getRestrictions().add(restriction2);
+
+        service.prepareRestrictions();
+
+        new Verifications() {{
+            new Restrictions(service.getRestrictions()).clear();
+        }};
+    }
+
+    @Test
+    public void shouldAddAllRestrictionsFromList(final @NonStrict Restrictions restrictions) {
+        final RecordingLibraryService service = new RecordingLibraryService();
+        final Restriction restriction1 = new Restriction();
+        service.getRestrictionList().add(restriction1);
+        final Restriction restriction2 = new Restriction();
+        service.getRestrictions().add(restriction2);
+
+        service.prepareRestrictions();
+
+        new VerificationsInOrder() {{
+            restrictions.clear();
+            restrictions.addAll(service.getRestrictionList());
+        }};
+    }
+
+    @Test
+    public void shouldPrepareAllTheRestrictions(final @NonStrict Restrictions restrictions) {
+        final RecordingLibraryService service = new RecordingLibraryService();
+        final Restriction restriction1 = new Restriction();
+        service.getRestrictionList().add(restriction1);
+        final Restriction restriction2 = new Restriction();
+        service.getRestrictions().add(restriction2);
+
+        service.prepareRestrictions();
+
+        new Verifications() {{
+            restrictions.prepare(service);
+        }};
     }
 }

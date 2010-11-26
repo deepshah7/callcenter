@@ -62,9 +62,9 @@ public class RecordingLibraryService extends Service{
     }
 
     public void prepareRestrictions() {
-        restrictions.clear();
-        restrictions.addAll(restrictionList);
         final Restrictions restrictionCollection = new Restrictions(restrictions);
+        restrictionCollection.clear();
+        restrictionCollection.addAll(restrictionList);
         restrictionCollection.prepare(this);
     }
 }

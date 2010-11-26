@@ -111,4 +111,12 @@ public class Collection<T> {
     protected java.util.Collection<T> getEntities() {
         return entities;
     }
+
+    public void clear() {
+        entities.clear();
+    }
+
+    public void addAll(java.util.Collection<T> elements) {
+        entities.addAll(elements);
+    }
 }

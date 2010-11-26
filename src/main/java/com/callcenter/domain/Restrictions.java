@@ -28,16 +28,6 @@ public class Restrictions extends Collection<Restriction> {
         super(entities);
     }
 
-    public void trim() {
-        getEntities().removeAll(returnEntitiesIfConditionIsTrue(new ConditionEvaluator<Restriction>() {
-
-            @Override
-            public boolean evaluate(final Restriction entity) {
-                return null == entity.getField() || null == entity.getField().getId();
-            }
-        }));
-    }
-
     public void prepare(final RecordingLibraryService recordingLibraryService) {
         trim();
         doInLoop(new ExpressionEvaluator<Restriction>() {
@@ -48,5 +38,15 @@ public class Restrictions extends Collection<Restriction> {
                 entity.setField(Field.findField(entity.getField().getId()));
             }
         });
+    }
+
+    private void trim() {
+        getEntities().removeAll(returnEntitiesIfConditionIsTrue(new ConditionEvaluator<Restriction>() {
+
+            @Override
+            public boolean evaluate(final Restriction entity) {
+                return null == entity.getField() || null == entity.getField().getId();
+            }
+        }));
     }
 }
