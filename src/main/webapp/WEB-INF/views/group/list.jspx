@@ -1,11 +1,6 @@
 <div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:roo="urn:jsptagdir:/WEB-INF/tags" xmlns:spring="http://www.springframework.org/tags" version="2.0">
     <jsp:output omit-xml-declaration="yes"/>
-    <script type="text/javascript">dojo.require('dijit.TitlePane');</script>
     <div id="_title_div">
-        <spring:message code="label.group" var="entity_label"/>
-        <spring:message code="label.groups" var="entity_label_plural"/>
-        <spring:message arguments="${entity_label_plural}" code="entity.list.all" var="title_msg"/>
-        <script type="text/javascript">Spring.addDecoration(new Spring.ElementDecoration({elementId : '_title_div', widgetType : 'dijit.TitlePane', widgetAttrs : {title: '${title_msg}'}})); </script>
         <c:if test="${not empty groups}">
             <table width="300px">
                 <thead>

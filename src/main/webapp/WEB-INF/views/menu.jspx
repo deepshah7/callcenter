@@ -1,66 +1,24 @@
-<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:jsp="http://java.sun.com/JSP/Page"
-     xmlns:spring="http://www.springframework.org/tags" id="menu" version="2.0">
-    <jsp:output omit-xml-declaration="yes"/>
-    <ul id="roo_menu">
-
-        <li id="web_mvc_jsp_callrecord_category">
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" id="menu" version="2.0">
+	<jsp:output omit-xml-declaration="yes"/>
+	<ul id="roo_menu">
+			
+	<li id="web_mvc_jsp_service_category">
             <h2>
-                <spring:message code="menu.category.web_mvc_jsp_callrecord_category.label"/>
+                <spring:message code="menu.category.web_mvc_jsp_service_category.label"/>
             </h2>
             <ul>
-                <li id="web_mvc_jsp_list_callrecord_menu_item">
-                    <spring:url
-                            value="/callrecord?page=${empty param.page ? 1 : param.page}&amp;amp;size=${empty param.size ? 10 : param.size}"
-                            var="web_mvc_jsp_list_callrecord_menu_item_url"/>
-                    <a href="${web_mvc_jsp_list_callrecord_menu_item_url}">
-                        <spring:message code="label.callrecords" var="label_callrecords"/>
-                        <spring:message arguments="${label_callrecords}" code="global.menu.list"/>
+                <li id="web_mvc_jsp_create_service_menu_item">
+                    <spring:url value="/service/form" var="web_mvc_jsp_create_service_menu_item_url"/>
+                    <a href="${web_mvc_jsp_create_service_menu_item_url}">
+                        <spring:message code="label.service" var="label_service"/>
+                        <spring:message arguments="${label_service}" code="global.menu.new"/>
                     </a>
                 </li>
-            </ul>
-        </li>
-        <li id="web_mvc_jsp_group_category">
-            <h2>
-                <spring:message code="menu.category.web_mvc_jsp_group_category.label"/>
-            </h2>
-            <ul>
-                <li id="web_mvc_jsp_create_group_menu_item">
-                    <spring:url value="/group/form" var="web_mvc_jsp_create_group_menu_item_url"/>
-                    <a href="${web_mvc_jsp_create_group_menu_item_url}">
-                        <spring:message code="label.group" var="label_group"/>
-                        <spring:message arguments="${label_group}" code="global.menu.new"/>
-                    </a>
-                </li>
-                <li id="web_mvc_jsp_list_group_menu_item">
-                    <spring:url
-                            value="/group?page=${empty param.page ? 1 : param.page}&amp;amp;size=${empty param.size ? 10 : param.size}"
-                            var="web_mvc_jsp_list_group_menu_item_url"/>
-                    <a href="${web_mvc_jsp_list_group_menu_item_url}">
-                        <spring:message code="label.groups" var="label_groups"/>
-                        <spring:message arguments="${label_groups}" code="global.menu.list"/>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li id="web_mvc_jsp_role_category">
-            <h2>
-                <spring:message code="menu.category.web_mvc_jsp_role_category.label"/>
-            </h2>
-            <ul>
-                <li id="web_mvc_jsp_create_role_menu_item">
-                    <spring:url value="/role/form" var="web_mvc_jsp_create_role_menu_item_url"/>
-                    <a href="${web_mvc_jsp_create_role_menu_item_url}">
-                        <spring:message code="label.role" var="label_role"/>
-                        <spring:message arguments="${label_role}" code="global.menu.new"/>
-                    </a>
-                </li>
-                <li id="web_mvc_jsp_list_role_menu_item">
-                    <spring:url
-                            value="/role?page=${empty param.page ? 1 : param.page}&amp;amp;size=${empty param.size ? 10 : param.size}"
-                            var="web_mvc_jsp_list_role_menu_item_url"/>
-                    <a href="${web_mvc_jsp_list_role_menu_item_url}">
-                        <spring:message code="label.roles" var="label_roles"/>
-                        <spring:message arguments="${label_roles}" code="global.menu.list"/>
+            <li id="web_mvc_jsp_list_service_menu_item">
+                    <spring:url value="/service?page=${empty param.page ? 1 : param.page}&amp;amp;size=${empty param.size ? 10 : param.size}" var="web_mvc_jsp_list_service_menu_item_url"/>
+                    <a href="${web_mvc_jsp_list_service_menu_item_url}">
+                        <spring:message code="label.services" var="label_services"/>
+                        <spring:message arguments="${label_services}" code="global.menu.list"/>
                     </a>
                 </li>
             </ul>

@@ -1,34 +1,28 @@
 <div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:roo="urn:jsptagdir:/WEB-INF/tags" xmlns:spring="http://www.springframework.org/tags" version="2.0">
     <jsp:output omit-xml-declaration="yes"/>
     <div id="_title_div">
+        <spring:message code="label.service" var="entity_label"/>
+        <spring:message code="label.services" var="entity_label_plural"/>
         <spring:message arguments="${entity_label_plural}" code="entity.list.all" var="title_msg"/>
-        <c:if test="${not empty roles}">
+        <c:if test="${not empty services}">
             <table width="300px">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
-                        <th>Description</th>
-                        <th>Language</th>
-                        <th>Assignable Roles</th>
+                        <th/>
                         <th/>
                         <th/>
                     </tr>
                 </thead>
-                <c:forEach items="${roles}" var="role">
+                <c:forEach items="${services}" var="service">
                     <tr>
-                        <td>${role.id}</td>
-                        <td>${role.name}</td>
-                        <td>${role.description}</td>
-                        <td>${role.language}</td>
+                        <td>${service.id}</td>
                         <td>
-                            <c:forEach items="${role.assignableRoles}" var="assignableRole" varStatus="indexInfo">
-                                <c:out value="${assignableRole.name}" />
-                                <c:if test="${!indexInfo.last}"><span>, </span></c:if>
-                            </c:forEach>
+                            <c:out value="${fn:substring(service.name, 0, 10)}"/>
                         </td>
                         <td>
-                            <spring:url value="/role/${role.id}" var="show_form_url"/>
+                            <spring:url value="/service/${service.id}" var="show_form_url"/>
                             <spring:url value="/static/images/show.png" var="show_image_url"/>
                             <form:form action="${show_form_url}" method="GET">
                                 <spring:message arguments="${entity_label}" code="entity.show" var="show_label"/>
@@ -36,7 +30,15 @@
                             </form:form>
                         </td>
                         <td>
-                            <spring:url value="/role/${role.id}" var="delete_form_url"/>
+                            <spring:url value="/service/${service.id}/form" var="update_form_url"/>
+                            <spring:url value="/static/images/update.png" var="update_image_url"/>
+                            <form:form action="${update_form_url}" method="GET">
+                                <spring:message arguments="${entity_label}" code="entity.update" var="update_label"/>
+                                <input alt="${update_label}" class="image" src="${update_image_url}" title="${update_label}" type="image" value="${update_label}"/>
+                            </form:form>
+                        </td>
+                        <td>
+                            <spring:url value="/service/${service.id}" var="delete_form_url"/>
                             <spring:url value="/static/images/delete.png" var="delete_image_url"/>
                             <form:form action="${delete_form_url}" method="DELETE">
                                 <spring:message arguments="${entity_label}" code="entity.delete" var="delete_label"/>
@@ -52,9 +54,9 @@
                     </tr>
                 </c:forEach>
                 <tr class="footer">
-                    <td colspan="9">
+                    <td colspan="5">
                         <span class="new">
-                            <spring:url value="/role/form" var="create_url"/>
+                            <spring:url value="/service/form" var="create_url"/>
                             <a href="${create_url}">
                                 <spring:url value="/static/images/add.png" var="create_img_url"/>
                                 <spring:message arguments="${entity_label}" code="global.menu.new" var="add_message"/>
@@ -68,7 +70,7 @@
                 </tr>
             </table>
         </c:if>
-        <c:if test="${empty roles}">
+        <c:if test="${empty services}">
             <spring:message arguments="${entity_label_plural}" code="entity.not.found"/>
         </c:if>
     </div>

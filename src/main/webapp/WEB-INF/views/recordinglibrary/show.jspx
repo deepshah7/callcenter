@@ -1,0 +1,19 @@
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:output omit-xml-declaration="yes"/>
+    <div id="_title_div">
+        <spring:message code="label.service" var="entity_label"/>
+        <spring:message arguments="${entity_label}" code="entity.show" var="title_msg"/>
+        <c:if test="${not empty service}">
+            <div id="roo_service_name">
+                <label for="_name_id">Name:</label>
+                <div class="box" id="_name_id">
+                    <c:out value="${service.name}"/>
+                </div>
+            </div>
+            <br/>
+        </c:if>
+        <c:if test="${empty service}">
+            <spring:message arguments="${entity_label}" code="entity.not.found.single"/>
+        </c:if>
+    </div>
+</div>
