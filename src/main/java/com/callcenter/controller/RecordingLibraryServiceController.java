@@ -4,6 +4,7 @@ import com.callcenter.domain.Field;
 import com.callcenter.domain.RecordingLibraryService;
 import com.callcenter.editor.CustomCalendarEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Calendar;
 
 @Controller
+@Transactional
 public class RecordingLibraryServiceController {
 
     @InitBinder
@@ -20,7 +22,6 @@ public class RecordingLibraryServiceController {
 
     @RequestMapping(value = "/recordinglibrary", method = RequestMethod.POST)
     public String create(final RecordingLibraryService service) {
-
         service.setupRestrictions();
         service.persist();
         return "redirect:/recordinglibrary/" + service.getId();
@@ -40,25 +41,8 @@ public class RecordingLibraryServiceController {
     }
 
     @RequestMapping(value = "/recordinglibrary", method = RequestMethod.GET)
-    public String list(@RequestParam(value = "page", required = false) Integer page,
-                       @RequestParam(value = "size", required = false) Integer size, ModelMap modelMap) {
-        if (page != null || size != null) {
-            int sizeNo = size == null ? 10 : size.intValue();
-            modelMap.addAttribute("services", RecordingLibraryService.findRecordingLibraryServiceEntries(page == null ? 0 : (page.intValue() - 1) * sizeNo, sizeNo));
-            float nrOfPages = (float) RecordingLibraryService.countRecordingLibraryServices() / sizeNo;
-            modelMap.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
-        } else {
-            modelMap.addAttribute("services", RecordingLibraryService.findAllServices());
-        }
+    public String list(final ModelMap modelMap) {
+        modelMap.addAttribute("services", RecordingLibraryService.findAllServices());
         return "recordinglibrary/list";
     }
-
-    @RequestMapping(value = "/recordinglibrary/{id}", method = RequestMethod.DELETE)
-    public String delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page,
-                         @RequestParam(value = "size", required = false) Integer size) {
-        if (id == null) throw new IllegalArgumentException("An Identifier is required");
-        RecordingLibraryService.findRecordingLibraryService(id).remove();
-        return "redirect:/recordinglibrary?page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
-    }
-
 }

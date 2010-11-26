@@ -11,6 +11,42 @@
                 </div>
             </div>
             <br/>
+            <div id="roo_service_name">
+                <label for="_name_id">Retain From:</label>
+                <div class="box">
+                    <c:out value="${service.retainFrom.time}"/>
+                </div>
+            </div>
+            <br/>
+            <div>
+                <label>Restrictions:</label>
+                <div class="box">
+                    <c:forEach items="${service.restrictions}" var="restriction" varStatus="indexInfo">
+                        <span><c:out value="${restriction.field.description} " />
+                        <c:out value="${restriction.type}" />
+                        (<c:forEach items="${restriction.values}" var="value" varStatus="valueIndex">
+                                <c:out value="${value}" />
+                                <c:if test="${!valueIndex.last}"><span>, </span></c:if>
+                        </c:forEach>)
+                        <c:if test="${!indexInfo.last}"><span> and </span></c:if>
+                        </span>
+                    </c:forEach>
+                    <br/>
+                </div>
+            </div>
+            <br/>
+            <div>
+                <label>Allowed Fields:</label>
+                <div class="box">
+                    <c:forEach items="${service.availableFields}" var="field" varStatus="indexInfo">
+                        <span><c:out value="${field.description} " />
+                        <c:if test="${!indexInfo.last}"><span>, </span></c:if>
+                        </span>
+                    </c:forEach>
+                    <br/>
+                </div>
+            </div>
+            <br/>
         </c:if>
         <c:if test="${empty service}">
             <spring:message arguments="${entity_label}" code="entity.not.found.single"/>
