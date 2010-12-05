@@ -23,5 +23,33 @@
                 </li>
             </ul>
         </li>
+    <li id="web_mvc_jsp_user_category">
+            <h2>
+                <spring:message code="menu.category.web_mvc_jsp_user_category.label"/>
+            </h2>
+            <ul>
+                <li id="web_mvc_jsp_create_user_menu_item">
+                    <spring:url value="/user/form" var="web_mvc_jsp_create_user_menu_item_url"/>
+                    <a href="${web_mvc_jsp_create_user_menu_item_url}">
+                        <spring:message code="label.user" var="label_user"/>
+                        <spring:message arguments="${label_user}" code="global.menu.new"/>
+                    </a>
+                </li>
+            <li id="web_mvc_jsp_list_user_menu_item">
+                    <spring:url value="/user?page=${empty param.page ? 1 : param.page}&amp;amp;size=${empty param.size ? 10 : param.size}" var="web_mvc_jsp_list_user_menu_item_url"/>
+                    <a href="${web_mvc_jsp_list_user_menu_item_url}">
+                        <spring:message code="label.users" var="label_users"/>
+                        <spring:message arguments="${label_users}" code="global.menu.list"/>
+                    </a>
+                </li>
+            <li id="finder_findusersbyname_menu_item">
+                    <spring:url value="/user/find/ByName/form" var="finder_findusersbyname_menu_item_url"/>
+                    <a href="${finder_findusersbyname_menu_item_url}">
+                        <spring:message code="label.name" var="label_name"/>
+                        <spring:message arguments="${label_name}" code="global.menu.find"/>
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </div>

@@ -57,6 +57,8 @@
                             <li><a href="${home}">Home</a> </li>
                             <spring:url var="callrecord" value="/callrecord" />
                             <li><a href="${callrecord}">Recording Library</a> </li>
+                            <spring:url var="user" value="/user" />
+                            <li><a href="${user}">User</a> </li>
                             <spring:url var="role" value="/role" />
                             <li><a href="${role}">Role</a> </li>
                             <spring:url var="group" value="/group" />
