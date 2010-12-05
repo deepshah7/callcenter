@@ -17,7 +17,8 @@ import javax.validation.Valid;
 public class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public String create(@Valid User user, BindingResult result, ModelMap modelMap) {
+    public String create(final User user, ModelMap modelMap) {
+        user.setRole(Role.findRole(user.getRole().getId()));
         user.persist();
         return "redirect:/user/" + user.getId();
     }

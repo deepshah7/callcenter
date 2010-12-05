@@ -28,7 +28,7 @@
             <div id="roo_user_role">
                 <label for="_role_id">Role:</label>
                 <div class="box" id="_role_id">
-                    <c:out value="${user.role}"/>
+                    <c:out value="${user.role.name}"/>
                 </div>
             </div>
             <br/>
