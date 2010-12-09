@@ -15,42 +15,29 @@
  */
 package com.callcenter.domain;
 
-import org.springframework.roo.addon.entity.RooEntity;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.*;
 
 /**
  * Created by IntelliJ IDEA.
  *
  * @author Deep Shah
  */
-@Entity
-@Table(name = "fields")
-@RooJavaBean
-@RooEntity
-public class Field {
+public class InRestrictionApplier implements RestrictionApplier {
+    private Criteria searchCriteria;
 
-    @Column(unique = true, nullable = false)
-    private String name;
-
-    @Column(nullable = false)
-    private String description;
-
-    @Column(nullable = false)
-    private Boolean availableByDefault;
-
-    @Column(nullable = true)
-    private Type type;
-
-    public boolean isCalendarType() {
-        return type == Type.CALENDAR;
+    public InRestrictionApplier(final Criteria searchCriteria) {
+        this.searchCriteria = searchCriteria;
     }
 
-    enum Type {
-        STRING,
-        CALENDAR
+    @Override
+    public boolean canApply(final Restriction restriction) {
+        return restriction.getType() == Restriction.Type.IN;
+    }
+
+    @Override
+    public void apply(final Restriction restriction) {
+        searchCriteria.add(org.hibernate.criterion.Restrictions.in(restriction.getFieldName(),
+                restriction.getValues()));
     }
 }

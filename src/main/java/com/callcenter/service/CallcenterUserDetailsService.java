@@ -15,9 +15,11 @@
  */
 package com.callcenter.service;
 
+import com.callcenter.domain.Role;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -42,5 +44,10 @@ public class CallcenterUserDetailsService implements UserDetailsService {
         final ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
         grantedAuthorities.add(new GrantedAuthorityImpl(user.getRoleName()));
         return new User(user.getName(), user.getPassword(), true, true, true, true, grantedAuthorities);
+    }
+
+    public Role getCurrentUserRole() {
+        return Role.findRoleByName(SecurityContextHolder.getContext()
+                        .getAuthentication().getAuthorities().iterator().next().getAuthority());
     }
 }

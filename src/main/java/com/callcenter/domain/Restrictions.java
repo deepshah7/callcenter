@@ -15,7 +15,7 @@
  */
 package com.callcenter.domain;
 
-import java.util.*;
+import org.hibernate.Criteria;
 
 /**
  * Created by IntelliJ IDEA.
@@ -48,5 +48,16 @@ public class Restrictions extends Collection<Restriction> {
                 return null == entity.getField();
             }
         }));
+    }
+
+    public void applyOn(final Criteria searchCriteria) {
+        final RestrictionsApplier restrictionsApplier = new RestrictionsApplier(searchCriteria);
+        doInLoop(new ExpressionEvaluator<Restriction>() {
+
+            @Override
+            public void evaluate(final Restriction entity) {
+                restrictionsApplier.apply(entity);
+            }
+        });
     }
 }

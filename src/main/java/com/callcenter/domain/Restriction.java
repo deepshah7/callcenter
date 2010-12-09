@@ -63,6 +63,14 @@ public class Restriction {
         values.addAll(Arrays.asList(comaSeperatedValues.split(",")));
     }
 
+    public String getFieldName() {
+        return getField().getName();
+    }
+
+    public boolean isOnCalendarField() {
+        return getField().isCalendarType();
+    }
+
     public enum Type {
         IN,
         BETWEEN;

@@ -29,4 +29,12 @@ privileged aspect Field_Roo_JavaBean {
         this.availableByDefault = availableByDefault;
     }
     
+    public String Field.getType() {
+        return this.type;
+    }
+    
+    public void Field.setType(String type) {
+        this.type = type;
+    }
+    
 }

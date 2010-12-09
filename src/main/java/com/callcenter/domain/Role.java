@@ -37,7 +37,7 @@ import java.util.Set;
 @Entity
 @Table(name = "roles")
 @RooJavaBean
-@RooEntity
+@RooEntity(finders = {"findRolesByName"})
 public class Role {
     private String name;
 
@@ -60,4 +60,13 @@ public class Role {
     @ManyToMany(targetEntity = Service.class)
     @JoinTable(name = "role_services", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "service_id"))
     private Set<Service> services = new HashSet<Service>();
+
+
+    public static Role findRoleByName(final String name) {
+        return (Role) findRolesByName(name).getSingleResult();
+    }
+
+    public RecordingLibraryService getRecordingLibraryService() {
+        return (RecordingLibraryService) services.iterator().next();
+    }
 }

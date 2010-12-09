@@ -4,18 +4,15 @@ import com.callcenter.domain.Role;
 import com.callcenter.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.validation.Valid;
 
 @Controller
 public class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public String create(final User user, ModelMap modelMap) {
+    public String create(final User user) {
         user.setRole(Role.findRole(user.getRole().getId()));
         user.persist();
         return "redirect:/user/" + user.getId();
@@ -41,7 +38,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public String update(@Valid User user, BindingResult result, ModelMap modelMap) {
+    public String update(User user) {
         user.merge();
         return "redirect:/user/" + user.getId();
     }

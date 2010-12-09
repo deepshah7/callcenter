@@ -15,42 +15,13 @@
  */
 package com.callcenter.domain;
 
-import org.springframework.roo.addon.entity.RooEntity;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 /**
  * Created by IntelliJ IDEA.
  *
  * @author Deep Shah
  */
-@Entity
-@Table(name = "fields")
-@RooJavaBean
-@RooEntity
-public class Field {
+public interface RestrictionApplier {
+    boolean canApply(final Restriction restriction);
 
-    @Column(unique = true, nullable = false)
-    private String name;
-
-    @Column(nullable = false)
-    private String description;
-
-    @Column(nullable = false)
-    private Boolean availableByDefault;
-
-    @Column(nullable = true)
-    private Type type;
-
-    public boolean isCalendarType() {
-        return type == Type.CALENDAR;
-    }
-
-    enum Type {
-        STRING,
-        CALENDAR
-    }
+    void apply(final Restriction restriction);
 }

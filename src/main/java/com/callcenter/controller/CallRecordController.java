@@ -1,6 +1,10 @@
 package com.callcenter.controller;
 
 import com.callcenter.domain.CallRecord;
+import com.callcenter.service.CallRecordService;
+import com.callcenter.service.CallcenterUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +18,12 @@ import java.util.List;
 @Controller
 public class CallRecordController {
 
+    @Autowired
+    private CallRecordService callRecordService;
+
+    @Autowired
+    private CallcenterUserDetailsService callcenterUserDetailsService;
+
     @RequestMapping(value = "/callrecord/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, ModelMap modelMap) {
         if (id == null) throw new IllegalArgumentException("An Identifier is required");
@@ -23,8 +33,12 @@ public class CallRecordController {
 
     @RequestMapping(value = "/callrecord", method = RequestMethod.GET)
     public String list(ModelMap modelMap) {
-        modelMap.put("callRecord", new CallRecord());
-        modelMap.addAttribute("callrecords", CallRecord.findAllCallRecords());
+        final CallRecord callRecord = new CallRecord();
+        modelMap.put("callRecord", callRecord);
+
+        modelMap.addAttribute("callrecords", callRecordService
+                .getCallRecordsFilteredByRoleAndSearchCriteria(callRecord,
+                        callcenterUserDetailsService.getCurrentUserRole()));
 
         return "callrecord/list";
     }
@@ -32,6 +46,8 @@ public class CallRecordController {
     @RequestMapping(value = "/callrecord/search", method = RequestMethod.GET)
     public @ResponseBody List<CallRecord> search(final CallRecord callRecord) {
         callRecord.prepareValuesForPartialSearch();
-        return CallRecord.findAllByExample(callRecord);
+        return callRecordService
+                .getCallRecordsFilteredByRoleAndSearchCriteria(callRecord,
+                        callcenterUserDetailsService.getCurrentUserRole());
     }
 }
