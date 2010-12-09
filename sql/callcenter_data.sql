@@ -45,7 +45,7 @@ CREATE TABLE `call_record` (
   `target_id` varchar(255) DEFAULT NULL,
   `wave_file_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,6 +54,7 @@ CREATE TABLE `call_record` (
 
 LOCK TABLES `call_record` WRITE;
 /*!40000 ALTER TABLE `call_record` DISABLE KEYS */;
+INSERT INTO `call_record` VALUES (1,0,'2010-09-14 14:15:17','2002','Extn2002','2001','Extn2001','Extn2001','','10.10.250.10','\0','2002','20101209154500_test1.wav'),(2,0,'2010-09-14 14:15:17','2002','Extn2002','2001','Extn2001','Extn2001','','10.10.250.10','\0','2002','20101209154500_test2.wav'),(3,0,'2010-09-14 14:17:52','2001','Extn2001','2009','Extn2009','Extn2009','','10.10.250.30','\0','2001','20101209154501_test3.wav');
 /*!40000 ALTER TABLE `call_record` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,6 +71,7 @@ CREATE TABLE `fields` (
   `description` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `available_by_default` bit(1) NOT NULL,
+  `type` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
@@ -81,7 +83,7 @@ CREATE TABLE `fields` (
 
 LOCK TABLES `fields` WRITE;
 /*!40000 ALTER TABLE `fields` DISABLE KEYS */;
-INSERT INTO `fields` VALUES (1,1,'Call Time','callTime',''),(2,1,'Calling Party Name','callingPartyName',''),(3,1,'Targeted Id','targetId',''),(4,1,'Called Party','calledId',''),(5,1,'Calling Party','callerId','\0'),(6,1,'Called Party Name','calledPartyName','\0'),(7,1,'IP Address of switch','ipAddress','');
+INSERT INTO `fields` VALUES (1,1,'Call Time','callTime','',1),(2,1,'Calling Party Name','callingPartyName','',0),(3,1,'Targeted Id','targetId','',0),(4,1,'Called Party','calledId','',0),(5,1,'Calling Party','callerId','\0',0),(6,1,'Called Party Name','calledPartyName','\0',0),(7,1,'IP Address of switch','ipAddress','',0);
 /*!40000 ALTER TABLE `fields` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +165,7 @@ CREATE TABLE `recording_library_service_available_fields` (
 
 LOCK TABLES `recording_library_service_available_fields` WRITE;
 /*!40000 ALTER TABLE `recording_library_service_available_fields` DISABLE KEYS */;
-INSERT INTO `recording_library_service_available_fields` VALUES (4,1),(4,7),(16,1),(16,7),(18,1),(18,7),(19,1),(19,7);
+INSERT INTO `recording_library_service_available_fields` VALUES (4,1),(4,7),(16,1),(16,7),(18,1),(18,7),(19,1),(19,7),(21,1),(21,2),(21,3),(21,4),(21,7);
 /*!40000 ALTER TABLE `recording_library_service_available_fields` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +192,7 @@ CREATE TABLE `recording_library_services` (
 
 LOCK TABLES `recording_library_services` WRITE;
 /*!40000 ALTER TABLE `recording_library_services` DISABLE KEYS */;
-INSERT INTO `recording_library_services` VALUES (1,NULL,NULL),(2,NULL,NULL),(3,NULL,NULL),(4,NULL,NULL),(16,NULL,'2010-11-01 00:00:00'),(18,NULL,'2010-11-02 00:00:00'),(19,NULL,'2010-01-01 00:00:00');
+INSERT INTO `recording_library_services` VALUES (1,NULL,NULL),(2,NULL,NULL),(3,NULL,NULL),(4,NULL,NULL),(16,NULL,'2010-11-01 00:00:00'),(18,NULL,'2010-11-02 00:00:00'),(19,NULL,'2010-01-01 00:00:00'),(21,NULL,'2010-12-01 00:00:00');
 /*!40000 ALTER TABLE `recording_library_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +219,7 @@ CREATE TABLE `restriction_values` (
 
 LOCK TABLES `restriction_values` WRITE;
 /*!40000 ALTER TABLE `restriction_values` DISABLE KEYS */;
-INSERT INTO `restriction_values` VALUES (1,'10.0.0.1',0),(1,'10.23.23.11',1),(1,'10.45.56.67',2),(2,'5001',0),(2,'5002',1),(2,'4005',2),(2,'4059',3),(3,'2010-01-01',0),(3,'2010-12-31',1),(4,'5001',0),(4,'5002',1),(4,'4005',2),(4,'4059',3),(5,'10.0.0.1',0),(5,'10.23.23.11',1),(5,'10.45.56.67',2),(6,'6001',0);
+INSERT INTO `restriction_values` VALUES (1,'10.0.0.1',0),(1,'10.23.23.11',1),(1,'10.45.56.67',2),(2,'5001',0),(2,'5002',1),(2,'4005',2),(2,'4059',3),(3,'2010-01-01',0),(3,'2010-12-31',1),(4,'5001',0),(4,'5002',1),(4,'4005',2),(4,'4059',3),(5,'10.0.0.1',0),(5,'10.23.23.11',1),(5,'10.45.56.67',2),(6,'6001',0),(8,'10.10.250.30',0);
 /*!40000 ALTER TABLE `restriction_values` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -241,7 +243,7 @@ CREATE TABLE `restrictions` (
   CONSTRAINT `FKBB8E66271F595A54` FOREIGN KEY (`service_id`) REFERENCES `recording_library_services` (`id`),
   CONSTRAINT `FKBB8E662743D5D73E` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`),
   CONSTRAINT `FKBB8E662747B20E1E` FOREIGN KEY (`field_id`) REFERENCES `fields` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -250,7 +252,7 @@ CREATE TABLE `restrictions` (
 
 LOCK TABLES `restrictions` WRITE;
 /*!40000 ALTER TABLE `restrictions` DISABLE KEYS */;
-INSERT INTO `restrictions` VALUES (1,0,'BETWEEN',18,1),(2,0,'IN',18,3),(3,0,'BETWEEN',19,1),(4,0,'IN',19,4),(5,0,'IN',19,7),(6,0,'IN',19,3);
+INSERT INTO `restrictions` VALUES (1,0,'BETWEEN',18,1),(2,0,'IN',18,3),(3,0,'BETWEEN',19,1),(4,0,'IN',19,4),(5,0,'IN',19,7),(6,0,'IN',19,3),(8,0,'IN',21,7);
 /*!40000 ALTER TABLE `restrictions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,7 +280,7 @@ CREATE TABLE `role_assignables` (
 
 LOCK TABLES `role_assignables` WRITE;
 /*!40000 ALTER TABLE `role_assignables` DISABLE KEYS */;
-INSERT INTO `role_assignables` VALUES (3,1),(4,2),(4,3);
+INSERT INTO `role_assignables` VALUES (3,1),(4,2),(4,3),(6,2);
 /*!40000 ALTER TABLE `role_assignables` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -306,7 +308,7 @@ CREATE TABLE `role_services` (
 
 LOCK TABLES `role_services` WRITE;
 /*!40000 ALTER TABLE `role_services` DISABLE KEYS */;
-INSERT INTO `role_services` VALUES (2,2),(3,3),(4,1),(4,2),(4,3);
+INSERT INTO `role_services` VALUES (2,2),(3,3),(4,1),(4,2),(4,3),(5,19),(6,21);
 /*!40000 ALTER TABLE `role_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -328,7 +330,7 @@ CREATE TABLE `roles` (
   `name` varchar(255) DEFAULT NULL,
   `timeout` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,7 +339,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,1,'','','','Administrator','en_GB','ROLE_ADMIN',600),(2,0,'\0','\0','\0','Default Role','en_US','ROLE_DEFAULT',300),(3,0,'','\0','','User Role','en_GB','ROLE_USER',300),(4,0,'','','','Credit Card Role','en_US','ROLE_CREDIT_CARD',300);
+INSERT INTO `roles` VALUES (1,1,'','','','Administrator','en_GB','ROLE_ADMIN',600),(2,0,'\0','\0','\0','Default Role','en_US','ROLE_DEFAULT',300),(3,0,'','\0','','User Role','en_GB','ROLE_USER',300),(4,0,'','','','Credit Card Role','en_US','ROLE_CREDIT_CARD',300),(5,0,'\0','\0','\0','CC user role','en_US','ROLE_CC',300),(6,0,'\0','\0','\0','Bank Account Role','en_GB','ROLE_BANK_ACCOUNT',300);
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,7 +355,7 @@ CREATE TABLE `services` (
   `version` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -362,7 +364,7 @@ CREATE TABLE `services` (
 
 LOCK TABLES `services` WRITE;
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
-INSERT INTO `services` VALUES (1,1,'RL_ADMIN'),(2,1,'RL_DEFAULT'),(3,1,'RL_USER'),(4,0,'RL_TEST'),(16,0,'TLERE'),(18,0,'REERE'),(19,0,'RL_CC');
+INSERT INTO `services` VALUES (1,1,'RL_ADMIN'),(2,1,'RL_DEFAULT'),(3,1,'RL_USER'),(4,0,'RL_TEST'),(16,0,'TLERE'),(18,0,'REERE'),(19,0,'RL_CC'),(21,0,'RL_IP_ONLY');
 /*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -384,7 +386,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `name` (`name`),
   KEY `FK6A68E08255CA5C8` (`role`),
   CONSTRAINT `FK6A68E08255CA5C8` FOREIGN KEY (`role`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -393,7 +395,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,1,'','admin','admin',1),(2,1,'en_gb','creditcard','creditcard',4),(3,1,'en_gb','batman','catwoman',1);
+INSERT INTO `users` VALUES (1,1,'','admin','admin',1),(2,1,'en_gb','creditcard','creditcard',4),(3,1,'en_gb','batman','catwoman',1),(4,0,'en_US','testuser','testuser',3),(5,0,'en_US','ccuser','ccuser',2),(6,0,NULL,'testccuser','testccuser',5),(7,0,'en_GB','testbankaccount','testbankaccount',6);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -406,4 +408,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-11-26 16:51:35
+-- Dump completed on 2010-12-09 17:38:22

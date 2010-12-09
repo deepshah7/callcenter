@@ -32,6 +32,6 @@ import javax.persistence.*;
 @Table(name = "services")
 public abstract class Service {
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 }
