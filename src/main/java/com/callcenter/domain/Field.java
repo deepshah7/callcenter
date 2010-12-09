@@ -49,7 +49,7 @@ public class Field {
         return type == Type.CALENDAR;
     }
 
-    enum Type {
+    public enum Type {
         STRING,
         CALENDAR
     }

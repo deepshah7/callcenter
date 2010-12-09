@@ -83,19 +83,19 @@
                                 <fmt:formatDate pattern="dd/MM/yyyy HH:mm:ss" value="${callRecord.callTime.time}"/>
                             </td>
                             <td>
-                                <c:out value="${fn:substring(callRecord.callerId, 0, 10)}"/>
+                                <c:out value="${callRecord.callerId}"/>
                             </td>
                             <td>
-                                <c:out value="${fn:substring(callRecord.displayInfo, 0, 10)}"/>
+                                <c:out value="${callRecord.displayInfo}"/>
                             </td>
                             <td>
-                                <c:out value="${fn:substring(callRecord.calledId, 0, 10)}"/>
+                                <c:out value="${callRecord.calledId}"/>
                             </td>
                             <td>
-                                <c:out value="${fn:substring(callRecord.targetId, 0, 10)}"/>
+                                <c:out value="${callRecord.targetId}"/>
                             </td>
                             <td>
-                                <c:out value="${fn:substring(callRecord.ipAddress, 0, 10)}"/>
+                                <c:out value="${callRecord.ipAddress}"/>
                             </td>
                             <td>
                                 <spring:url value="/callrecord/${callRecord.id}" var="show_form_url"/>

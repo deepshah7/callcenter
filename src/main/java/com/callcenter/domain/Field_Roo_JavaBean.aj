@@ -1,5 +1,6 @@
 package com.callcenter.domain;
 
+import com.callcenter.domain.Field.Type;
 import java.lang.Boolean;
 import java.lang.String;
 
@@ -29,11 +30,11 @@ privileged aspect Field_Roo_JavaBean {
         this.availableByDefault = availableByDefault;
     }
     
-    public String Field.getType() {
+    public Type Field.getType() {
         return this.type;
     }
     
-    public void Field.setType(String type) {
+    public void Field.setType(Type type) {
         this.type = type;
     }
     

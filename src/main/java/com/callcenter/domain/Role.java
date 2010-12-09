@@ -67,6 +67,7 @@ public class Role {
     }
 
     public RecordingLibraryService getRecordingLibraryService() {
+        if(services.isEmpty()) return new RecordingLibraryService();
         return (RecordingLibraryService) services.iterator().next();
     }
 }
