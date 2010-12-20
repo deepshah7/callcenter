@@ -28,6 +28,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * The service that will be used to get the user details.
@@ -52,7 +54,11 @@ public class CallcenterUserDetailsService implements UserDetailsService {
     }
 
     public Role getCurrentUserRole() {
-        return Role.findRoleByName(SecurityContextHolder.getContext()
-                        .getAuthentication().getAuthorities().iterator().next().getAuthority());
+        final Collection<GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        final List<String> roleNames = new ArrayList<String>();
+        for(final GrantedAuthority grantedAuthority : authorities) {
+            roleNames.add(grantedAuthority.getAuthority());
+        }
+        return Role.findRoleByNameIn(roleNames);
     }
 }

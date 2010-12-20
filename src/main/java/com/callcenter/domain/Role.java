@@ -35,13 +35,13 @@ import java.util.*;
 @Entity
 @Table(name = "roles")
 @RooJavaBean
-@RooEntity(finders = {"findRolesByName"})
+@RooEntity()
 public class Role {
     private String name;
 
     private String description;
 
-    private Locale language;
+    private java.util.Locale language;
 
     private Integer timeout = Constants.Defaults.ROLE_TIMEOUT;
 
@@ -51,15 +51,18 @@ public class Role {
 
     @ManyToMany(targetEntity = Role.class)
     @JoinTable(name = "role_assignables", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "assignable_role_id"))
-    private Set<Role> assignableRoles = new HashSet<Role>();
+    private java.util.Set<Role> assignableRoles = new HashSet<Role>();
 
     @ManyToMany(targetEntity = Service.class)
     @JoinTable(name = "role_services", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "service_id"))
     private Set<Service> services = new HashSet<Service>();
 
 
-    public static Role findRoleByName(final String name) {
-        return (Role) findRolesByName(name).getSingleResult();
+    public static Role findRoleByNameIn(final java.util.Collection<String> names) {
+        EntityManager em = Role.entityManager();
+        Query q = em.createQuery("SELECT Role FROM Role AS role WHERE role.name in (:names)");
+        q.setParameter("names", names);
+        return (Role) q.getSingleResult();
     }
 
     public RecordingLibraryService getRecordingLibraryService() {

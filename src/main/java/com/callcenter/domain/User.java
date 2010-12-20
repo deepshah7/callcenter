@@ -24,14 +24,14 @@ public class User {
     private String password;
 
     @Column(nullable = true)
-    private Locale language;
+    private java.util.Locale language;
 
     @ManyToOne(optional = false, targetEntity = Role.class)
     @JoinColumn(nullable = false)
     private Role role;
 
     @ManyToMany(targetEntity = Group.class, mappedBy = "members")
-    private Set<Group> groups = new HashSet<Group>();
+    private java.util.Set<Group> groups = new HashSet<Group>();
 
     public static User findUserByName(final String name) {
         final List<User> users = findUsersByName(name).getResultList();
