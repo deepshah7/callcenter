@@ -51,13 +51,21 @@ public class CallRecord {
     }
 
     public void prepareValuesForPartialSearch() {
-        setCalledId(Constants.Query.LIKE_OPERATOR + getCalledId() + Constants.Query.LIKE_OPERATOR);
-        setCallerId(Constants.Query.LIKE_OPERATOR + getCallerId() + Constants.Query.LIKE_OPERATOR);
-        setDisplayInfo(Constants.Query.LIKE_OPERATOR + getDisplayInfo() + Constants.Query.LIKE_OPERATOR);
-        setTargetId(Constants.Query.LIKE_OPERATOR + getTargetId() + Constants.Query.LIKE_OPERATOR);
+        if(null != ipAddress) setIpAddress(Constants.Query.LIKE_OPERATOR + getIpAddress()
+                + Constants.Query.LIKE_OPERATOR);
+        if(null != targetId) setTargetId(Constants.Query.LIKE_OPERATOR + getTargetId()
+                + Constants.Query.LIKE_OPERATOR);
+        if(null != calledId) setCalledId(Constants.Query.LIKE_OPERATOR  + getCalledId()
+                + Constants.Query.LIKE_OPERATOR);
+        if(null != calledPartyName) setCalledPartyName(Constants.Query.LIKE_OPERATOR + getCalledPartyName()
+                + Constants.Query.LIKE_OPERATOR);
+        if(null != callerId) setCallerId(Constants.Query.LIKE_OPERATOR + getCallerId()
+                + Constants.Query.LIKE_OPERATOR);
+        if(null != callingPartyName) setCallingPartyName(Constants.Query.LIKE_OPERATOR + getCallingPartyName()
+                + Constants.Query.LIKE_OPERATOR);
     }
 
-    private static Criteria getSearchCriteria(CallRecord callRecord) {
+    private static Criteria getSearchCriteria(final CallRecord callRecord) {
         final Session session = (Session)entityManager().getDelegate();
         return session.createCriteria(CallRecord.class).add(Example.create(callRecord).enableLike().ignoreCase());
     }
