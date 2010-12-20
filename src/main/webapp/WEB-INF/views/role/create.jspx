@@ -53,11 +53,6 @@
             </div>
             <br/>
             <div>
-                <form:checkbox path="canAddRoles" label="Can Add Roles" />
-                <br/>
-            </div>
-            <br/>
-            <div>
                 <form:checkbox path="canAddUsers" label="Can Add Users" id="canAddUsers" />
                 <br/>
             </div>

@@ -25,9 +25,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.security.Provider;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -51,8 +49,6 @@ public class Role {
 
     private Boolean canAddUsers;
 
-    private Boolean canAddRoles;
-
     @ManyToMany(targetEntity = Role.class)
     @JoinTable(name = "role_assignables", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "assignable_role_id"))
     private Set<Role> assignableRoles = new HashSet<Role>();
@@ -69,5 +65,17 @@ public class Role {
     public RecordingLibraryService getRecordingLibraryService() {
         if(services.isEmpty()) return new RecordingLibraryService();
         return (RecordingLibraryService) services.iterator().next();
+    }
+
+    public List<String> getAuthorities() {
+        final ArrayList<String> authorities = new ArrayList<String>();
+        authorities.add(name);
+        if(getCanAddGroups()) {
+            authorities.add(Constants.Role.ADD_GROUP_ROLE_NAME);
+        }
+        if(getCanAddUsers()) {
+            authorities.add(Constants.Role.ADD_USER_ROLE_NAME);
+        }
+        return authorities;
     }
 }

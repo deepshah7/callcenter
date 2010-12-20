@@ -4,10 +4,7 @@ import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -45,5 +42,13 @@ public class User {
 
     public String getRoleName() {
         return role.getName();
+    }
+
+    public boolean isGroupCreationEnabled() {
+        return role.getCanAddGroups();
+    }
+
+    public List<String> getAuthorities() {
+        return role.getAuthorities();
     }
 }

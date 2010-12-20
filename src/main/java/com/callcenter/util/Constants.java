@@ -25,4 +25,10 @@ public class Constants {
         public static final Integer ROLE_TIMEOUT = 5*60;
         public static final String DATE_FORMAT = "MM/dd/yyyy";
     }
+
+    public static class Role {
+
+        public static final String ADD_GROUP_ROLE_NAME = "ROLE_ADD_GROUP";
+        public static final String ADD_USER_ROLE_NAME = "ROLE_ADD_USER";
+    }
 }

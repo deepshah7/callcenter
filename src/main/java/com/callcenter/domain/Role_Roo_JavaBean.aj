@@ -58,14 +58,6 @@ privileged aspect Role_Roo_JavaBean {
         this.canAddUsers = canAddUsers;
     }
     
-    public Boolean Role.getCanAddRoles() {
-        return this.canAddRoles;
-    }
-    
-    public void Role.setCanAddRoles(Boolean canAddRoles) {
-        this.canAddRoles = canAddRoles;
-    }
-    
     public Set<Role> Role.getAssignableRoles() {
         return this.assignableRoles;
     }

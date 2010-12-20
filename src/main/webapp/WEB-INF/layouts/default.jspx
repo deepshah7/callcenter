@@ -4,6 +4,7 @@
 	xmlns:tiles="http://tiles.apache.org/tags-tiles"
 	xmlns:form="http://www.springframework.org/tags/form"
 	xmlns:spring="http://www.springframework.org/tags"
+    xmlns:sec="http://www.springframework.org/security/tags"
 	xmlns:roo="urn:jsptagdir:/WEB-INF/tags" >  
 	
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />  
@@ -57,14 +58,22 @@
                             <li><a href="${home}">Home</a> </li>
                             <spring:url var="callrecord" value="/callrecord" />
                             <li><a href="${callrecord}">Recording Library</a> </li>
-                            <spring:url var="user" value="/user" />
-                            <li><a href="${user}">User</a> </li>
-                            <spring:url var="role" value="/role" />
-                            <li><a href="${role}">Role</a> </li>
-                            <spring:url var="group" value="/group" />
-                            <li><a href="${group}">Group</a> </li>
-                            <spring:url var="services" value="/recordinglibrary" />
-                            <li><a href="${services}">Services</a> </li>
+                            <sec:authorize access="hasRole('ROLE_ADD_USER')">
+                                <spring:url var="user" value="/user" />
+                                <li><a href="${user}">User</a> </li>
+                            </sec:authorize>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <spring:url var="role" value="/role" />
+                                <li><a href="${role}">Role</a> </li>
+                            </sec:authorize>
+                            <sec:authorize access="hasRole('ROLE_ADD_GROUP')">
+                                <spring:url var="group" value="/group" />
+                                <li><a href="${group}">Group</a> </li>
+                            </sec:authorize>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <spring:url var="services" value="/recordinglibrary" />
+                                <li><a href="${services}">Services</a> </li>
+                            </sec:authorize>
                         </ul>
                     </div>
                 </c:if>

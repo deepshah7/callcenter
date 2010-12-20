@@ -16,6 +16,7 @@
 package com.callcenter.service;
 
 import com.callcenter.domain.Role;
+import com.callcenter.util.Constants;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
@@ -42,8 +43,12 @@ public class CallcenterUserDetailsService implements UserDetailsService {
         if(user == null) throw new UsernameNotFoundException("User with the name: " + userName + " was not found");
 
         final ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-        grantedAuthorities.add(new GrantedAuthorityImpl(user.getRoleName()));
-        return new User(user.getName(), user.getPassword(), true, true, true, true, grantedAuthorities);
+
+        for(final String authorityName : user.getAuthorities()) {
+            grantedAuthorities.add(new GrantedAuthorityImpl(authorityName));
+        }
+        return new User(user.getName(), user.getPassword(),
+                true, true, true, true, grantedAuthorities);
     }
 
     public Role getCurrentUserRole() {
