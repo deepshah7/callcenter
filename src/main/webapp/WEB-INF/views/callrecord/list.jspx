@@ -8,61 +8,65 @@
         <spring:message code="label.callrecords" var="entity_label_plural"/>
         <spring:message arguments="${entity_label_plural}" code="entity.list.all" var="title_msg"/>
         <c:if test="${not empty callrecords}">
-            <spring:url value="/callrecord/search" var="search_url"/>
-            <script type="text/javascript">
-            $(document).ready(function(){
-                $(".trigger").click(function(){
-                    $(".panel").toggle("fast");
-                    return false;
-                });
-            });
-            </script>
-            <a class="trigger" href="#">Search</a>
+            <c:if test="${not empty availableFields}">
+                <spring:url value="/callrecord/search" var="search_url"/>
+                <script type="text/javascript">
+                    $(function(){
+                        $(".trigger").click(function(){
+                            $(".panel").toggle("fast");
+                            return false;
+                        });
+                    });
+                </script>
+                <a class="trigger" href="#">Search</a>
 
-            <div class="panel">
+                <div class="panel">
 
-                <h2>Search Call Record</h2>
-                <form:form action="${search_url}" method="POST" modelAttribute="callRecord" id="searchForm">
-                    <div class="clearBoth">
-                        <div class="floatLeft">
-                            <div>
-                                <label for="callerId">Caller Id: </label>
-                                <form:input path="callerId" class="mediumInput" id="callerId" />
-                            </div> <br/>
-                            <div>
-                                <label for="displayInfo">Display Info: </label>
-                                <form:input path="displayInfo" class="mediumInput" id="displayInfo" />
+                    <h2>Search Call Record</h2>
+                    <form:form action="${search_url}" method="POST" modelAttribute="callRecord" id="searchForm">
+                        <div class="clearBoth">
+                            <div class="floatLeft">
+                                <div>
+                                    <label for="callerId">Caller Id: </label>
+                                    <form:input path="callerId" class="mediumInput" id="callerId" />
+                                </div> <br/>
+                                <div>
+                                    <label for="displayInfo">Display Info: </label>
+                                    <form:input path="displayInfo" class="mediumInput" id="displayInfo" />
+                                </div>
+                            </div>
+                            <div class="floatRight">
+                                <div>
+                                    <label for="calledId">Called Id: </label>
+                                    <form:input path="calledId" class="mediumInput" id="calledId"/>
+                                </div> <br/>
+                                <div>
+                                    <label for="targetId">Target Id: </label>
+                                    <form:input path="targetId" class="mediumInput" id="targetId"/>
+                                </div>
                             </div>
                         </div>
-                        <div class="floatRight">
-                            <div>
-                                <label for="calledId">Called Id: </label>
-                                <form:input path="calledId" class="mediumInput" id="calledId"/>
-                            </div> <br/>
-                            <div>
-                                <label for="targetId">Target Id: </label>
-                                <form:input path="targetId" class="mediumInput" id="targetId"/>
-                            </div>
-                        </div>
-                    </div>
-                    <spring:url value="/" var="contextRoot"/>
-                    <script type="text/javascript">
-                        $(function() {
-                            new SearchCriteria().update();
-                            $(".mediumInput").blur(function() {
-                                $.getJSON("${search_url}", $("#searchForm").serialize(), function(data) {
-                                    new CallRecords(data, ${contextRoot}).createRows();
-                                    new SearchCriteria().update();
+                        <spring:url value="/" var="contextRoot"/>
+                        <script type="text/javascript">
+                            $(function() {
+                                new SearchCriteria().update();
+                                $(".mediumInput").blur(function() {
+                                    $.getJSON("${search_url}", $("#searchForm").serialize(), function(data) {
+                                        new CallRecords(data, ${contextRoot}).createRows();
+                                        new SearchCriteria().update();
+                                    });
                                 });
-                            });
-                        })
-                    </script>
-                </form:form>
-            </div>
+                            })
+                        </script>
+                    </form:form>
+                </div>
+            </c:if>
             <div class="clearBoth"></div> <br/>
             <hr />
             <h2>Results</h2>
-            <div class="bold">Current Search Criteria: <span id="currentCriteria"></span></div>
+            <c:if test="${not empty availableFields}">
+                <div class="bold">Current Search Criteria: <span id="currentCriteria"></span></div>
+            </c:if>
             <br/>
             <table width="300px" id="callRecordsTable">
                 <thead>

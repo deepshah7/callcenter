@@ -2,9 +2,8 @@ package com.callcenter.controller;
 
 import com.callcenter.domain.CallRecord;
 import com.callcenter.service.CallRecordService;
-import com.callcenter.service.CallcenterUserDetailsService;
+import com.callcenter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +21,7 @@ public class CallRecordController {
     private CallRecordService callRecordService;
 
     @Autowired
-    private CallcenterUserDetailsService callcenterUserDetailsService;
+    private UserService userService;
 
     @RequestMapping(value = "/callrecord/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, ModelMap modelMap) {
@@ -35,10 +34,11 @@ public class CallRecordController {
     public String list(ModelMap modelMap) {
         final CallRecord callRecord = new CallRecord();
         modelMap.put("callRecord", callRecord);
+        modelMap.put("availableFields", userService.getAvailableFieldsForCurrentUser());
 
         modelMap.addAttribute("callrecords", callRecordService
                 .getCallRecordsFilteredByRoleAndSearchCriteria(callRecord,
-                        callcenterUserDetailsService.getCurrentUserRole()));
+                        userService.getCurrentUserRole()));
 
         return "callrecord/list";
     }
@@ -48,6 +48,6 @@ public class CallRecordController {
         callRecord.prepareValuesForPartialSearch();
         return callRecordService
                 .getCallRecordsFilteredByRoleAndSearchCriteria(callRecord,
-                        callcenterUserDetailsService.getCurrentUserRole());
+                        userService.getCurrentUserRole());
     }
 }

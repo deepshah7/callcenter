@@ -2,7 +2,7 @@ package com.callcenter.controller;
 
 import com.callcenter.domain.Role;
 import com.callcenter.domain.User;
-import com.callcenter.service.CallcenterUserDetailsService;
+import com.callcenter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class UserController {
 
     @Autowired
-    private CallcenterUserDetailsService callcenterUserDetailsService;
+    private UserService userService;
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public String create(final User user) {
@@ -26,7 +26,7 @@ public class UserController {
     @RequestMapping(value = "/user/form", method = RequestMethod.GET)
     public String createForm(ModelMap modelMap) {
         modelMap.addAttribute("user", new User());
-        modelMap.addAttribute("roles", callcenterUserDetailsService.getCurrentUserRole()
+        modelMap.addAttribute("roles", userService.getCurrentUserRole()
                 .getAssignableRoles());
         return "user/create";
     }
@@ -39,7 +39,7 @@ public class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String list(final ModelMap modelMap) {
-        modelMap.addAttribute("users", callcenterUserDetailsService.getUsersForCurrentRole());
+        modelMap.addAttribute("users", userService.getUsersForCurrentRole());
         return "user/list";
     }
 

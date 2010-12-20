@@ -15,17 +15,13 @@
  */
 package com.callcenter.service;
 
-import com.callcenter.domain.Collection;
 import com.callcenter.domain.User;
 import mockit.*;
 import org.junit.Test;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -54,7 +50,7 @@ public class CallcenterUserDetalisServiceTest {
             user.getPassword(); returns("password1");
         }};
 
-        final UserDetails foundUser = new CallcenterUserDetailsService().loadUserByUsername("HelloUser");
+        final UserDetails foundUser = new UserService().loadUserByUsername("HelloUser");
         assertNotNull(foundUser);
         assertEquals("User1", foundUser.getUsername());
         assertEquals("password1", foundUser.getPassword());

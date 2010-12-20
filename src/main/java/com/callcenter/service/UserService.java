@@ -15,15 +15,16 @@
  */
 package com.callcenter.service;
 
+import com.callcenter.domain.Field;
+import com.callcenter.domain.RecordingLibraryService;
 import com.callcenter.domain.Role;
-import com.callcenter.util.Constants;
+import com.callcenter.domain.Services;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +40,7 @@ import java.util.List;
  */
 @Service(value = "callcenterUserDetailsService")
 @Transactional
-public class CallcenterUserDetailsService implements UserDetailsService {
+public class UserService implements org.springframework.security.core.userdetails.UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String userName) throws UsernameNotFoundException, DataAccessException {
@@ -68,6 +69,14 @@ public class CallcenterUserDetailsService implements UserDetailsService {
         final Role currentUserRole = findCurrentUserRole();
         currentUserRole.addToAssignableRoles(role);
         currentUserRole.persist();
+    }
+
+    public List<Field> getAvailableFieldsForCurrentUser() {
+        final Role currentUserRole = findCurrentUserRole();
+        final RecordingLibraryService recordingLibraryService
+                = new Services(currentUserRole.getServices()).getRecordingLibraryService();
+        if(recordingLibraryService == null) return new ArrayList<Field>();
+        return new ArrayList<Field>(recordingLibraryService.getAvailableFields());
     }
 
     private Role findCurrentUserRole() {

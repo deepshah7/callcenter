@@ -1,33 +1,27 @@
 package com.callcenter.controller;
 
-import com.callcenter.domain.Field;
-import com.callcenter.domain.Restriction;
 import com.callcenter.domain.Service;
-import com.callcenter.service.CallcenterUserDetailsService;
+import com.callcenter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import com.callcenter.domain.Role;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.Valid;
-
 @RequestMapping("/role/**")
 @Controller
 public class RoleController {
 
     @Autowired
-    private CallcenterUserDetailsService callcenterUserDetailsService;
+    private UserService userService;
 
     @RequestMapping(value = "/role", method = RequestMethod.POST)
     public String create(final Role role) {
         role.persist();
-        callcenterUserDetailsService.addAssignableRoleToCurrentUser(role);
+        userService.addAssignableRoleToCurrentUser(role);
         return "redirect:/role/" + role.getId();
     }
 
