@@ -26,7 +26,8 @@ public class UserController {
     @RequestMapping(value = "/user/form", method = RequestMethod.GET)
     public String createForm(ModelMap modelMap) {
         modelMap.addAttribute("user", new User());
-        modelMap.addAttribute("roles", Role.findAllRoles());
+        modelMap.addAttribute("roles", callcenterUserDetailsService.getCurrentUserRole()
+                .getAssignableRoles());
         return "user/create";
     }
 
