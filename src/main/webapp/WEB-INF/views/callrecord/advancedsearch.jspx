@@ -14,12 +14,62 @@
         <spring:url value="/callrecord/advancedsearch" var="form_url"/>
         <form:form action="${form_url}" method="POST" modelAttribute="searchCommand">
             <div>
-                <label for="searchType">Search Type:</label>
-                <form:radiobutton path="type" label="Wizard" value="WIZARD"/>
-                <form:radiobutton path="type" label="Free form" value="FREE_FORM"/>
+                <label>Search Type:</label>
+                <input name="type" value="WIZARD" type="radio"/><label style="float: none;">Wizard</label>
+                <input name="type" value="FREE_FORM"  type="radio"/><label style="float: none;">Free form</label>
                 <br/>
             </div>
             <br/>
+            <div id="wizardContainer">
+                <div>
+                    <label>From:</label>
+                    <select name="from">
+                        <option value="START">Start</option>
+                        <option value="DATE_AND_TIME">Date and Time</option>
+                        <option value="LAST">Last</option>
+                    </select>
+                </div>
+                <br/>
+                <div>
+                    <label>Till:</label>
+                    <select name="till">
+                        <option value="NOW">Now</option>
+                        <option value="DATE_AND_TIME">Date and Time</option>
+                    </select>
+                </div>
+                <br/>
+                <div>
+                    <label>Find:</label>
+                    <select name="find">
+                        <option value="ALL">All Calls</option>
+                        <option value="INCOMING">All Incoming Calls</option>
+                        <option value="OUTGOING">All Outgoing Calls</option>
+                    </select>
+                </div>
+                <br/>
+                <div>
+                    <label>How Long:</label>
+                    <select name="howLong">
+                        <option value="ANY">Of Any Duration</option>
+                        <option value="GREATER_THAN">Of Duration Greater Than</option>
+                        <option value="LESS_THAN">Of Duration Less Than</option>
+                    </select>
+                </div>
+                <br/>
+                <div>
+                    <label>To/From Whom:</label>
+                    <select name="whom">
+                        <option value="TO_AND_FROM">To and From</option>
+                        <option value="TO">To</option>
+                        <option value="FROM">From</option>
+                    </select>
+                </div>
+                <br/>
+            </div>
+            <div id="freeFormContainer">
+                <label>Search Criteria:</label>
+                <textarea name="freeForm" rows="5" cols="50"><!-- Required by some browsers --></textarea>
+            </div>
         </form:form>
         <br/>
         <hr/>

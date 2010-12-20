@@ -24,6 +24,18 @@ public class SearchCommand {
 
     private Type type;
 
+    private From from;
+
+    private Till till;
+
+    private Find find;
+
+    private HowLong howLong;
+
+    private Whom whom;
+
+    private String freeForm;
+
     public Type getType() {
         return type;
     }
@@ -32,7 +44,75 @@ public class SearchCommand {
         this.type = type;
     }
 
+    public From getFrom() {
+        return from;
+    }
+
+    public void setFrom(From from) {
+        this.from = from;
+    }
+
+    public Till getTill() {
+        return till;
+    }
+
+    public void setTill(Till till) {
+        this.till = till;
+    }
+
+    public Find getFind() {
+        return find;
+    }
+
+    public void setFind(Find find) {
+        this.find = find;
+    }
+
+    public HowLong getHowLong() {
+        return howLong;
+    }
+
+    public void setHowLong(HowLong howLong) {
+        this.howLong = howLong;
+    }
+
+    public Whom getWhom() {
+        return whom;
+    }
+
+    public void setWhom(Whom whom) {
+        this.whom = whom;
+    }
+
+    public String getFreeForm() {
+        return freeForm;
+    }
+
+    public void setFreeForm(String freeForm) {
+        this.freeForm = freeForm;
+    }
+
     enum Type {
         WIZARD, FREE_FORM
+    }
+
+    enum From {
+        START, DATE_AND_TIME, LAST
+    }
+
+    enum Till {
+        NOW, DATE_AND_TIME
+    }
+
+    enum Find {
+        ALL, INCOMING, OUTGOING
+    }
+
+    enum HowLong {
+        ANY, GREATER_THAN, LESS_THAN
+    }
+
+    enum Whom {
+        TO_AND_FROM, TO, FROM
     }
 }
