@@ -95,24 +95,4 @@ public class SearchCommand {
     enum Type {
         WIZARD, FREE_FORM
     }
-
-    enum From {
-        START, DATE_AND_TIME, LAST
-    }
-
-    enum Till {
-        NOW, DATE_AND_TIME
-    }
-
-    enum Find {
-        ALL, INCOMING, OUTGOING
-    }
-
-    enum HowLong {
-        ANY, GREATER_THAN, LESS_THAN
-    }
-
-    enum Whom {
-        TO_AND_FROM, TO, FROM
-    }
 }
