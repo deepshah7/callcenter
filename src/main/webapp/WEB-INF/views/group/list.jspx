@@ -37,10 +37,10 @@
                         </script>
                         <td>${group.id}</td>
                         <td>
-                            <c:out value="${fn:substring(group.name, 0, 10)}"/>
+                            <c:out value="${group.name}"/>
                         </td>
                         <td>
-                            <c:out value="${fn:substring(group.number, 0, 10)}"/>
+                            <c:out value="${group.number}"/>
                         </td>
                         <td>${fn:length(group.members)}</td>
                         <td>

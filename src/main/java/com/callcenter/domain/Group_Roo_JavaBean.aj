@@ -1,5 +1,6 @@
 package com.callcenter.domain;
 
+import com.callcenter.domain.Group;
 import com.callcenter.domain.User;
 import java.lang.String;
 import java.util.Set;
@@ -28,6 +29,14 @@ privileged aspect Group_Roo_JavaBean {
     
     public void Group.setMembers(Set<User> members) {
         this.members = members;
+    }
+    
+    public Set<Group> Group.getGroups() {
+        return this.groups;
+    }
+    
+    public void Group.setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
     
 }

@@ -27,6 +27,7 @@ public class GroupController {
     public String createForm(ModelMap modelMap) {
         modelMap.addAttribute("group", new Group());
         modelMap.addAttribute("users", User.findAllUsers());
+        modelMap.addAttribute("groups", Group.findAllGroups());
         return "group/create";
     }
 

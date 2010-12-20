@@ -36,16 +36,25 @@
                 <form:select path="members" class="multiselect" multiple="multiple">
                     <form:options itemLabel="name" itemValue="id" items="${users}"></form:options>
                 </form:select>
-                <script type="text/javascript">
-                    $(function() {
-                        // choose either the full version
-                        $(".multiselect").multiselect();
-                        // or disable some features
-                        $(".multiselect").multiselect({sortable: false, searchable: true});
-                    });
-                </script>
                 <br/>
             </div>
+            <br/>
+            <div id="roo_group_group_members">
+                <div class="clearBoth">
+                    <label for="_groups_id">Groups:</label>
+                    <br/>
+                </div>
+                <form:select path="groups" class="multiselect" multiple="multiple">
+                    <form:options itemLabel="name" itemValue="id" items="${groups}"></form:options>
+                </form:select>
+                <br/>
+            </div>
+            <script type="text/javascript">
+                $(function() {
+                    // choose either the full version
+                    $(".multiselect").multiselect();
+                });
+            </script>
             <br/>
             <div class="submit" id="roo_group_submit">
                 <spring:message code="button.save" var="save_button"/>

@@ -40,4 +40,9 @@ public class Group {
     @JoinTable(name = "group_members", joinColumns = @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> members = new HashSet<User>();
+
+    @ManyToMany(targetEntity = Group.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "group_member_groups", joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns = @JoinColumn(name = "other_group_id"))
+    private Set<Group> groups = new HashSet<Group>();
 }
