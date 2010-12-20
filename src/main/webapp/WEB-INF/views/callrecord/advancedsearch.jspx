@@ -15,8 +15,34 @@
         <form:form action="${form_url}" method="POST" modelAttribute="searchCommand">
             <div>
                 <label>Search Type:</label>
-                <input name="type" value="WIZARD" type="radio"/><label style="float: none;">Wizard</label>
-                <input name="type" value="FREE_FORM"  type="radio"/><label style="float: none;">Free form</label>
+                <input name="type" value="WIZARD" type="radio" id="wizard"/><label style="float: none;">Wizard</label>
+                <input name="type" value="FREE_FORM"  type="radio" id="freeForm" /><label style="float: none;">Free form</label>
+                <script type="text/javascript">
+                    function enableWizard() {
+                        $("#wizardContainer").show();
+                        $("#freeFormContainer").hide();
+                    }
+                    function enableFreeForm() {
+                        $("#freeFormContainer").show();
+                        $("#wizardContainer").hide();
+                    }
+                    $(function() {
+                        $("#wizard").change(function() {
+                            enableWizard();
+                        });
+                        $("#freeForm").change(function() {
+                            enableFreeForm();
+                        });
+                        $("#wizardContainer").hide();
+                        $("#freeFormContainer").hide();
+                        if($("#wizard").is(':checked')) {
+                            enableWizard()
+                        }
+                        if($("#freeForm").is(':checked')) {
+                            enableFreeForm()
+                        }
+                    });
+                </script>
                 <br/>
             </div>
             <br/>
