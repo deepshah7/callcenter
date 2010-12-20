@@ -15,16 +15,24 @@
  */
 package com.callcenter.converter;
 
+import com.callcenter.util.Constants;
+
+import java.beans.PropertyEditor;
+import java.beans.PropertyEditorSupport;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * Created by IntelliJ IDEA.
  *
  * @author Deep Shah
  */
-public class StringToCalendarConverter {
+public class StringToCalendarConverter extends PropertyEditorSupport {
+
+    private final SimpleDateFormat sdf = new SimpleDateFormat(Constants.Defaults.DATE_FORMAT);
 
     public Calendar toCalendar(final String date) {
         final Calendar calendar = Calendar.getInstance();
@@ -34,5 +42,36 @@ public class StringToCalendarConverter {
             e.printStackTrace();
         }
         return calendar;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getAsText() {
+        final Calendar calendar = (Calendar) getValue();
+
+        if (null != calendar) {
+            return sdf.format(calendar.getTime());
+        }
+        return "";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setAsText(final String text) {
+        final Calendar calendar = Calendar.getInstance();
+
+        try {
+            // Date Format with time
+            final Date date = sdf.parse(text);
+            calendar.setTime(date);
+            setValue(calendar);
+        } catch (final ParseException pe) {
+            pe.printStackTrace();
+            setValue(null);
+        }
     }
 }

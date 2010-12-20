@@ -1,16 +1,16 @@
 package com.callcenter.controller;
 
+import com.callcenter.converter.StringToCalendarConverter;
 import com.callcenter.domain.CallRecord;
 import com.callcenter.service.CallRecordService;
 import com.callcenter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.List;
 
 @RequestMapping("/callrecord/**")
@@ -22,6 +22,11 @@ public class CallRecordController {
 
     @Autowired
     private UserService userService;
+
+    @InitBinder
+    public void initBinder(final WebDataBinder binder) {
+        binder.registerCustomEditor(Calendar.class, new StringToCalendarConverter());
+    }
 
     @RequestMapping(value = "/callrecord/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, ModelMap modelMap) {

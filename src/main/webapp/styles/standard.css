@@ -380,7 +380,7 @@ fieldset th {
     -moz-border-radius-bottomright: 20px;
     -moz-border-radius-bottomleft: 20px;
     -webkit-border-bottom-right-radius: 20px;
-    height: 150px;
+    min-height: 150px;
     padding: 30px 30px 30px 30px;
     filter: alpha(opacity = 85);
     opacity: .85;
@@ -433,4 +433,12 @@ a.trigger {
 
 .marginLeft {
     margin-left: 10px;
+}
+
+.clearLeft {
+    clear: left;
+}
+
+.clearRight {
+    clear: right;
 }
