@@ -67,6 +67,10 @@
                         </script>
                     </form:form>
                 </div>
+                <div class="clearBoth floatRight">
+                    <spring:url value="/callrecord/advancedsearch" var="advancedSearch"/>
+                    <span><a href="${advancedSearch}">Advanced Search</a></span>
+                </div>
             </c:if>
             <div class="clearBoth"></div> <br/>
             <hr />

@@ -1,0 +1,82 @@
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <div id="_title_div">
+        <spring:message code="label.callrecord" var="entity_label"/>
+        <spring:message code="label.callrecords" var="entity_label_plural"/>
+        <spring:message arguments="${entity_label_plural}" code="entity.list.all" var="title_msg"/>
+
+        <div class="clearBoth"></div>
+        <spring:url value="/callrecord/advancedsearch" var="form_url"/>
+        <form:form action="${form_url}" method="POST" modelAttribute="searchCommand">
+            <div>
+                <label for="searchType">Search Type:</label>
+                <form:radiobutton path="type" label="Wizard" value="WIZARD"/>
+                <form:radiobutton path="type" label="Free form" value="FREE_FORM"/>
+                <br/>
+            </div>
+            <br/>
+        </form:form>
+        <br/>
+        <hr/>
+        <h2>Results</h2>
+        <div class="bold">Current Search Criteria: <span id="currentCriteria"></span></div>
+        <br/>
+        <table width="300px" id="callRecordsTable">
+            <thead>
+            <tr>
+                <th>Call Time</th>
+                <th>Caller Id</th>
+                <th>Display Info</th>
+                <th>Called Id</th>
+                <th>Target Id</th>
+                <th>Ip Address</th>
+                <th/>
+                <th/>
+            </tr>
+            </thead>
+            <c:forEach items="${callrecords}" var="callRecord">
+                <tr class="callRecord">
+                    <td>
+                        <fmt:formatDate pattern="dd/MM/yyyy HH:mm:ss" value="${callRecord.callTime.time}"/>
+                    </td>
+                    <td>
+                        <c:out value="${callRecord.callerId}"/>
+                    </td>
+                    <td>
+                        <c:out value="${callRecord.displayInfo}"/>
+                    </td>
+                    <td>
+                        <c:out value="${callRecord.calledId}"/>
+                    </td>
+                    <td>
+                        <c:out value="${callRecord.targetId}"/>
+                    </td>
+                    <td>
+                        <c:out value="${callRecord.ipAddress}"/>
+                    </td>
+                    <td>
+                        <spring:url value="/callrecord/${callRecord.id}" var="show_form_url"/>
+                        <spring:url value="/static/images/show.png" var="show_image_url"/>
+                        <spring:message arguments="${entity_label}" code="entity.show" var="show_label"/>
+                                <span>
+                                    <a href="${show_form_url}"><img src="${show_image_url}" title="${show_label}"/></a>
+                                </span>
+                    </td>
+                    <td>
+                        <spring:url value="/wavefileplay/${callRecord.id}" var="play_file_url"/>
+                        <spring:url value="/static/images/play.png" var="play_image_url"/>
+
+                        <spring:message code="label.play" var="play_label"/>
+                        <span><a href="${play_file_url}" title="${play_label}"><img src="${play_image_url}"/></a></span>
+
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+</div>

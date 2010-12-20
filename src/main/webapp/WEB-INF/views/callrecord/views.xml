@@ -13,4 +13,7 @@
     <definition extends="default" name="callrecord/update">
         <put-attribute name="body" value="/WEB-INF/views/callrecord/update.jspx"/>
     </definition>
+    <definition extends="default" name="callrecord/advancedsearch">
+        <put-attribute name="body" value="/WEB-INF/views/callrecord/advancedsearch.jspx"/>
+    </definition>
 </tiles-definitions>

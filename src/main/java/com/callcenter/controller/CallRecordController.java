@@ -1,5 +1,6 @@
 package com.callcenter.controller;
 
+import com.callcenter.controller.command.SearchCommand;
 import com.callcenter.converter.StringToCalendarConverter;
 import com.callcenter.domain.CallRecord;
 import com.callcenter.service.CallRecordService;
@@ -54,5 +55,11 @@ public class CallRecordController {
         return callRecordService
                 .getCallRecordsFilteredByRoleAndSearchCriteria(callRecord,
                         userService.getCurrentUserRole());
+    }
+
+    @RequestMapping(value = "/callrecord/advancedsearch", method = RequestMethod.GET)
+    public String advancedSearch(final ModelMap modelMap) {
+        modelMap.put("searchCommand", new SearchCommand());
+        return "callrecord/advancedsearch";
     }
 }
