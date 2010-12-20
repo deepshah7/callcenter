@@ -26,6 +26,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,6 +38,7 @@ import java.util.List;
  * @author Deep Shah
  */
 @Service(value = "callcenterUserDetailsService")
+@Transactional
 public class CallcenterUserDetailsService implements UserDetailsService {
 
     @Override
@@ -54,16 +56,26 @@ public class CallcenterUserDetailsService implements UserDetailsService {
     }
 
     public Role getCurrentUserRole() {
+        return findCurrentUserRole();
+    }
+
+    public List<com.callcenter.domain.User> getUsersForCurrentRole() {
+        final Role currentUserRole = findCurrentUserRole();
+        return com.callcenter.domain.User.findUsersByRoles(currentUserRole.getAssignableRoles());
+    }
+
+    public void addAssignableRoleToCurrentUser(Role role) {
+        final Role currentUserRole = findCurrentUserRole();
+        currentUserRole.addToAssignableRoles(role);
+        currentUserRole.persist();
+    }
+
+    private Role findCurrentUserRole() {
         final Collection<GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         final List<String> roleNames = new ArrayList<String>();
         for(final GrantedAuthority grantedAuthority : authorities) {
             roleNames.add(grantedAuthority.getAuthority());
         }
         return Role.findRoleByNameIn(roleNames);
-    }
-
-    public List<com.callcenter.domain.User> getUsersForCurrentRole() {
-        final Role currentUserRole = getCurrentUserRole();
-        return com.callcenter.domain.User.findUsersByRoles(currentUserRole.getAssignableRoles());
     }
 }

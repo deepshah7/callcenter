@@ -3,6 +3,8 @@ package com.callcenter.controller;
 import com.callcenter.domain.Field;
 import com.callcenter.domain.Restriction;
 import com.callcenter.domain.Service;
+import com.callcenter.service.CallcenterUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import com.callcenter.domain.Role;
 import org.springframework.ui.ModelMap;
@@ -19,9 +21,13 @@ import javax.validation.Valid;
 @Controller
 public class RoleController {
 
+    @Autowired
+    private CallcenterUserDetailsService callcenterUserDetailsService;
+
     @RequestMapping(value = "/role", method = RequestMethod.POST)
     public String create(final Role role) {
         role.persist();
+        callcenterUserDetailsService.addAssignableRoleToCurrentUser(role);
         return "redirect:/role/" + role.getId();
     }
 

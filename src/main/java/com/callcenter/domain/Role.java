@@ -50,7 +50,8 @@ public class Role {
     private Boolean canAddUsers;
 
     @ManyToMany(targetEntity = Role.class)
-    @JoinTable(name = "role_assignables", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "assignable_role_id"))
+    @JoinTable(name = "role_assignables", joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "assignable_role_id"))
     private java.util.Set<Role> assignableRoles = new HashSet<Role>();
 
     @ManyToMany(targetEntity = Service.class)
@@ -80,5 +81,9 @@ public class Role {
             authorities.add(Constants.Role.ADD_USER_ROLE_NAME);
         }
         return authorities;
+    }
+
+    public void addToAssignableRoles(Role role) {
+        assignableRoles.add(role);
     }
 }
