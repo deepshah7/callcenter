@@ -61,4 +61,9 @@ public class CallcenterUserDetailsService implements UserDetailsService {
         }
         return Role.findRoleByNameIn(roleNames);
     }
+
+    public List<com.callcenter.domain.User> getUsersForCurrentRole() {
+        final Role currentUserRole = getCurrentUserRole();
+        return com.callcenter.domain.User.findUsersByRoles(currentUserRole.getAssignableRoles());
+    }
 }

@@ -5,6 +5,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.Collection;
 
 /**
  * Created by IntelliJ IDEA.
@@ -50,5 +51,12 @@ public class User {
 
     public List<String> getAuthorities() {
         return role.getAuthorities();
+    }
+
+    public static List<User> findUsersByRoles(final Collection<Role> roles) {
+        final EntityManager em = User.entityManager();
+        return em.createQuery("from User u where u.role in (:roles)")
+                .setParameter("roles", roles)
+                .getResultList();
     }
 }

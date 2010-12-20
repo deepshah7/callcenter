@@ -2,6 +2,8 @@ package com.callcenter.controller;
 
 import com.callcenter.domain.Role;
 import com.callcenter.domain.User;
+import com.callcenter.service.CallcenterUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class UserController {
+
+    @Autowired
+    private CallcenterUserDetailsService callcenterUserDetailsService;
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public String create(final User user) {
@@ -33,7 +38,7 @@ public class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String list(final ModelMap modelMap) {
-        modelMap.addAttribute("users", User.findAllUsers());
+        modelMap.addAttribute("users", callcenterUserDetailsService.getUsersForCurrentRole());
         return "user/list";
     }
 
