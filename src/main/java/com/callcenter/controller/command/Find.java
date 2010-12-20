@@ -21,6 +21,17 @@ package com.callcenter.controller.command;
  * @author Deep Shah
  */
 public class Find {
+
+    private Type type;
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
     enum Type {
         ALL, INCOMING, OUTGOING
     }

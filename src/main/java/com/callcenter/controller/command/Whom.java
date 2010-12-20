@@ -22,6 +22,26 @@ package com.callcenter.controller.command;
  */
 public class Whom {
 
+    private Type type;
+
+    private String number;
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
     enum Type {
         TO_AND_FROM, TO, FROM
     }

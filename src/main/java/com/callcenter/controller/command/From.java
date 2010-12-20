@@ -15,6 +15,8 @@
  */
 package com.callcenter.controller.command;
 
+import java.util.Calendar;
+
 /**
  * Created by IntelliJ IDEA.
  *
@@ -24,9 +26,35 @@ public class From {
 
     private Type type;
 
+    private Calendar dateAndTime;
+
+    private Quantum quantum;
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Calendar getDateAndTime() {
+        return dateAndTime;
+    }
+
+    public void setDateAndTime(Calendar dateAndTime) {
+        this.dateAndTime = dateAndTime;
+    }
+
+    public Quantum getQuantum() {
+        return quantum;
+    }
+
+    public void setQuantum(Quantum quantum) {
+        this.quantum = quantum;
+    }
+
     enum Type {
         START, DATE_AND_TIME, LAST
     }
-
-
 }

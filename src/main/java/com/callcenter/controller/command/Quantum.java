@@ -20,11 +20,19 @@ package com.callcenter.controller.command;
  *
  * @author Deep Shah
  */
-public class HowLong {
+public class Quantum {
 
     private Type type;
 
     private Integer value;
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
 
     public Type getType() {
         return type;
@@ -34,15 +42,7 @@ public class HowLong {
         this.type = type;
     }
 
-    public Integer getValue() {
-        return value;
-    }
-
-    public void setValue(Integer value) {
-        this.value = value;
-    }
-
     enum Type {
-        ANY, GREATER_THAN, LESS_THAN
+        HOURS,DAYS,WEEKS,MONTHS
     }
 }

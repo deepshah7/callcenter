@@ -15,12 +15,34 @@
  */
 package com.callcenter.controller.command;
 
+import java.util.Calendar;
+
 /**
  * Created by IntelliJ IDEA.
  *
  * @author Deep Shah
  */
 public class Till {
+
+    private Type type;
+
+    private Calendar dateAndTime;
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Calendar getDateAndTime() {
+        return dateAndTime;
+    }
+
+    public void setDateAndTime(Calendar dateAndTime) {
+        this.dateAndTime = dateAndTime;
+    }
 
     enum Type {
         NOW, DATE_AND_TIME
