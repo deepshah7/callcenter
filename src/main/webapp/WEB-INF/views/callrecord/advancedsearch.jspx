@@ -180,11 +180,14 @@
                 <br/>
                 <div>
                     <label>To/From Whom:</label>
-                    <select name="whom">
+                    <select name="whom.type" id="whomSelect" style="float: left;">
                         <option value="TO_AND_FROM">To and From</option>
                         <option value="TO">To</option>
                         <option value="FROM">From</option>
                     </select>
+                    <div id="whomControls" style="float: left;">
+                        <input type="text" name="whom.number" id="whomText" value="*"/>
+                    </div>
                 </div>
                 <br/>
             </div>
