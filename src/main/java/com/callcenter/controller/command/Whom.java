@@ -47,7 +47,7 @@ public class Whom {
     }
 
     public void addSearchFilter(DetachedCriteria criteria) {
-        String actualNumber = number.replaceAll("*", "%").replaceAll("?", "_");
+        String actualNumber = number.replaceAll("\\*", "%").replaceAll("\\?", "_");
         if(type == Whom.Type.TO_AND_FROM) {
             criteria.add(Restrictions.ilike(Constants.CallRecord.CALLED_ID_PROPERTY_NAME, actualNumber));
             criteria.add(Restrictions.ilike(Constants.CallRecord.CALLER_ID_PROPERTY_NAME, actualNumber));

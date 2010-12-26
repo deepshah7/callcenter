@@ -185,7 +185,7 @@
                         <form:option value="FROM">From</form:option>
                     </form:select>
                     <div id="whomControls" style="float: left;">
-                        <form:input type="text" path="whom.number" id="whomText" value="*"/>
+                        <form:input type="text" path="whom.number" id="whomText"/>
                     </div>
                 </div>
                 <br/>
