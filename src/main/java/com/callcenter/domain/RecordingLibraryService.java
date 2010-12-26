@@ -48,7 +48,7 @@ public class RecordingLibraryService extends Service{
     @JoinTable(name = "recording_library_service_available_fields",
             joinColumns = @JoinColumn(name = "recording_library_service_id"),
             inverseJoinColumns = @JoinColumn(name = "field_id"))
-    private java.util.Set<Field> availableFields = new HashSet<Field>();
+    private java.util.List<Field> availableFields = new ArrayList<Field>();
 
     @Transient
     private final List<Restriction> restrictionList = LazyList.decorate(new ArrayList<Restriction>(),

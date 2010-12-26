@@ -100,7 +100,7 @@
                     <c:forEach items="${callrecords}" var="callRecord">
                         <tr class="callRecord">
                             <td>
-                                <fmt:formatDate pattern="dd/MM/yyyy HH:mm:ss" value="${callRecord.callTime.time}"/>
+                                <c:out value="${callRecord.formattedCallTime}"/>
                             </td>
                             <td>
                                 <c:out value="${callRecord.callerId}"/>
