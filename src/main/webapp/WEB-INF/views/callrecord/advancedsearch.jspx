@@ -4,6 +4,14 @@
      xmlns:jsp="http://java.sun.com/JSP/Page"
      xmlns:spring="http://www.springframework.org/tags" version="2.0">
     <jsp:output omit-xml-declaration="yes"/>
+    <spring:url value="/static/js/jquery/jquery-ui.custom.min.js" var="jquery_ui_url" />
+    <script type="text/javascript" src="${jquery_ui_url}"><!-- //required for FF3 and Opera --></script>
+
+    <spring:url value="/static/js/jquery/jquery.ui.datetimepicker.js" var="jquery_datetimepicker_url" />
+    <script type="text/javascript" src="${jquery_datetimepicker_url}"><!-- //required for FF3 and Opera --></script>
+
+    <spring:url value="/static/styles/jquery-ui.custom.css" var="jquery_ui_css_url"/>
+    <link rel="stylesheet" type="text/css" href="${jquery_ui_css_url}"><!-- //required for FF3 and Opera --></link>
 
     <div id="_title_div">
         <spring:message code="label.callrecord" var="entity_label"/>
@@ -47,13 +55,51 @@
             </div>
             <br/>
             <div id="wizardContainer">
-                <div>
+                <div class="clearBoth">
                     <label>From:</label>
-                    <select name="from">
-                        <option value="START">Start</option>
-                        <option value="DATE_AND_TIME">Date and Time</option>
-                        <option value="LAST">Last</option>
+                    <select name="from.type" id="fromSelect" style="float:left;">
+                        <option value="START" id="fromStart">Start</option>
+                        <option value="DATE_AND_TIME" id="fromDateAndTime">Date and Time</option>
+                        <option value="LAST" id="fromLast">Last</option>
                     </select>
+                    <script type="text/javascript">
+                        $(function() {
+                            $("#fromSelect").change(function() {
+                                if($("#fromSelect").val() == "DATE_AND_TIME") {
+                                    $("#fromLastControls").hide();
+                                    $("#fromDateAndTimeControls").show();
+                                    return;
+                                }
+                                if($("#fromSelect").val() == "LAST") {
+                                    $("#fromDateAndTimeControls").hide();
+                                    $("#fromLastControls").show();
+                                    return;
+                                }
+                                $("#fromLastControls").hide();
+                                $("#fromDateAndTimeControls").hide();
+                            });
+                            $("#fromLastControls").hide();
+                            $("#fromDateAndTimeControls").hide();
+                        });
+                    </script>
+                    <div id="fromDateAndTimeControls" style="float: left;">
+                        <input type="text" name="from.dateAndTime" id="fromDateAndTimeText" />
+                        <script type="text/javascript">
+                            $(function() {
+                                $("#fromDateAndTimeText").datetimepicker();
+                            });
+                        </script>
+                    </div>
+                    <div id="fromLastControls" style="float: left;">
+                        <input type="text" name="from.quantum.value" />
+                        <select name="from.quantum.type">
+                            <option value="HOURS">Hours</option>
+                            <option value="DAYS">Days</option>
+                            <option value="WEEKS">Weeks</option>
+                            <option value="MONTHS">Months</option>
+                        </select>
+                    </div>
+                    <br/>
                 </div>
                 <br/>
                 <div>
