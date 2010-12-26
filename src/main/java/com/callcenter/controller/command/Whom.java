@@ -15,6 +15,10 @@
  */
 package com.callcenter.controller.command;
 
+import com.callcenter.util.Constants;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+
 /**
  * Created by IntelliJ IDEA.
  *
@@ -40,6 +44,20 @@ public class Whom {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public void addSearchFilter(DetachedCriteria criteria) {
+        String actualNumber = number.replaceAll("*", "%").replaceAll("?", "_");
+        if(type == Whom.Type.TO_AND_FROM) {
+            criteria.add(Restrictions.ilike(Constants.CallRecord.CALLED_ID_PROPERTY_NAME, actualNumber));
+            criteria.add(Restrictions.ilike(Constants.CallRecord.CALLER_ID_PROPERTY_NAME, actualNumber));
+            return;
+        }
+        if(type == Whom.Type.TO) {
+            criteria.add(Restrictions.ilike(Constants.CallRecord.CALLED_ID_PROPERTY_NAME, actualNumber));
+            return;
+        }
+        criteria.add(Restrictions.ilike(Constants.CallRecord.CALLER_ID_PROPERTY_NAME, actualNumber));
     }
 
     enum Type {

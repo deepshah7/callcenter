@@ -15,6 +15,10 @@
  */
 package com.callcenter.controller.command;
 
+import com.callcenter.util.Constants;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+
 import java.util.Calendar;
 
 /**
@@ -52,6 +56,18 @@ public class From {
 
     public void setQuantum(Quantum quantum) {
         this.quantum = quantum;
+    }
+
+    public void addSearchFilter(DetachedCriteria criteria) {
+        if(type == Type.START) return ;
+        if(type == Type.DATE_AND_TIME) {
+            criteria.add(Restrictions.ge(Constants.CallRecord.CALL_TIME_PROPERTY_NAME, dateAndTime));
+            return;
+        }
+        if(type == Type.LAST) {
+            quantum.addSearchFilter(criteria);
+            return;
+        }
     }
 
     enum Type {

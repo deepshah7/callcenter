@@ -19,6 +19,7 @@ import com.callcenter.domain.CallRecord;
 import com.callcenter.domain.RecordingLibraryService;
 import com.callcenter.domain.Restrictions;
 import com.callcenter.domain.Role;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +38,13 @@ public class CallRecordService {
                                                                           final Role role) {
         final RecordingLibraryService recordingLibraryService = role.getRecordingLibraryService();
         return CallRecord.findAllByExampleAndRestrictions(callRecord,
+                new Restrictions(recordingLibraryService.getRestrictions()));
+    }
+
+    public List<CallRecord> getCallRecordsFilteredByRoleAndSearchCriteria(final DetachedCriteria criteria,
+                                                                          final Role role) {
+        final RecordingLibraryService recordingLibraryService = role.getRecordingLibraryService();
+        return CallRecord.findAllByCriteriaAndRestrictions(criteria,
                 new Restrictions(recordingLibraryService.getRestrictions()));
     }
 }

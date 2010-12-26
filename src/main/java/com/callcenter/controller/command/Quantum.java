@@ -15,6 +15,12 @@
  */
 package com.callcenter.controller.command;
 
+import com.callcenter.util.Constants;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+
+import java.util.Calendar;
+
 /**
  * Created by IntelliJ IDEA.
  *
@@ -26,7 +32,7 @@ public class Quantum {
 
     private Integer value;
 
-    public int getValue() {
+    public Integer getValue() {
         return value;
     }
 
@@ -42,7 +48,28 @@ public class Quantum {
         this.type = type;
     }
 
+    public void addSearchFilter(DetachedCriteria criteria) {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.add(type.getField(), value * type.getMultiplicationFactor());
+        criteria.add(Restrictions.ge(Constants.CallRecord.CALL_TIME_PROPERTY_NAME, calendar));
+    }
+
     enum Type {
-        HOURS,DAYS,WEEKS,MONTHS
+        HOURS(Calendar.HOUR, -1),DAYS(Calendar.DATE, -1),WEEKS(Calendar.DATE, -7),MONTHS(Calendar.MONTH, -1);
+        private int field;
+        private int multiplicationFactor;
+
+        Type(int field, int multiplicationFactor) {
+            this.field = field;
+            this.multiplicationFactor = multiplicationFactor;
+        }
+
+        public int getField() {
+            return field;
+        }
+
+        public int getMultiplicationFactor() {
+            return multiplicationFactor;
+        }
     }
 }

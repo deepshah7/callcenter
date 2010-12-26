@@ -58,8 +58,17 @@ public class CallRecordController {
     }
 
     @RequestMapping(value = "/callrecord/advancedsearch", method = RequestMethod.GET)
-    public String advancedSearch(final ModelMap modelMap) {
+    public String showAdvancedSearch(final ModelMap modelMap) {
         modelMap.put("searchCommand", new SearchCommand());
+        return "callrecord/advancedsearch";
+    }
+
+    @RequestMapping(value = "/callrecord/advancedsearch", method = RequestMethod.POST)
+    public String doAdvancedSearch(final SearchCommand searchCommand, final ModelMap modelMap) {
+        modelMap.put("searchCommand", searchCommand);
+        modelMap.addAttribute("callrecords", callRecordService
+                .getCallRecordsFilteredByRoleAndSearchCriteria(searchCommand.getCriteria(),
+                        userService.getCurrentUserRole()));
         return "callrecord/advancedsearch";
     }
 }

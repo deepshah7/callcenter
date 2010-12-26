@@ -23,8 +23,8 @@
         <form:form action="${form_url}" method="POST" modelAttribute="searchCommand">
             <div>
                 <label>Search Type:</label>
-                <input name="type" value="WIZARD" type="radio" id="wizard"/><label style="float: none;">Wizard</label>
-                <input name="type" value="FREE_FORM"  type="radio" id="freeForm" /><label style="float: none;">Free form</label>
+                <form:radiobutton path="type" value="WIZARD" id="wizard"/><label style="float: none;">Wizard</label>
+                <form:radiobutton path="type" value="FREE_FORM" id="freeForm" /><label style="float: none;">Free form</label>
                 <script type="text/javascript">
                     function enableWizard() {
                         $("#wizardContainer").show();
@@ -57,11 +57,11 @@
             <div id="wizardContainer">
                 <div class="clearBoth">
                     <label>From:</label>
-                    <select name="from.type" id="fromSelect" style="float:left;">
-                        <option value="START" id="fromStart">Start</option>
-                        <option value="DATE_AND_TIME" id="fromDateAndTime">Date and Time</option>
-                        <option value="LAST" id="fromLast">Last</option>
-                    </select>
+                    <form:select path="from.type" id="fromSelect" style="float:left;">
+                        <form:option value="START" id="fromStart">Start</form:option>
+                        <form:option value="DATE_AND_TIME" id="fromDateAndTime">Date and Time</form:option>
+                        <form:option value="LAST" id="fromLast">Last</form:option>
+                    </form:select>
                     <script type="text/javascript">
                         $(function() {
                             $("#fromSelect").change(function() {
@@ -78,12 +78,11 @@
                                 $("#fromLastControls").hide();
                                 $("#fromDateAndTimeControls").hide();
                             });
-                            $("#fromLastControls").hide();
-                            $("#fromDateAndTimeControls").hide();
+                            $("#fromSelect").change();
                         });
                     </script>
                     <div id="fromDateAndTimeControls" style="float: left;">
-                        <input type="text" name="from.dateAndTime" id="fromDateAndTimeText" />
+                        <form:input path="from.dateAndTime" id="fromDateAndTimeText" />
                         <script type="text/javascript">
                             $(function() {
                                 $("#fromDateAndTimeText").datetimepicker({
@@ -97,23 +96,23 @@
                         </script>
                     </div>
                     <div id="fromLastControls" style="float: left;">
-                        <input type="text" name="from.quantum.value" />
-                        <select name="from.quantum.type">
-                            <option value="HOURS">Hours</option>
-                            <option value="DAYS">Days</option>
-                            <option value="WEEKS">Weeks</option>
-                            <option value="MONTHS">Months</option>
-                        </select>
+                        <form:input type="text" path="from.quantum.value" />
+                        <form:select path="from.quantum.type">
+                            <form:option value="HOURS">Hours</form:option>
+                            <form:option value="DAYS">Days</form:option>
+                            <form:option value="WEEKS">Weeks</form:option>
+                            <form:option value="MONTHS">Months</form:option>
+                        </form:select>
                     </div>
                     <br/>
                 </div>
                 <br/>
                 <div class="clearBoth">
                     <label>Till:</label>
-                    <select name="till.type" id="tillSelect" style="float:left;">
-                        <option value="NOW">Now</option>
-                        <option value="DATE_AND_TIME">Date and Time</option>
-                    </select>
+                    <form:select path="till.type" id="tillSelect" style="float:left;">
+                        <form:option value="NOW">Now</form:option>
+                        <form:option value="DATE_AND_TIME">Date and Time</form:option>
+                    </form:select>
                     <script type="text/javascript">
                         $(function() {
                             $("#tillSelect").change(function() {
@@ -123,11 +122,11 @@
                                 }
                                 $("#tillDateAndTimeControls").hide();
                             });
-                            $("#tillDateAndTimeControls").hide();
+                            $("#tillSelect").change();
                         });
                     </script>
                     <div id="tillDateAndTimeControls" style="float: left;">
-                        <input type="text" name="till.dateAndTime" id="tillDateAndTimeText" />
+                        <form:input type="text" path="till.dateAndTime" id="tillDateAndTimeText" />
                         <script type="text/javascript">
                             $(function() {
                                 $("#tillDateAndTimeText").datetimepicker({
@@ -145,20 +144,20 @@
                 <br/>
                 <div>
                     <label>Find:</label>
-                    <select name="find.type">
-                        <option value="ALL">All Calls</option>
-                        <option value="INCOMING">All Incoming Calls</option>
-                        <option value="OUTGOING">All Outgoing Calls</option>
-                    </select>
+                    <form:select path="find.type">
+                        <form:option value="ALL">All Calls</form:option>
+                        <form:option value="INCOMING">All Incoming Calls</form:option>
+                        <form:option value="OUTGOING">All Outgoing Calls</form:option>
+                    </form:select>
                 </div>
                 <br/>
                 <div>
                     <label>How Long:</label>
-                    <select name="howLong.type" style="float:left;" id="howLongSelect">
-                        <option value="ANY">Of Any Duration</option>
-                        <option value="GREATER_THAN">Of Duration Greater Than</option>
-                        <option value="LESS_THAN">Of Duration Less Than</option>
-                    </select>
+                    <form:select path="howLong.type" style="float:left;" id="howLongSelect">
+                        <form:option value="ANY">Of Any Duration</form:option>
+                        <form:option value="GREATER_THAN">Of Duration Greater Than</form:option>
+                        <form:option value="LESS_THAN">Of Duration Less Than</form:option>
+                    </form:select>
                     <script type="text/javascript">
                         $(function() {
                             $("#howLongSelect").change(function() {
@@ -168,11 +167,11 @@
                                 }
                                 $("#howLongControls").show();
                             });
-                            $("#howLongControls").hide();
+                            $("#howLongSelect").change();
                         });
                     </script>
                     <div id="howLongControls" style="float: left;">
-                        <input type="text" name="howLong.value" id="howLongText" />
+                        <form:input type="text" path="howLong.value" id="howLongText" />
                         <span>Secs.</span>
                     </div>
                     <br/>
@@ -180,23 +179,23 @@
                 <br/>
                 <div>
                     <label>To/From Whom:</label>
-                    <select name="whom.type" id="whomSelect" style="float: left;">
-                        <option value="TO_AND_FROM">To and From</option>
-                        <option value="TO">To</option>
-                        <option value="FROM">From</option>
-                    </select>
+                    <form:select path="whom.type" id="whomSelect" style="float: left;">
+                        <form:option value="TO_AND_FROM">To and From</form:option>
+                        <form:option value="TO">To</form:option>
+                        <form:option value="FROM">From</form:option>
+                    </form:select>
                     <div id="whomControls" style="float: left;">
-                        <input type="text" name="whom.number" id="whomText" value="*"/>
+                        <form:input type="text" path="whom.number" id="whomText" value="*"/>
                     </div>
                 </div>
                 <br/>
-                <div class="submit">
+                <div class="submit clearBoth">
                     <input type="submit" value="Search" />
                 </div>
             </div>
             <div id="freeFormContainer">
                 <label>Search Criteria:</label>
-                <textarea name="freeForm" rows="5" cols="50"><!-- Required by some browsers --></textarea>
+                <form:textarea path="freeForm" rows="5" cols="50"><!-- Required by some browsers --></form:textarea>
             </div>
         </form:form>
         <br/>

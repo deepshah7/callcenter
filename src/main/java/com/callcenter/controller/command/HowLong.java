@@ -15,6 +15,10 @@
  */
 package com.callcenter.controller.command;
 
+import com.callcenter.util.Constants;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+
 /**
  * Created by IntelliJ IDEA.
  *
@@ -40,6 +44,18 @@ public class HowLong {
 
     public void setValue(Integer value) {
         this.value = value;
+    }
+
+    public void addSearchFilter(DetachedCriteria criteria) {
+        if(type == HowLong.Type.ANY) return;
+        /*
+         TODO: uncomment the following lines when we support the call duration.
+        if(type == HowLong.Type.GREATER_THAN) {
+            criteria.add(Restrictions.ge(Constants.CallRecord.DURATION_PROPERTY_NAME, value));
+            return;
+        }
+        criteria.add(Restrictions.le(Constants.CallRecord.DURATION_PROPERTY_NAME, value));
+        */
     }
 
     enum Type {

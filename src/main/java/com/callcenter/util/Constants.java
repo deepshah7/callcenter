@@ -31,4 +31,12 @@ public class Constants {
         public static final String ADD_GROUP_ROLE_NAME = "ROLE_ADD_GROUP";
         public static final String ADD_USER_ROLE_NAME = "ROLE_ADD_USER";
     }
+
+    public class CallRecord {
+        public static final String CALL_TIME_PROPERTY_NAME = "callTime";
+        public static final String OUTGOING_PROPERTY_NAME = "outgoing";
+        public static final String DURATION_PROPERTY_NAME = "callDuration";
+        public static final String CALLED_ID_PROPERTY_NAME = "calledId";
+        public static final String CALLER_ID_PROPERTY_NAME = "callerId";
+    }
 }

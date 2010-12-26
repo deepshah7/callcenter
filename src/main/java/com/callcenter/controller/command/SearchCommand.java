@@ -15,6 +15,9 @@
  */
 package com.callcenter.controller.command;
 
+import com.callcenter.domain.CallRecord;
+import org.hibernate.criterion.DetachedCriteria;
+
 /**
  * Created by IntelliJ IDEA.
  *
@@ -90,6 +93,19 @@ public class SearchCommand {
 
     public void setFreeForm(String freeForm) {
         this.freeForm = freeForm;
+    }
+
+    public DetachedCriteria getCriteria() {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(CallRecord.class);
+        if(type == Type.FREE_FORM) {
+            return criteria;
+        }
+        from.addSearchFilter(criteria);
+        till.addSearchFilter(criteria);
+        find.addSearchFilter(criteria);
+        howLong.addSearchFilter(criteria);
+        whom.addSearchFilter(criteria);
+        return criteria;
     }
 
     enum Type {

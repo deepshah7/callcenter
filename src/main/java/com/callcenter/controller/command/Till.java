@@ -15,6 +15,11 @@
  */
 package com.callcenter.controller.command;
 
+import com.callcenter.domain.Restriction;
+import com.callcenter.util.Constants;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+
 import java.util.Calendar;
 
 /**
@@ -42,6 +47,14 @@ public class Till {
 
     public void setDateAndTime(Calendar dateAndTime) {
         this.dateAndTime = dateAndTime;
+    }
+
+    public void addSearchFilter(DetachedCriteria criteria) {
+        Calendar tillDate = Calendar.getInstance();
+        if(type == Type.DATE_AND_TIME) {
+            tillDate = dateAndTime;
+        }
+        criteria.add(Restrictions.le(Constants.CallRecord.CALL_TIME_PROPERTY_NAME, tillDate));
     }
 
     enum Type {

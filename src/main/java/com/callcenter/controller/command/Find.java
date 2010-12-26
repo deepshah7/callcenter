@@ -15,6 +15,10 @@
  */
 package com.callcenter.controller.command;
 
+import com.callcenter.util.Constants;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+
 /**
  * Created by IntelliJ IDEA.
  *
@@ -30,6 +34,15 @@ public class Find {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public void addSearchFilter(DetachedCriteria criteria) {
+        if(type == Find.Type.ALL) return;
+        if(type == Find.Type.INCOMING) {
+            criteria.add(Restrictions.eq(Constants.CallRecord.OUTGOING_PROPERTY_NAME, false));
+            return;
+        }
+        criteria.add(Restrictions.eq(Constants.CallRecord.OUTGOING_PROPERTY_NAME, true));
     }
 
     enum Type {
