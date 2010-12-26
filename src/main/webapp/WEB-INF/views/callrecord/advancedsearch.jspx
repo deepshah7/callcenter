@@ -108,12 +108,39 @@
                     <br/>
                 </div>
                 <br/>
-                <div>
+                <div class="clearBoth">
                     <label>Till:</label>
-                    <select name="till">
+                    <select name="till" id="tillSelect" style="float:left;">
                         <option value="NOW">Now</option>
                         <option value="DATE_AND_TIME">Date and Time</option>
                     </select>
+                    <script type="text/javascript">
+                        $(function() {
+                            $("#tillSelect").change(function() {
+                                if($("#tillSelect").val() == "DATE_AND_TIME") {
+                                    $("#tillDateAndTimeControls").show();
+                                    return;
+                                }
+                                $("#tillDateAndTimeControls").hide();
+                            });
+                            $("#tillDateAndTimeControls").hide();
+                        });
+                    </script>
+                    <div id="tillDateAndTimeControls" style="float: left;">
+                        <input type="text" name="till.dateAndTime" id="tillDateAndTimeText" />
+                        <script type="text/javascript">
+                            $(function() {
+                                $("#tillDateAndTimeText").datetimepicker({
+                                    changeMonth: true,
+                                    changeYear: true,
+                                    constrainInput: true,
+                                    dateFormat: "mm/dd/yyyy HH:MM",
+                                    datetimeFormat: "mm/dd/yyyy HH:MM"
+                                });
+                            });
+                        </script>
+                    </div>
+                    <br/>
                 </div>
                 <br/>
                 <div>
@@ -127,11 +154,28 @@
                 <br/>
                 <div>
                     <label>How Long:</label>
-                    <select name="howLong">
+                    <select name="howLong.type" style="float:left;" id="howLongSelect">
                         <option value="ANY">Of Any Duration</option>
                         <option value="GREATER_THAN">Of Duration Greater Than</option>
                         <option value="LESS_THAN">Of Duration Less Than</option>
                     </select>
+                    <script type="text/javascript">
+                        $(function() {
+                            $("#howLongSelect").change(function() {
+                                if($("#howLongSelect").val() == "ANY") {
+                                    $("#howLongControls").hide();
+                                    return;
+                                }
+                                $("#howLongControls").show();
+                            });
+                            $("#howLongControls").hide();
+                        });
+                    </script>
+                    <div id="howLongControls" style="float: left;">
+                        <input type="text" name="howLong.value" id="howLongText" />
+                        <span>Secs.</span>
+                    </div>
+                    <br/>
                 </div>
                 <br/>
                 <div>
