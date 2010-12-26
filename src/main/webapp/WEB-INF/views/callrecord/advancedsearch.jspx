@@ -4,6 +4,14 @@
      xmlns:jsp="http://java.sun.com/JSP/Page"
      xmlns:spring="http://www.springframework.org/tags" version="2.0">
     <jsp:output omit-xml-declaration="yes"/>
+    <spring:url value="/static/js/jquery/jquery-ui.custom.min.js" var="jquery_ui_url" />
+    <script type="text/javascript" src="${jquery_ui_url}"><!-- //required for FF3 and Opera --></script>
+
+    <spring:url value="/static/js/jquery/jquery.ui.datetimepicker.js" var="jquery_datetimepicker_url" />
+    <script type="text/javascript" src="${jquery_datetimepicker_url}"><!-- //required for FF3 and Opera --></script>
+
+    <spring:url value="/static/styles/jquery-ui.custom.css" var="jquery_ui_css_url"/>
+    <link rel="stylesheet" type="text/css" href="${jquery_ui_css_url}"><!-- //required for FF3 and Opera --></link>
 
     <div id="_title_div">
         <spring:message code="label.callrecord" var="entity_label"/>
@@ -47,26 +55,97 @@
             </div>
             <br/>
             <div id="wizardContainer">
-                <div>
+                <div class="clearBoth">
                     <label>From:</label>
-                    <select name="from">
-                        <option value="START">Start</option>
-                        <option value="DATE_AND_TIME">Date and Time</option>
-                        <option value="LAST">Last</option>
+                    <select name="from.type" id="fromSelect" style="float:left;">
+                        <option value="START" id="fromStart">Start</option>
+                        <option value="DATE_AND_TIME" id="fromDateAndTime">Date and Time</option>
+                        <option value="LAST" id="fromLast">Last</option>
                     </select>
+                    <script type="text/javascript">
+                        $(function() {
+                            $("#fromSelect").change(function() {
+                                if($("#fromSelect").val() == "DATE_AND_TIME") {
+                                    $("#fromLastControls").hide();
+                                    $("#fromDateAndTimeControls").show();
+                                    return;
+                                }
+                                if($("#fromSelect").val() == "LAST") {
+                                    $("#fromDateAndTimeControls").hide();
+                                    $("#fromLastControls").show();
+                                    return;
+                                }
+                                $("#fromLastControls").hide();
+                                $("#fromDateAndTimeControls").hide();
+                            });
+                            $("#fromLastControls").hide();
+                            $("#fromDateAndTimeControls").hide();
+                        });
+                    </script>
+                    <div id="fromDateAndTimeControls" style="float: left;">
+                        <input type="text" name="from.dateAndTime" id="fromDateAndTimeText" />
+                        <script type="text/javascript">
+                            $(function() {
+                                $("#fromDateAndTimeText").datetimepicker({
+                                    changeMonth: true,
+                                    changeYear: true,
+                                    constrainInput: true,
+                                    dateFormat: "mm/dd/yyyy HH:MM",
+                                    datetimeFormat: "mm/dd/yyyy HH:MM"
+                                });
+                            });
+                        </script>
+                    </div>
+                    <div id="fromLastControls" style="float: left;">
+                        <input type="text" name="from.quantum.value" />
+                        <select name="from.quantum.type">
+                            <option value="HOURS">Hours</option>
+                            <option value="DAYS">Days</option>
+                            <option value="WEEKS">Weeks</option>
+                            <option value="MONTHS">Months</option>
+                        </select>
+                    </div>
+                    <br/>
                 </div>
                 <br/>
-                <div>
+                <div class="clearBoth">
                     <label>Till:</label>
-                    <select name="till">
+                    <select name="till.type" id="tillSelect" style="float:left;">
                         <option value="NOW">Now</option>
                         <option value="DATE_AND_TIME">Date and Time</option>
                     </select>
+                    <script type="text/javascript">
+                        $(function() {
+                            $("#tillSelect").change(function() {
+                                if($("#tillSelect").val() == "DATE_AND_TIME") {
+                                    $("#tillDateAndTimeControls").show();
+                                    return;
+                                }
+                                $("#tillDateAndTimeControls").hide();
+                            });
+                            $("#tillDateAndTimeControls").hide();
+                        });
+                    </script>
+                    <div id="tillDateAndTimeControls" style="float: left;">
+                        <input type="text" name="till.dateAndTime" id="tillDateAndTimeText" />
+                        <script type="text/javascript">
+                            $(function() {
+                                $("#tillDateAndTimeText").datetimepicker({
+                                    changeMonth: true,
+                                    changeYear: true,
+                                    constrainInput: true,
+                                    dateFormat: "mm/dd/yyyy HH:MM",
+                                    datetimeFormat: "mm/dd/yyyy HH:MM"
+                                });
+                            });
+                        </script>
+                    </div>
+                    <br/>
                 </div>
                 <br/>
                 <div>
                     <label>Find:</label>
-                    <select name="find">
+                    <select name="find.type">
                         <option value="ALL">All Calls</option>
                         <option value="INCOMING">All Incoming Calls</option>
                         <option value="OUTGOING">All Outgoing Calls</option>
@@ -75,22 +154,45 @@
                 <br/>
                 <div>
                     <label>How Long:</label>
-                    <select name="howLong">
+                    <select name="howLong.type" style="float:left;" id="howLongSelect">
                         <option value="ANY">Of Any Duration</option>
                         <option value="GREATER_THAN">Of Duration Greater Than</option>
                         <option value="LESS_THAN">Of Duration Less Than</option>
                     </select>
+                    <script type="text/javascript">
+                        $(function() {
+                            $("#howLongSelect").change(function() {
+                                if($("#howLongSelect").val() == "ANY") {
+                                    $("#howLongControls").hide();
+                                    return;
+                                }
+                                $("#howLongControls").show();
+                            });
+                            $("#howLongControls").hide();
+                        });
+                    </script>
+                    <div id="howLongControls" style="float: left;">
+                        <input type="text" name="howLong.value" id="howLongText" />
+                        <span>Secs.</span>
+                    </div>
+                    <br/>
                 </div>
                 <br/>
                 <div>
                     <label>To/From Whom:</label>
-                    <select name="whom">
+                    <select name="whom.type" id="whomSelect" style="float: left;">
                         <option value="TO_AND_FROM">To and From</option>
                         <option value="TO">To</option>
                         <option value="FROM">From</option>
                     </select>
+                    <div id="whomControls" style="float: left;">
+                        <input type="text" name="whom.number" id="whomText" value="*"/>
+                    </div>
                 </div>
                 <br/>
+                <div class="submit">
+                    <input type="submit" value="Search" />
+                </div>
             </div>
             <div id="freeFormContainer">
                 <label>Search Criteria:</label>

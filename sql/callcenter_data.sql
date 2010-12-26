@@ -88,6 +88,34 @@ INSERT INTO `fields` VALUES (1,1,'Call Time','callTime','',1),(2,1,'Calling Par
 UNLOCK TABLES;
 
 --
+-- Table structure for table `group_member_groups`
+--
+
+DROP TABLE IF EXISTS `group_member_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_member_groups` (
+  `group_id` bigint(20) NOT NULL,
+  `other_group_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`group_id`,`other_group_id`),
+  KEY `FK147309599D5263FE` (`group_id`),
+  KEY `FK147309594C5B084D` (`other_group_id`),
+  CONSTRAINT `FK147309594C5B084D` FOREIGN KEY (`other_group_id`) REFERENCES `groups` (`id`),
+  CONSTRAINT `FK147309599D5263FE` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_member_groups`
+--
+
+LOCK TABLES `group_member_groups` WRITE;
+/*!40000 ALTER TABLE `group_member_groups` DISABLE KEYS */;
+INSERT INTO `group_member_groups` VALUES (3,2);
+/*!40000 ALTER TABLE `group_member_groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `group_members`
 --
 
@@ -111,7 +139,7 @@ CREATE TABLE `group_members` (
 
 LOCK TABLES `group_members` WRITE;
 /*!40000 ALTER TABLE `group_members` DISABLE KEYS */;
-INSERT INTO `group_members` VALUES (1,1),(1,2),(2,2),(1,3),(2,3);
+INSERT INTO `group_members` VALUES (1,1),(1,2),(2,2),(1,3),(2,3),(3,6),(3,7),(3,8),(3,9);
 /*!40000 ALTER TABLE `group_members` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -128,7 +156,7 @@ CREATE TABLE `groups` (
   `name` varchar(255) DEFAULT NULL,
   `number` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,7 +165,7 @@ CREATE TABLE `groups` (
 
 LOCK TABLES `groups` WRITE;
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-INSERT INTO `groups` VALUES (1,0,'Call Center Group','5001'),(2,0,'Banking Accounts Group','7001');
+INSERT INTO `groups` VALUES (1,0,'Call Center Group','5001'),(2,0,'Banking Accounts Group','7001'),(3,0,'CreateGroupTest','9001');
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,7 +193,7 @@ CREATE TABLE `recording_library_service_available_fields` (
 
 LOCK TABLES `recording_library_service_available_fields` WRITE;
 /*!40000 ALTER TABLE `recording_library_service_available_fields` DISABLE KEYS */;
-INSERT INTO `recording_library_service_available_fields` VALUES (4,1),(4,7),(16,1),(16,7),(18,1),(18,7),(19,1),(19,7),(21,1),(21,2),(21,3),(21,4),(21,7),(22,1),(22,4),(22,7),(23,1),(23,2),(23,3),(23,4),(23,5),(24,1),(24,2),(24,3),(24,4),(24,7);
+INSERT INTO `recording_library_service_available_fields` VALUES (4,1),(4,7),(16,1),(16,7),(18,1),(18,7),(19,1),(19,7),(21,1),(21,2),(21,3),(21,4),(21,7),(22,1),(22,4),(22,7),(23,1),(23,2),(23,3),(23,4),(23,5),(24,1),(24,2),(24,3),(24,4),(24,7),(25,1),(25,2),(25,3),(25,4),(25,5),(25,6),(25,7);
 /*!40000 ALTER TABLE `recording_library_service_available_fields` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,7 +220,7 @@ CREATE TABLE `recording_library_services` (
 
 LOCK TABLES `recording_library_services` WRITE;
 /*!40000 ALTER TABLE `recording_library_services` DISABLE KEYS */;
-INSERT INTO `recording_library_services` VALUES (1,NULL,NULL),(2,NULL,NULL),(3,NULL,NULL),(4,NULL,NULL),(16,NULL,'2010-11-01 00:00:00'),(18,NULL,'2010-11-02 00:00:00'),(19,NULL,'2010-01-01 00:00:00'),(21,NULL,'2010-12-01 00:00:00'),(22,NULL,'2010-12-09 00:00:00'),(23,NULL,'2010-12-01 00:00:00'),(24,NULL,'2010-12-01 00:00:00');
+INSERT INTO `recording_library_services` VALUES (1,NULL,NULL),(2,NULL,NULL),(3,NULL,NULL),(4,NULL,NULL),(16,NULL,'2010-11-01 00:00:00'),(18,NULL,'2010-11-02 00:00:00'),(19,NULL,'2010-01-01 00:00:00'),(21,NULL,'2010-12-01 00:00:00'),(22,NULL,'2010-12-09 00:00:00'),(23,NULL,'2010-12-01 00:00:00'),(24,NULL,'2010-12-01 00:00:00'),(25,NULL,'2000-12-01 00:00:00');
 /*!40000 ALTER TABLE `recording_library_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -280,7 +308,7 @@ CREATE TABLE `role_assignables` (
 
 LOCK TABLES `role_assignables` WRITE;
 /*!40000 ALTER TABLE `role_assignables` DISABLE KEYS */;
-INSERT INTO `role_assignables` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(3,1),(4,2),(4,3),(6,2),(7,2),(7,3),(7,5),(7,6),(8,2),(8,3),(8,4),(8,6),(9,2),(9,3),(9,6);
+INSERT INTO `role_assignables` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,11),(3,1),(4,2),(4,3),(6,2),(7,2),(7,3),(7,5),(7,6),(8,2),(8,3),(8,4),(8,6),(9,2),(9,3),(9,6),(10,2),(10,3),(10,5),(10,6),(11,4),(11,5),(11,6),(11,7),(11,8),(11,9),(11,10);
 /*!40000 ALTER TABLE `role_assignables` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,7 +336,7 @@ CREATE TABLE `role_services` (
 
 LOCK TABLES `role_services` WRITE;
 /*!40000 ALTER TABLE `role_services` DISABLE KEYS */;
-INSERT INTO `role_services` VALUES (2,2),(3,3),(4,1),(4,2),(4,3),(5,19),(6,21),(7,19),(8,23),(9,24);
+INSERT INTO `role_services` VALUES (1,25),(2,2),(3,3),(4,1),(4,2),(4,3),(5,19),(6,21),(7,19),(8,23),(9,24),(10,2),(10,3),(10,4),(11,16),(11,18),(11,19),(11,21),(11,22),(11,23),(11,24);
 /*!40000 ALTER TABLE `role_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -330,7 +358,7 @@ CREATE TABLE `roles` (
   `name` varchar(255) DEFAULT NULL,
   `timeout` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -339,7 +367,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,1,'','','','Administrator','en_GB','ROLE_ADMIN',600),(2,0,'\0','\0','\0','Default Role','en_US','ROLE_DEFAULT',300),(3,0,'','\0','','User Role','en_GB','ROLE_USER',300),(4,0,'','','','Credit Card Role','en_US','ROLE_CREDIT_CARD',300),(5,0,'\0','\0','\0','CC user role','en_US','ROLE_CC',300),(6,0,'\0','\0','\0','Bank Account Role','en_GB','ROLE_BANK_ACCOUNT',300),(7,0,'','','','The administrator of bank','en_US','ROLE_BANK_ADMIN',300),(8,0,'','','','Vodafone Default User','en_GB','ROLE_VODAFONE_DEFAULT',300),(9,0,'\0',NULL,'','can add user','en_GB','ROLE_CAN_ADD_USER',300);
+INSERT INTO `roles` VALUES (1,2,'','','','Administrator','en_GB','ROLE_ADMIN',600),(2,0,'\0','\0','\0','Default Role','en_US','ROLE_DEFAULT',300),(3,0,'','\0','','User Role','en_GB','ROLE_USER',300),(4,0,'','','','Credit Card Role','en_US','ROLE_CREDIT_CARD',300),(5,0,'\0','\0','\0','CC user role','en_US','ROLE_CC',300),(6,0,'\0','\0','\0','Bank Account Role','en_GB','ROLE_BANK_ACCOUNT',300),(7,0,'','','','The administrator of bank','en_US','ROLE_BANK_ADMIN',300),(8,0,'','','','Vodafone Default User','en_GB','ROLE_VODAFONE_DEFAULT',300),(9,0,'\0',NULL,'','can add user','en_GB','ROLE_CAN_ADD_USER',300),(10,0,'\0',NULL,'','tesing whether it gets added','en_US','ROLE_TEST_ADMIN',300),(11,0,'',NULL,'','admin test 1','en_US','ROLE_ADMIN_TEST1',300);
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -355,7 +383,7 @@ CREATE TABLE `services` (
   `version` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -364,7 +392,7 @@ CREATE TABLE `services` (
 
 LOCK TABLES `services` WRITE;
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
-INSERT INTO `services` VALUES (1,1,'RL_ADMIN'),(2,1,'RL_DEFAULT'),(3,1,'RL_USER'),(4,0,'RL_TEST'),(16,0,'TLERE'),(18,0,'REERE'),(19,0,'RL_CC'),(21,0,'RL_IP_ONLY'),(22,0,'RL_BA'),(23,0,'RL_VODAFONE_DEFAULT'),(24,0,'RL_VODAFONE_SMALL');
+INSERT INTO `services` VALUES (1,1,'RL_ADMIN'),(2,1,'RL_DEFAULT'),(3,1,'RL_USER'),(4,0,'RL_TEST'),(16,0,'TLERE'),(18,0,'REERE'),(19,0,'RL_CC'),(21,0,'RL_IP_ONLY'),(22,0,'RL_BA'),(23,0,'RL_VODAFONE_DEFAULT'),(24,0,'RL_VODAFONE_SMALL'),(25,0,'RL_ADMIN_ALL_ACCESS');
 /*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -386,7 +414,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `name` (`name`),
   KEY `FK6A68E08255CA5C8` (`role`),
   CONSTRAINT `FK6A68E08255CA5C8` FOREIGN KEY (`role`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -395,7 +423,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,1,'','admin','admin',1),(2,1,'en_gb','creditcard','creditcard',4),(3,1,'en_gb','batman','catwoman',1),(4,0,'en_US','testuser','testuser',3),(5,0,'en_US','ccuser','ccuser',2),(6,0,NULL,'testccuser','testccuser',5),(7,0,'en_GB','testbankaccount','testbankaccount',6),(8,0,'en_US','vodafonedefault','vodafonedefault',8),(9,0,'en_GB','testcanadduser','testcanadduser',9);
+INSERT INTO `users` VALUES (1,1,'','admin','admin',1),(2,1,'en_gb','creditcard','creditcard',4),(3,1,'en_gb','batman','catwoman',1),(6,0,NULL,'testccuser','testccuser',5),(7,0,'en_GB','testbankaccount','testbankaccount',6),(8,0,'en_US','vodafonedefault','vodafonedefault',8),(9,0,'en_GB','testcanadduser','testcanadduser',9),(10,0,'en_US','testadminuser1','testadminuser',11),(11,0,'en_US','anothertestuser','anothertestuser',3);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -408,4 +436,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-12-20 14:41:19
+-- Dump completed on 2010-12-26 13:18:58
