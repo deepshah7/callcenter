@@ -1,3 +1,18 @@
+//$(document).ready(function()
+//    {
+//        $("#callRecordsTable").tablesorter(
+//            {
+//                sortList: [[0,0]],
+//                headers:{
+//                    6:{sorter:false},
+//                    7:{sorter:false}
+//                }
+//            }
+//
+//        );
+//    }
+//);
+
 function CallRecords(data, contextRoot) {
     this.data = data;
     this.contextRoot = contextRoot;

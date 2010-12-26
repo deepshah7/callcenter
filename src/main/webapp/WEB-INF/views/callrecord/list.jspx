@@ -1,7 +1,11 @@
 <div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:roo="urn:jsptagdir:/WEB-INF/tags" xmlns:spring="http://www.springframework.org/tags" version="2.0">
     <jsp:output omit-xml-declaration="yes"/>
     <spring:url value="/static/js/callRecord.js" var="callRecord" />
+    <spring:url value="/static/js/jquery/jquery.tablesorter.min.js" var="tableSorter" />
+    <!--<spring:url value="/static/styles/jquery-tablesorter.css" var="jquery_table_sorter_css"/>-->
+    <!--<link rel="stylesheet" type="text/css" href="${jquery_table_sorter_css}">&lt;!&ndash; //required for FF3 and Opera &ndash;&gt;</link>-->
     <script type="text/javascript" src="${callRecord}"><!-- //required for FF3 and Opera --></script>
+    <!--<script type="text/javascript" src="${tableSorter}">&lt;!&ndash; //required for FF3 and Opera &ndash;&gt;</script>-->
 
     <div id="_title_div">
         <spring:message code="label.callrecord" var="entity_label"/>
