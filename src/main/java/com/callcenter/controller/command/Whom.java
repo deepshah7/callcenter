@@ -28,7 +28,7 @@ public class Whom {
 
     private Type type;
 
-    private String number;
+    private String number = "*";
 
     public Type getType() {
         return type;
@@ -49,8 +49,8 @@ public class Whom {
     public void addSearchFilter(DetachedCriteria criteria) {
         String actualNumber = number.replaceAll("\\*", "%").replaceAll("\\?", "_");
         if(type == Whom.Type.TO_AND_FROM) {
-            criteria.add(Restrictions.ilike(Constants.CallRecord.CALLED_ID_PROPERTY_NAME, actualNumber));
-            criteria.add(Restrictions.ilike(Constants.CallRecord.CALLER_ID_PROPERTY_NAME, actualNumber));
+            criteria.add(Restrictions.or(Restrictions.ilike(Constants.CallRecord.CALLED_ID_PROPERTY_NAME, actualNumber),
+                    Restrictions.ilike(Constants.CallRecord.CALLER_ID_PROPERTY_NAME, actualNumber)));
             return;
         }
         if(type == Whom.Type.TO) {

@@ -36,7 +36,7 @@ public class Quantum {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
 
