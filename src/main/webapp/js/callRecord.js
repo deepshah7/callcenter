@@ -1,17 +1,17 @@
-//$(document).ready(function()
-//    {
-//        $("#callRecordsTable").tablesorter(
-//            {
-//                sortList: [[0,0]],
-//                headers:{
-//                    6:{sorter:false},
-//                    7:{sorter:false}
-//                }
-//            }
-//
-//        );
-//    }
-//);
+$(document).ready(function()
+    {
+        $("#callRecordsTable").tablesorter(
+            {
+                sortList: [[0,0]],
+                headers:{
+                    6:{sorter:false},
+                    7:{sorter:false}
+                }
+            }
+
+        );
+    }
+);
 
 function CallRecords(data, contextRoot) {
     this.data = data;
@@ -43,7 +43,7 @@ function CallRecords(data, contextRoot) {
                     .replace("#callerid#", this.data[i].callerId)
                     .replace(/#contextRoot#/g, this.contextRoot)
                     .replace("#displayinfo#", this.data[i].displayInfo)
-                    .replace("#calltime#", this.data[i].callTime? this.data[i].callTime : "")
+                    .replace("#calltime#", this.data[i].formattedCallTime)
                     .replace("#calledId#", this.data[i].calledId)
                     .replace("#targetid#", this.data[i].targetId)
                     .replace("#ipaddress#", this.data[i].ipAddress? this.data[i].ipAddress : "")

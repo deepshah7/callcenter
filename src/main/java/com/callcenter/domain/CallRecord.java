@@ -1,11 +1,14 @@
 package com.callcenter.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import com.callcenter.util.Constants;
+import com.sun.jmx.trace.Trace;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
@@ -50,6 +53,12 @@ public class CallRecord {
         return searchCriteria.list();
     }
 
+    @Transient
+    public String getFormattedCallTime(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return formatter.format(callTime.getTime());
+
+    }
     public void prepareValuesForPartialSearch() {
         if(null != ipAddress) setIpAddress(Constants.Query.LIKE_OPERATOR + getIpAddress()
                 + Constants.Query.LIKE_OPERATOR);

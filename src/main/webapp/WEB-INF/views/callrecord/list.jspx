@@ -5,7 +5,7 @@
     <!--<spring:url value="/static/styles/jquery-tablesorter.css" var="jquery_table_sorter_css"/>-->
     <!--<link rel="stylesheet" type="text/css" href="${jquery_table_sorter_css}">&lt;!&ndash; //required for FF3 and Opera &ndash;&gt;</link>-->
     <script type="text/javascript" src="${callRecord}"><!-- //required for FF3 and Opera --></script>
-    <!--<script type="text/javascript" src="${tableSorter}">&lt;!&ndash; //required for FF3 and Opera &ndash;&gt;</script>-->
+    <script type="text/javascript" src="${tableSorter}"><!-- //required for FF3 and Opera --></script>
 
     <div id="_title_div">
         <spring:message code="label.callrecord" var="entity_label"/>
@@ -65,6 +65,7 @@
                                     $.getJSON("${search_url}", $("#searchForm").serialize(), function(data) {
                                         new CallRecords(data, ${contextRoot}).createRows();
                                         new SearchCriteria().update();
+                                        $("#callRecordsTable").trigger("update")
                                     });
                                 });
                             })
