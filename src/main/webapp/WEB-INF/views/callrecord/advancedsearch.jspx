@@ -86,7 +86,13 @@
                         <input type="text" name="from.dateAndTime" id="fromDateAndTimeText" />
                         <script type="text/javascript">
                             $(function() {
-                                $("#fromDateAndTimeText").datetimepicker();
+                                $("#fromDateAndTimeText").datetimepicker({
+                                    changeMonth: true,
+                                    changeYear: true,
+                                    constrainInput: true,
+                                    dateFormat: "mm/dd/yyyy HH:MM",
+                                    datetimeFormat: "mm/dd/yyyy HH:MM"
+                                });
                             });
                         </script>
                     </div>

@@ -1116,7 +1116,7 @@ $.extend($.ui, { datetimepicker: { version: "1.0.0"} });
                 return null;
 
             var dte = new Date(value);
-            dte.setYear(this._DetermineYear(dte.getYear()));
+            dte.setYear(this._DetermineYear(dte.getFullYear()));
 
             if (dte == "NaN") {
                 return null;
