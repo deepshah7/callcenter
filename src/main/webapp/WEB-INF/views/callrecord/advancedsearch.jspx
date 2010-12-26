@@ -110,7 +110,7 @@
                 <br/>
                 <div class="clearBoth">
                     <label>Till:</label>
-                    <select name="till" id="tillSelect" style="float:left;">
+                    <select name="till.type" id="tillSelect" style="float:left;">
                         <option value="NOW">Now</option>
                         <option value="DATE_AND_TIME">Date and Time</option>
                     </select>
@@ -145,7 +145,7 @@
                 <br/>
                 <div>
                     <label>Find:</label>
-                    <select name="find">
+                    <select name="find.type">
                         <option value="ALL">All Calls</option>
                         <option value="INCOMING">All Incoming Calls</option>
                         <option value="OUTGOING">All Outgoing Calls</option>
@@ -190,6 +190,9 @@
                     </div>
                 </div>
                 <br/>
+                <div class="submit">
+                    <input type="submit" value="Search" />
+                </div>
             </div>
             <div id="freeFormContainer">
                 <label>Search Criteria:</label>
