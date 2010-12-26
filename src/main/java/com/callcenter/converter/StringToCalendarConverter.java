@@ -63,7 +63,10 @@ public class StringToCalendarConverter extends PropertyEditorSupport {
     @Override
     public void setAsText(final String text) {
         final Calendar calendar = Calendar.getInstance();
-
+        if(null == text || "".equals(text)) {
+            setValue(null);
+            return;
+        }
         try {
             // Date Format with time
             final Date date = sdf.parse(text);
